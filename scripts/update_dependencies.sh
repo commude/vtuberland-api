@@ -1,7 +1,7 @@
 #!/bin/bash
 cd /var/www/app
 # reset all files
-git reset --hard
+# git reset --hard
 
 # install project dependencies
 composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
