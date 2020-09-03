@@ -10,9 +10,10 @@ jobs:
   build:
     name: build
     runs-on: ubuntu-18.04
-#     steps:
-#     - uses: actions/checkout@v2
-#     - name: Install Dependencies
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Dependencies
+      run: echo test
 #       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 #     - name: Generate key
 #       run: php artisan key:generate
