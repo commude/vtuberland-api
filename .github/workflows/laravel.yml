@@ -6,10 +6,10 @@ on:
   pull_request:
     branches: [ staging ]
 
-# jobs:
-#   build:
-#     name: build
-#     runs-on: ubuntu-18.04
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-18.04
 #     steps:
 #     - uses: actions/checkout@v2
 #     - name: Install Dependencies
