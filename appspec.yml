@@ -1,0 +1,5 @@
+version: 0.0
+os: ubuntu-18.04
+files:
+  - source: /
+    destination: /var/www/app/
