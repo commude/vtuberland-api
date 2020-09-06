@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\User\Api;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -39,6 +39,7 @@ class AuthController extends Controller
         ]);
 
         $result = json_decode((string) $response->getBody(), true);
+
         return new AuthResource($result);
     }
 

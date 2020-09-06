@@ -69,6 +69,6 @@ class User extends Authenticatable
      */
     public function transactions()
     {
-        return $this->hasManyThrough(Transaction::class, Device::class, 'user_id', 'id', 'id', 'transaction_id');
+        return $this->hasMany(Transaction::class);
     }
 }

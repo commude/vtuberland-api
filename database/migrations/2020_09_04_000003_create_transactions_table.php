@@ -16,7 +16,7 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->unsignedbigInteger('device_id');
+            $table->uuid('user_id');
             $table->text('original_transaction_id')->nullable();
             $table->text('transaction_id')->nullable(); // transaction_id from apple or google
             $table->text('purchase_token')->nullable(); // for google's response
@@ -28,7 +28,7 @@ class CreateTransactionsTable extends Migration
             $table->timestamps();
 
 
-            $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

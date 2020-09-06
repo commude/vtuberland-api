@@ -15,8 +15,14 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = [
-        'api' => 'App\Http\Controllers\Api',
-        'web' => 'App\Http\Controllers\Web'
+        'user' => [
+            'api' => 'App\Http\Controllers\User\Api',
+            'web' => 'App\Http\Controllers\User\Web'
+        ],
+        'admin' => [
+            'api' => 'App\Http\Controllers\Admin\Api',
+            'web' => 'App\Http\Controllers\Admin\Web'
+        ]
     ];
 
     /**
@@ -24,7 +30,10 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = [
+        'user' => '/home',
+        'admin' => '/admin/home'
+    ];
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -45,10 +54,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapApiRoutes();
+        $this->mapUserApiRoutes();
+        $this->mapUserWebRoutes();
 
-        $this->mapWebRoutes();
-
+        $this->mapAdminApiRoutes();
+        $this->mapAdminWebRoutes();
         //
     }
 
@@ -59,11 +69,11 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapWebRoutes()
+    protected function mapUserWebRoutes()
     {
         Route::middleware('web')
-            ->namespace($this->namespace['web'])
-            ->group(base_path('routes/web.php'));
+            ->namespace($this->namespace['user']['web'])
+            ->group(base_path('routes/user-web.php'));
     }
 
     /**
@@ -73,12 +83,43 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapApiRoutes()
+    protected function mapUserApiRoutes()
     {
         $version = config('app.api_version');
         Route::prefix("api/{$version}")
             ->middleware('api')
-            ->namespace($this->namespace['api'])
-            ->group(base_path('routes/api.php'));
+            ->namespace($this->namespace['user']['api'])
+            ->group(base_path('routes/user-api.php'));
+    }
+
+    /**
+     * Define the "web" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapAdminWebRoutes()
+    {
+        Route::middleware('web')
+            ->prefix('admin')
+            ->namespace($this->namespace['admin']['web'])
+            ->group(base_path('routes/admin-web.php'));
+    }
+
+    /**
+     * Define the "api" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapAdminApiRoutes()
+    {
+        $version = config('app.api_version');
+        Route::prefix("admin/api/{$version}")
+            ->middleware('api')
+            ->namespace($this->namespace['admin']['api'])
+            ->group(base_path('routes/admin-api.php'));
     }
 }

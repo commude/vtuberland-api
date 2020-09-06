@@ -16,7 +16,7 @@ trait HasUUID
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->has('uuid')
+            $model->getConnection()->getSchemaBuilder()->hasColumn($model->getTable(), 'uuid')
                 ? $model->uuid = self::generateUuid()
                 : $model->id = self::generateUuid();
         });

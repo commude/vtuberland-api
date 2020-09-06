@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\User\Api;
 
-use App\Models\User;
+use App\Models\Attraction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class MeController extends Controller
+class AttractionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +14,16 @@ class MeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
         //
     }
@@ -32,10 +42,21 @@ class MeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Attraction  $attraction
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Attraction $attraction)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Attraction  $attraction
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Attraction $attraction)
     {
         //
     }
@@ -44,10 +65,10 @@ class MeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \App\Attraction  $attraction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Attraction $attraction)
     {
         //
     }
@@ -55,10 +76,10 @@ class MeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\Attraction  $attraction
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Attraction $attraction)
     {
         //
     }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\User\Api;
 
-use App\Models\Attraction;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class AttractionController extends Controller
+class MeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,16 +14,6 @@ class AttractionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
     {
         //
     }
@@ -42,21 +32,10 @@ class AttractionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Attraction  $attraction
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Attraction $attraction)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Attraction  $attraction
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Attraction $attraction)
+    public function show(User $user)
     {
         //
     }
@@ -65,10 +44,10 @@ class AttractionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Attraction  $attraction
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Attraction $attraction)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -76,10 +55,10 @@ class AttractionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Attraction  $attraction
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Attraction $attraction)
+    public function destroy(User $user)
     {
         //
     }

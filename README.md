@@ -28,41 +28,41 @@
         $   cp .env .env.testing
     ```
 
-3.  Install composer
+3.  Install composer.
 
     ```bash
         $   composer install
     ```
 
-4.  Generate Application Key
+4.  Generate Application Key.
 
     ```bash
         $   php artisan key:generate
     ```
 
-5.  Execute Database Migration and Seeders
+5.  Execute Database Migration and Seeders.
 
     ```bash
         $   php artisan migrate --seed
     ```
 
-7.  Create a symlink for Storage in Public Directory
+6.  Create a symlink for Storage in Public Directory.
 
     ```bash
         $   php artisan storage:link
     ```
 
-8.  Initiate laravel passport (Execute 1 time only)
+7.  Initiate laravel passport (Execute 1 time only).
 
     ```bash
         $   php artisan passport:install
     ```
 
-9.  Use the Default Key of `Password Grant Client` from the database and store the key in the variables inside the `.env` file (Perform this if database is empty or has been cleared)
+8.  (optional / if applicable)Use the Default Key of `Password Grant Client` from the database and store the key in the variables inside the `.env` file (Perform this if database is empty or has been cleared).
 
     ```env
-        PASSPORT_CLIENT_ID=2
-        PASSPORT_CLIENT_SECRET=iI4U5s19mpZZ00S2gODLtBKxSWO7j3D4xpqsEzQV
+        PASSPORT_CLIENT_ID=<<Client ID>>
+        PASSPORT_CLIENT_SECRET=<<Client secret>
     ```
 
 ## Development
