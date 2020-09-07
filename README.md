@@ -28,10 +28,10 @@
         $   cp .env .env.testing
     ```
 
-3.  Install composer.
+3.  Install composer and npm.
 
     ```bash
-        $   composer install
+        $   composer install && npm install
     ```
 
 4.  Generate Application Key.
@@ -66,6 +66,41 @@
     ```
 
 ## Development
+
+### Frontend Development
+
+#### Assets
+
+1.  Place your `html` files to this path `designs\`.
+
+2.  Place your `images` files to this path `public\images`.
+
+3.  Place your `scss` to this path `resources\sass\...`. 
+    -   When compiling, all scss files will generate a file named `app.css` to `public\css` directory.
+
+4.  Execute the following command to compile.
+    -   One at a time compilation
+        ```bash
+            $   npm run dev
+        ```
+
+    -   Every saving files compilation
+        ```bash
+            $   npm run watch
+        ```
+
+    -   Publishing files compilation
+        ```bash
+            $   npm run prod
+        ```
+
+#### Post-Dev
+
+1.  If there are other css needed, place your `css` files to this path `public\css`.
+    - If there are vendors needed, Place your `vendor` files to this path `public\css\vendor`.
+2.  If there are other js needed, place your `js` files to this path `public\js`.
+    - If there are vendors needed, place your `vendor` files to this path `public\js\vendor`.
+
 
 ### Backend Development
 

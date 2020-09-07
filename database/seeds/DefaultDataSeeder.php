@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\Console\Output\StreamOutput;
 use App\Console\Commands\GenerateAccessTokenCommand;
 use App\Models\Admin;
+use App\Models\Character;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 class DefaultDataSeeder extends Seeder

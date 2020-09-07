@@ -6,7 +6,7 @@ use App\Models\Traits\HasUUID;
 use App\Models\Traits\MediaTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Attraction extends Model
+class Character extends Model
 {
     use HasUUID, MediaTrait;
 
@@ -23,6 +23,6 @@ class Attraction extends Model
      * @var array
      */
     protected $fillable = [
-        'beacon_id', 'title', 'content', 'video_url', 'location'
+        'name', 'content'
     ];
 }
