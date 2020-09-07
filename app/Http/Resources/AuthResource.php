@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AuthResource extends JsonResource
@@ -15,9 +16,9 @@ class AuthResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'token_type' => $this['token_type'],
-            'token' => $this['access_token'],
-            'refresh_token' => $this['refresh_token'] ?? ''
+            'access_token' => $this->accessToken,
+            'token_type' => 'Bearer',
+            'expires_at' => Carbon::parse($this->token->expires_at)->toDateTimeString()
         ];
     }
 }

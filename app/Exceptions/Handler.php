@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Throwable;
+use Illuminate\Support\Str;
 use Illuminate\Auth\AuthenticationException;
 use GuzzleHttp\Exception\BadResponseException;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -59,7 +60,7 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         // Validate if Content Type is application/json
-        if ($request->wantsJson()) {
+        if ($request->wantsJson() || Str::contains($request->url(), '/api/')) {
             return $this->renderAPI($exception);
         }
 

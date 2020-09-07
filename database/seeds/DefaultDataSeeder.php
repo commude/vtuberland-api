@@ -64,29 +64,32 @@ class DefaultDataSeeder extends Seeder
             'name' => 'vtuberland-app-user',
             'username' => $username,
             'is_valid' => true,
-            'password' => bcrypt($password)
+            'password' => $password
         ]);
 
         $userID = $user->id;
 
-        // Call the command to generate access client.
-        Artisan::call("passport:client --password --user_id={$userID} --name='{$appName} Password Grant Client' --provider=users;", [], new BufferedOutput);
+        // Print default user credentials.
+        $this->command->alert("APPLICATION USER\n\tAPP USER ID: {$userID}\n\tAPP USER USERNAME: {$username}\n\tAPP USER PASSWORD: {$password}");
 
-        // Get Client ID and Secret from the command's output.
-        $result = str_replace('"', '', Artisan::output());
-        $result = explode(',', str_replace("\r\n", ',', $result));
-        $clientID = substr($result[1], strpos($result[1], ": ") + 2);
-        $clientSecret = substr($result[2], strpos($result[2], ": ") + 2);
+        // // Call the command to generate access client.
+        // Artisan::call("passport:client --password --user_id={$userID} --name='{$appName} Password Grant Client' --provider=users", [], new BufferedOutput);
 
-        // Update environment variables.
-        $this->putPermanentEnv('PASSPORT_PERSONAL_ACCESS_CLIENT_ID', config('passport.personal_access_client.id'), $clientID);
-        $this->putPermanentEnv('PASSPORT_PERSONAL_ACCESS_CLIENT_SECRET', config('passport.personal_access_client.secret'), $clientSecret);
+        // // Get Client ID and Secret from the command's output.
+        // $result = str_replace('"', '', Artisan::output());
+        // $result = explode(',', str_replace("\r\n", ',', $result));
+        // $clientID = substr($result[1], strpos($result[1], ": ") + 2);
+        // $clientSecret = substr($result[2], strpos($result[2], ": ") + 2);
 
-        // Refresh configuration cache.
-        Artisan::call('config:cache');
+        // // Update environment variables.
+        // $this->putPermanentEnv('PASSPORT_PERSONAL_ACCESS_CLIENT_ID', config('passport.personal_access_client.id'), $clientID);
+        // $this->putPermanentEnv('PASSPORT_PERSONAL_ACCESS_CLIENT_SECRET', config('passport.personal_access_client.secret'), $clientSecret);
 
-        // Output the username and password of the created user.
-        $this->command->alert("APPLICATION USER\n\tAPP USER ID: {$userID}\n\tAPP USER USERNAME: {$username}\n\tAPP USER PASSWORD: {$password}\n\tAPP USER ACCESS ID: {$clientID}\n\tAPP USER ACCESS SECRET: {$clientSecret}");
+        // // Refresh configuration cache.
+        // Artisan::call('config:cache');
+
+        // // Output the username and password of the created user.
+        // $this->command->alert("APPLICATION USER\n\tAPP USER ID: {$userID}\n\tAPP USER USERNAME: {$username}\n\tAPP USER PASSWORD: {$password}\n\tAPP USER ACCESS ID: {$clientID}\n\tAPP USER ACCESS SECRET: {$clientSecret}");
     }
 
     /**
@@ -104,10 +107,10 @@ class DefaultDataSeeder extends Seeder
         Admin::create([
             'name' => 'vtuberland-admin',
             'username' => $username,
-            'password' => bcrypt($password)
+            'password' => $password
         ]);
 
-        // Output the username and password of the created user.
+        // Print admin credentials.
         $this->command->alert("ADMINISTRATOR \n\tADMIN USERNAME: {$username}\n\tADMIN PASSWORD: {$password}");
     }
 }

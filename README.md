@@ -31,7 +31,7 @@
 3.  Install composer and npm.
 
     ```bash
-        $   composer install && npm install
+        $   COMPOSER_MEMORY_LIMIT=-1 composer install && npm install
     ```
 
 4.  Generate Application Key.

@@ -16,9 +16,9 @@ class CharacterResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $request->id,
-            'name' => $request->name,
-            'content' => $request->content,
+            'id' => $this->id,
+            'name' => $this->name,
+            'content' => $this->content,
             'main_photo' => new PhotoResource($this->getFirstMedia(MediaGroup::CHARACTERS['main'])),
         ];
     }

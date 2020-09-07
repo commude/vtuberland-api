@@ -4,9 +4,12 @@ namespace App\Http\Controllers\User\Api;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AuthResource;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client as GuzzleClient;
 use App\Exceptions\UserNotFoundException;
 
@@ -20,27 +23,17 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        $user = User::where('username', $request->username)->first();
-
-        if (is_null($user)){
+        if (!Auth::attempt($request->data())){
             throw new UserNotFoundException;
         }
 
-        $http = new GuzzleClient;
-        $response = $http->post(config('services.passport.login_endpoint'), [
-            'form_params' => [
-                'grant_type' => 'password',
-                'client_id' => $user->client->id,
-                'client_secret' => $user->client->secret,
-                'username' => $user->username,
-                'password' => $request->password,
-                'scope' => '*',
-            ],
-        ]);
+        $userToken = $request->user()->createToken('Laravel Password Grant Client');
 
-        $result = json_decode((string) $response->getBody(), true);
+        // if ($request->remember_me){
+        //     $token->expires_at = Carbon::now()->addWeeks(1);
+        // }
 
-        return new AuthResource($result);
+        return new AuthResource($userToken);
     }
 
     /**

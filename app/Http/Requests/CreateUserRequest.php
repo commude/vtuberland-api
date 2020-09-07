@@ -24,7 +24,11 @@ class CreateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required'],
+            'username' => ['required'],
+            'email' => ['nullable'],
+            'password' => ['required', 'confirmed'],
+            'password_confirmation' => ['required']
         ];
     }
 
@@ -35,6 +39,6 @@ class CreateUserRequest extends FormRequest
      */
     public function data()
     {
-        return $this->only('username', 'password');
+        return $this->only('name', 'username', 'email', 'password', 'is_valid');
     }
 }

@@ -1,0 +1,175 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "VTuberland - API SPECIFICATIONS",
+        "description": "An API documentation used for VTuberland App",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api/v1/",
+            "description": "Localhost Server"
+        },
+        {
+            "url": "https://vtuberland.test/api/v1/",
+            "description": "Local Virtual Server"
+        },
+        {
+            "url": "http://vtuberland.commude.biz/api/v1/",
+            "description": "Dev Server"
+        }
+    ],
+    "paths": {
+        "/me": {
+            "get": {
+                "tags": [
+                    "Me"
+                ],
+                "summary": "Get current user",
+                "description": "Home page",
+                "operationId": "App\\Http\\Controllers\\User\\Api\\MeController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Me"
+                ],
+                "summary": "Register User",
+                "description": "User Registration",
+                "operationId": "App\\Http\\Controllers\\User\\Api\\MeController::register",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/me/logout": {
+            "post": {
+                "tags": [
+                    "Me"
+                ],
+                "summary": "Logout User",
+                "description": "User Registration",
+                "operationId": "App\\Http\\Controllers\\User\\Api\\MeController::logout",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "properties": {
+                    "id": {
+                        "description": "Transform the resource into an array.",
+                        "type": "uuid",
+                        "format": "string",
+                        "example": "bdca9348-ccf2-49b7-9743-d17348876fe9"
+                    },
+                    "name": {
+                        "description": "Transform the resource into an array.",
+                        "type": "string",
+                        "format": "string",
+                        "example": "Takemoto Iwao"
+                    },
+                    "username": {
+                        "description": "Transform the resource into an array.",
+                        "type": "string",
+                        "format": "string",
+                        "example": "takemoto99999"
+                    },
+                    "email": {
+                        "description": "Transform the resource into an array.",
+                        "type": "email",
+                        "format": "string",
+                        "example": "ultimate000@example.com"
+                    },
+                    "is_valid": {
+                        "description": "Transform the resource into an array.",
+                        "type": "boolean",
+                        "format": "boolean",
+                        "example": "true"
+                    },
+                    "created_at": {
+                        "description": "Transform the resource into an array.",
+                        "type": "timestamp",
+                        "format": "date",
+                        "example": "2020-03-10T19:42:31+09:00"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

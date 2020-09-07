@@ -15,12 +15,12 @@ class AttractionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $request->uuid,
-            'title' => $request->title,
-            'content' => $request->content,
-            'video_url' => $request->video_url,
-            'location' => $request->location,
-            'created_at' => $request->created_at
+            'id' => $this->uuid,
+            'title' => $this->title,
+            'content' => $this->content,
+            'video_url' => $this->video_url,
+            'location' => $this->location,
+            'created_at' => $this->created_at
         ];
     }
 }

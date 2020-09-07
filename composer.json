@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "bensampo/laravel-enum": "^2.2",
+        "darkaonline/l5-swagger": "^8.0",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
@@ -19,7 +20,9 @@
         "laravel/tinker": "^2.0",
         "league/flysystem-aws-s3-v3": "^1.0",
         "spatie/laravel-medialibrary": "^7.0.0",
-        "webpatser/laravel-uuid": "^3.0"
+        "webpatser/laravel-uuid": "^3.0",
+        "yajra/laravel-datatables": "^1.5",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use App\Models\Traits\HasUUID;
 use App\Models\Traits\MediaTrait;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -47,6 +48,20 @@ class User extends Authenticatable
     public function findForPassport($username)
     {
         return $this->where('username', $username)->first();
+    }
+
+    /**
+     * Set the user's password in hashed
+     *
+     * @var array
+     */
+    public function setPasswordAttribute($value)
+    {
+        if (Hash::needsRehash($value)) {
+            $password = Hash::make($value);
+        }
+
+        $this->attributes['password'] = $password;
     }
 
     /**

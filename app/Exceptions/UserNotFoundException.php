@@ -3,23 +3,22 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Support\Facades\Lang;
 
 class UserNotFoundException extends Exception
 {
-    protected $message = "User not found";
+    protected $message;
 
-    protected $code = 404;
+    protected $code;
 
     /**
-     * Render an API exception into an JSON response.
+     * Create a new exception instance.
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     * @return void
      */
-    public function render()
+    public function __construct()
     {
-        return response()->json([
-            'message' => $this->message,
-            'code' => $this->code,
-        ]);
+        $this->message = Lang::get('auth.failed');
+        $this->code = 404;
     }
 }
