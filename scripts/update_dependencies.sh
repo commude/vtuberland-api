@@ -28,3 +28,6 @@ composer install --optimize-autoloader --no-dev
 # set permissions
 sudo chmod -R 775 /var/www/app
 sudo chmod -R 777 storage bootstrap/cache
+
+# Generate API Documentation
+php artisan l5-swagger:generate
