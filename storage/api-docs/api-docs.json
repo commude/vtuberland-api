@@ -193,7 +193,21 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "properties": {
+                                        "code": {
+                                            "description": "Revoke active token of the current user.",
+                                            "type": "integer",
+                                            "format": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "description": "Revoke active token of the current user.",
+                                            "type": "text",
+                                            "format": "string",
+                                            "example": "ユーザーは正常にログアウトしました"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }

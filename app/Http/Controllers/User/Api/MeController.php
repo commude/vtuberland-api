@@ -12,6 +12,7 @@ use Illuminate\Auth\Events\Registered;
 use App\Exceptions\UserExistsException;
 use App\Http\Requests\CreateUserRequest;
 use App\Exceptions\UserNotFoundException;
+use Illuminate\Support\Facades\Lang;
 
 class MeController extends Controller
 {
@@ -107,7 +108,9 @@ class MeController extends Controller
      *  security={{"passport": {"*"}}},
      *  summary="Logout User",
      *  description="User Registration",
-     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/User")),
+     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(
+     *      @OA\Property(property="code",type="integer",format="integer",example=200),
+     *      @OA\Property(property="message",type="text",format="string",example="ユーザーは正常にログアウトしました"))),
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found"),
      * )
@@ -117,10 +120,17 @@ class MeController extends Controller
      */
     public function logout(Request $request)
     {
-        $this->guard()->user()->token()->revoke();
+        $user = $this->guard()->user();
+
+        if (!$user) {
+            throw new UserNotFoundException();
+        }
+
+        $user->token()->revoke();
 
         return response()->json([
-            'message' => 'User has been logged out'
+            'code' => 200,
+            'message' => Lang::get('auth.logout')
         ]);
     }
 
