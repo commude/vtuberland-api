@@ -8,11 +8,12 @@ use App\Http\Resources\MeResource;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Auth\Events\Registered;
 use App\Exceptions\UserExistsException;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Exceptions\UserNotFoundException;
-use Illuminate\Support\Facades\Lang;
 
 class MeController extends Controller
 {
@@ -110,7 +111,7 @@ class MeController extends Controller
      *  description="User Registration",
      *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(
      *      @OA\Property(property="code",type="integer",format="integer",example=200),
-     *      @OA\Property(property="message",type="text",format="string",example="ユーザーは正常にログアウトしました"))),
+     *      @OA\Property(property="message",type="string",format="string"))),
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found"),
      * )
@@ -135,36 +136,75 @@ class MeController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
+     *
+     * @OA\Put(
+     *  path="/me",
+     *  tags={"Me"},
+     *  security={{"passport": {"*"}}},
+     *  summary="Update User",
+     *  description="Update User Details",
+     *  @OA\Parameter(name="name",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="username",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="email",in="query",required=false,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="password",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="password_confirmation",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/User")),
+     *  @OA\Response(response=400, description="Bad request"),
+     *  @OA\Response(response=404, description="Resource Not Found"),
+     * )
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request)
     {
-        //
+        $user = $this->guard()->user();
+
+        $user->fill($request->data());
+        $user->save();
+
+        return new MeResource($user);
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @OA\Delete(
+     *  path="/me",
+     *  tags={"Me"},
+     *  security={{"passport": {"*"}}},
+     *  summary="Delete User",
+     *  description="Delete User",
+     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(
+     *      @OA\Property(property="code",type="integer",format="integer",example=200),
+     *      @OA\Property(property="message",type="string",format="string"))),
+     *  @OA\Response(response=400, description="Bad request"),
+     *  @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     *
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy()
     {
-        //
+        $user = $this->guard()->user();
+
+        //delete media associated to user
+        $user = $user->clearMediaCollection();
+
+        //delete user
+        $user->delete();
+
+        return response()->json([
+            'code' => 200,
+            'message' => Lang::get('user.delete')
+        ]);
     }
 }

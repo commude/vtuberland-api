@@ -103,6 +103,81 @@
                     }
                 ]
             },
+            "put": {
+                "tags": [
+                    "Me"
+                ],
+                "summary": "Update User",
+                "description": "Update User Details",
+                "operationId": "App\\Http\\Controllers\\User\\Api\\MeController::update",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            },
             "post": {
                 "tags": [
                     "Me"
@@ -177,6 +252,52 @@
                         ]
                     }
                 ]
+            },
+            "delete": {
+                "tags": [
+                    "Me"
+                ],
+                "summary": "Delete User",
+                "description": "Delete User",
+                "operationId": "App\\Http\\Controllers\\User\\Api\\MeController::destroy",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "description": "Remove the specified resource from storage.",
+                                            "type": "integer",
+                                            "format": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "description": "Remove the specified resource from storage.",
+                                            "type": "string",
+                                            "format": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
             }
         },
         "/me/logout": {
@@ -202,9 +323,8 @@
                                         },
                                         "message": {
                                             "description": "Revoke active token of the current user.",
-                                            "type": "text",
-                                            "format": "string",
-                                            "example": "ユーザーは正常にログアウトしました"
+                                            "type": "string",
+                                            "format": "string"
                                         }
                                     },
                                     "type": "object"

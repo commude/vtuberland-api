@@ -24,7 +24,11 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['sometimes', 'required'],
+            'username' => ['sometimes', 'required'],
+            'email' => ['sometimes', 'nullable'],
+            'password' => ['sometimes', 'required', 'confirmed'],
+            'password_confirmation' => ['sometimes', 'required']
         ];
     }
 
@@ -35,6 +39,6 @@ class UpdateUserRequest extends FormRequest
      */
     public function data()
     {
-        return $this->only('username', 'password');
+        return $this->only('name', 'email', 'username', 'password');
     }
 }

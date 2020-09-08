@@ -41,6 +41,8 @@ Route::group(['prefix' => 'me'], function () {
     */
     Route::group(['middleware' => 'auth:user'], function () {
         Route::get('/', 'MeController@index');
+        Route::put('/', 'MeController@update');
+        Route::delete('/', 'MeController@destroy');
     });
 });
 
