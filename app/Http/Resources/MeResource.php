@@ -15,7 +15,7 @@ class MeResource extends JsonResource
      *     @OA\Property(property="name",type="string",format="string",example="Takemoto Iwao"),
      *     @OA\Property(property="username",type="string",format="string",example="takemoto99999"),
      *     @OA\Property(property="email",type="email",format="string",example="ultimate000@example.com"),
-     *     @OA\Property(property="is_valid",type="boolean",format="boolean",example="true"),
+     *     @OA\Property(property="is_valid",type="boolean",format="boolean",example=1),
      *     @OA\Property(property="created_at",type="timestamp",format="date",example="2020-03-10T19:42:31+09:00")
      * )
      *

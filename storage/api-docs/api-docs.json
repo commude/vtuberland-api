@@ -284,7 +284,7 @@
                         "description": "Transform the resource into an array.",
                         "type": "boolean",
                         "format": "boolean",
-                        "example": "true"
+                        "example": 1
                     },
                     "created_at": {
                         "description": "Transform the resource into an array.",
