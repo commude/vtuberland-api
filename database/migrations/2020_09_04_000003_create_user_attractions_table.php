@@ -17,10 +17,12 @@ class CreateUserAttractionsTable extends Migration
             $table->id();
             $table->uuid('user_id')->unique();
             $table->unsignedBigInteger('attraction_id')->unique();
+            $table->uuid('character_id')->unique();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('attraction_id')->references('id')->on('attractions')->onDelete('cascade');
+            $table->foreign('character_id')->references('id')->on('characters')->onDelete('cascade');
         });
     }
 

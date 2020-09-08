@@ -13,6 +13,19 @@ use Symfony\Component\Console\Output\BufferedOutput;
 
 class DefaultDataSeeder extends Seeder
 {
+    protected $appName;
+
+    // /**
+    //  * Create a new seeder instance.
+    //  *
+    //  * @return void
+    //  */
+    // public function __construct()
+    // {
+    //     $this->appName = config('app.name');
+    // }
+
+
     /**
      * Run the database seeds.
      *
@@ -20,32 +33,10 @@ class DefaultDataSeeder extends Seeder
      */
     public function run()
     {
-        $appName = config('app.name');
-        $this->generateAppUser($appName);
+        $this->generateAppUser();
         $this->generateAdminUser();
-    }
-
-    /**
-     * Set Environment Variables in file.
-     *
-     * @param string $key
-     * @param string $oldValue
-     * @param string $value
-     *
-     * @return void
-     */
-    public function putPermanentEnv($key, $oldValue, $value)
-    {
-        // Get env file path.
-        $path = app()->environmentFilePath();
-
-        // Replace the old value to new value.
-        $escaped = preg_quote('='.env($key), '/');
-        file_put_contents($path, preg_replace(
-            "/^{$key}{$escaped}{$oldValue}/m",
-            "{$key}={$value}",
-            file_get_contents($path)
-        ));
+        $this->generateAttractions();
+        $this->generateCharacters();
     }
 
     /**
@@ -55,7 +46,7 @@ class DefaultDataSeeder extends Seeder
      *
      * @return void
      */
-    public function generateAppUser($appName)
+    public function generateAppUser()
     {
         $username = 'vtuberland-app-user';
         $password = Str::random(16);
@@ -95,8 +86,6 @@ class DefaultDataSeeder extends Seeder
     /**
      * Generate Admin User.
      *
-     * @param string $appName
-     *
      * @return void
      */
     public function generateAdminUser()
@@ -111,6 +100,47 @@ class DefaultDataSeeder extends Seeder
         ]);
 
         // Print admin credentials.
-        $this->command->alert("ADMINISTRATOR \n\tADMIN USERNAME: {$username}\n\tADMIN PASSWORD: {$password}");
+        $this->command->alert("ADMINISTRATOR\n\tADMIN USERNAME: {$username}\n\tADMIN PASSWORD: {$password}");
+    }
+
+    /**
+     * Generate Applications.
+     *
+     * @return void
+     */
+    public function generateAttractions()
+    {
+    }
+
+    /**
+     * Generate Characters.
+     *
+     * @return void
+     */
+    public function generateCharacters()
+    {
+    }
+
+    /**
+     * Set Environment Variables in file.
+     *
+     * @param string $key
+     * @param string $oldValue
+     * @param string $value
+     *
+     * @return void
+     */
+    public function putPermanentEnv($key, $oldValue, $value)
+    {
+        // Get env file path.
+        $path = app()->environmentFilePath();
+
+        // Replace the old value to new value.
+        $escaped = preg_quote('='.env($key), '/');
+        file_put_contents($path, preg_replace(
+            "/^{$key}{$escaped}{$oldValue}/m",
+            "{$key}={$value}",
+            file_get_contents($path)
+        ));
     }
 }

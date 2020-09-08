@@ -10,14 +10,10 @@ use Illuminate\Support\ServiceProvider;
 *      title="VTuberland - API SPECIFICATIONS",
 *      description="An API documentation used for VTuberland App",
 * )
-*  @OA\Server(
-*      url="http://localhost:8000/api/v1/",
-*      description="Localhost Server"
-*  )
 *
 *  @OA\Server(
 *      url="https://vtuberland.test/api/v1/",
-*      description="Local Virtual Server"
+*      description="Local Server"
 *  )
 *
 *  @OA\Server(

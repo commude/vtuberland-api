@@ -53,7 +53,7 @@ class MeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Register a newly created user.
      *
      * @OA\Post(
      *  path="/me",
@@ -61,6 +61,16 @@ class MeController extends Controller
      *  security={{"passport": {"*"}}},
      *  summary="Register User",
      *  description="User Registration",
+     *  @OA\Parameter(name="name",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="username",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="email",in="query",required=false,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="password",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="password_confirmation",in="query",required=true,
+     *      @OA\Schema(type="string"),),
      *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/User")),
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found"),
@@ -89,7 +99,7 @@ class MeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Revoke active token of the current user.
      *
      * @OA\Post(
      *  path="/me/logout",

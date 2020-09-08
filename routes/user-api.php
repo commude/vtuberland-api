@@ -31,20 +31,24 @@ Route::group(['prefix' => 'auth'], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['prefix' => 'me'], function () {
-    Route::get('/', 'MeController@index');
     Route::post('/', 'MeController@register');
     Route::post('/logout', 'MeController@logout');
 
     /*
     |--------------------------------------------------------------------------
-    | Me Routes
+    | Authenticated Routes
     |--------------------------------------------------------------------------
     */
     Route::group(['middleware' => 'auth:user'], function () {
-        // Route::get('/', 'AttractionController@index');
+        Route::get('/', 'MeController@index');
     });
 });
 
+/*
+|--------------------------------------------------------------------------
+| Attraction Routes
+|--------------------------------------------------------------------------
+*/
 Route::group(['prefix' => 'attractions'], function () {
     Route::get('/', 'AttractionController@index');
 
@@ -53,6 +57,11 @@ Route::group(['prefix' => 'attractions'], function () {
     });
 });
 
+/*
+|--------------------------------------------------------------------------
+| Transaction Routes
+|--------------------------------------------------------------------------
+*/
 Route::group(['prefix' => 'transactions', 'middleware' => 'auth:user'], function () {
     // Route::post('/', 'TransactionController@index');
 });

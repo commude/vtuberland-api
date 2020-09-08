@@ -23,6 +23,6 @@ class Character extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'content'
+        'name', 'content', 'price'
     ];
 }

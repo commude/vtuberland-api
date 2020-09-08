@@ -17,6 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->uuid('user_id');
+            $table->uuid('character_id')->nullable();
             $table->text('original_transaction_id')->nullable();
             $table->text('transaction_id')->nullable(); // transaction_id from apple or google
             $table->text('purchase_token')->nullable(); // for google's response

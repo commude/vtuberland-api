@@ -17,6 +17,7 @@ class CreateCharactersTable extends Migration
             $table->uuid('id')->primary();
             $table->text('name');
             $table->longText('content')->nullable();
+            $table->decimal('price')->default(0.00);
             $table->timestamps();
         });
     }
