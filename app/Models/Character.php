@@ -11,6 +11,13 @@ class Character extends Model
     use HasUUID, MediaTrait;
 
     /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
      * The primary key associated with the table.
      *
      * @var string

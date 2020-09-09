@@ -16,6 +16,7 @@ class DummyDataSeeder extends Seeder
      */
     public function run()
     {
+        // Characters
         $characterList = new Collection([
             'cat' => asset('images/characters/001-cat.png'),
             'horse' => asset('images/characters/002-horse.png'),
@@ -29,46 +30,44 @@ class DummyDataSeeder extends Seeder
             'elephant' => asset('images/characters/elephant.png')
         ]);
 
-        $spotList = new Collection([
-            'ferriswheel' => [
-                'image_url' => asset('images/spots/ferriswheel.jpg'),
-                'video_url' => 'https://www.youtube.com/watch?v=a6Zz0gBZMiE'
-            ],
-            'logjump' => [
-                'image_url' => asset('images/spots/logjump.jpg'),
-                'video_url' => 'https://www.youtube.com/watch?v=zDqdmidgQHo',
-            ],
-            'rollercoaster' => [
-                'image_url' => asset('images/spots/rollercoaster.jpg'),
-                'video_url' => 'https://www.youtube.com/watch?v=aE_wqPr78VU',
-            ],
-            'rollerskater' =>[
-                'image_url' => asset('images/spots/rollerskater.jpg'),
-                'video_url' => 'https://www.youtube.com/watch?v=BjWL3zErvv4',
-            ],
-            'rollerspiral' => [
-                'image_url' => asset('images/spots/rollerspiral.jpg'),
-                'video_url' => 'https://www.youtube.com/watch?v=8YiWzYsBf4g'
-            ]
-        ]);
-
         $characterList->each(function($value, $key) {
             factory(Character::class, 1)->create(['name' => $key, 'image_url' => $value]);
         });
 
+        // Spots
+        $spotList = new Collection([
+            'Carousel' => asset('images/spots/carousel.jpg'),
+            'Ferris Wheel' => asset('images/spots/ferriswheel.jpg'),
+            'Jungle Log Jam' => asset('images/spots/logjump.jpg'),
+            'Roller Coaster' => asset('images/spots/rollercoaster.jpg'),
+            'Roller Coaster Xtreme' => asset('images/spots/rollercoasterextreme.jpg'),
+        ]);
+
         $spotList->each(function ($value, $key) {
-            factory(Spot::class,1)->create(['name' => $key, 'image_url' => $value['image_url']]);
+            factory(Spot::class,1)->create(['name' => $key, 'image_url' => $value]);
         });
 
-        Spot::all()->each(function($spot) use ($spotList){
-            Character::all()->each(function ($character) use ($spot, $spotList) {
-                $spotList->each(function($value, $key) use ($character, $spot) {
-                    SpotCharacter::create([
-                        'spot_id' => $spot->id,
-                        'character_id' => $character->id,
-                        'video_url' => $value['video_url'],
-                    ]);
-                });
+        // Spot Characters
+        $characters = Character::all();
+        $spots = Spot::all();
+        $video_urls = new Collection([
+            'https://youtu.be/EngW7tLk6R8',
+            'https://youtu.be/xcJtL7QggTI',
+            'https://youtu.be/WjoplqS1u18',
+            'https://youtu.be/BdzZDs6PiJ4',
+            'https://youtu.be/rFdonlDSY8E',
+            'https://youtu.be/v3dclL2grbs',
+            'https://youtu.be/zjixgch1fIE',
+            'https://youtu.be/EUX6lXTX9zQ'
+        ]);
+
+        $spots->each(function ($spot) use ($characters, $video_urls){
+            $characters->each(function ($character) use ($spot, $video_urls){
+                SpotCharacter::create([
+                    'spot_id' => $spot->id,
+                    'character_id' => $character->id,
+                    'video_url' => $video_urls->random(),
+                ]);
             });
         });
     }

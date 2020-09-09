@@ -11,11 +11,11 @@ class Spot extends Model
     use HasUUID, MediaTrait;
 
     /**
-     * The primary key associated with the table.
+     * Indicates if the IDs are auto-incrementing.
      *
-     * @var string
+     * @var bool
      */
-    protected $primaryKey = 'uuid';
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.

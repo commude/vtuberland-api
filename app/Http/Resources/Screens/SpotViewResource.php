@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Screens;
 
+use App\Http\Resources\CharacterResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SpotResource extends JsonResource
+class SpotViewResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,11 +16,11 @@ class SpotResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->uuid,
-            'title' => $this->title,
+            'id' => $this->id,
+            'name' => $this->name,
             'content' => $this->content,
-            'video_url' => $this->video_url,
-            'location' => $this->location,
+            'image_url' => $this->image_url,
+            'characters' => CharacterResource::collection($this->characters),
             'created_at' => $this->created_at
         ];
     }

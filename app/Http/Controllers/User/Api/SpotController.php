@@ -5,9 +5,10 @@ namespace App\Http\Controllers\User\Api;
 use App\Models\Spot;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Screens\HomeResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\SpotResource;
-use App\Http\Resources\Views\SpotViewResource;
+use App\Http\Resources\Screens\SpotViewResource;
 
 class SpotController extends Controller
 {
@@ -26,11 +27,11 @@ class SpotController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $Spot = Spot::all();
+        $Spot = Spot::paginate($request->query('per_page'));
 
-        return SpotResource::collection($Spot);
+        return HomeResource::collection($Spot);
     }
 
     /**

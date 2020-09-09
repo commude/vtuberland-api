@@ -15,7 +15,7 @@ class CreateSpotCharactersTable extends Migration
     {
         Schema::create('spot_characters', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('spot_id');
+            $table->uuid('spot_id');
             $table->uuid('character_id');
             $table->string('video_url')->nullable();
             $table->timestamps();

@@ -1,5 +1,6 @@
 <?php
 
+use Aws\Middleware;
 use Illuminate\Http\Request;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Route;
@@ -50,8 +51,8 @@ Route::group(['prefix' => 'me'], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['prefix' => 'spots', 'middleware' => 'auth:user'], function () {
-    Route::get('/', 'SpotController@index');
-    Route::get('/{spot}', 'SpotController@show');
+    Route::get('/', 'SpotController@index')->middleware('paginated'); // Home screen
+    Route::get('/{spot}', 'SpotController@show'); // View spot screen
 
     Route::group(['prefix' => 'characters'], function () {
         Route::get('/', 'SpotController@characters');

@@ -20,7 +20,7 @@ class SpotCharacter extends Model
      */
     public function character()
     {
-        return $this->hasOne(Character::class);
+        return $this->hasOne(Character::class, 'id', 'character_id');
     }
 
     /**
@@ -28,6 +28,6 @@ class SpotCharacter extends Model
      */
     public function spot()
     {
-        return $this->hasOne(Spot::class);
+        return $this->hasOne(Spot::class, 'id', 'spot_id');
     }
 }

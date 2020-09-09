@@ -16,7 +16,7 @@ class CreateUserSpotCharactersTable extends Migration
         Schema::create('user_spot_characters', function (Blueprint $table) {
             $table->id();
             $table->uuid('user_id')->unique();
-            $table->unsignedBigInteger('spot_id')->unique();
+            $table->uuid('spot_id')->unique();
             $table->uuid('character_id')->unique();
             $table->timestamps();
 

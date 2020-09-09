@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserSpotCharacter extends Model
 {
-
     /**
      * The attributes that are mass assignable.
      *

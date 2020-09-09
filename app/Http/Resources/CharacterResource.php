@@ -18,12 +18,12 @@ class CharacterResource extends JsonResource
         $user = auth()->guard('user')->user();
 
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'content' => $this->content,
-            'video_url' => $this->spots->where('character_id', $this->id)->first()->video_url,
-            'main_photo' => new PhotoResource($this->getFirstMedia(MediaGroup::CHARACTERS['main'])),
-            'is_purchased' => $user->characters->contains('character_id', $this->id),
+            'id' => $this->character->id,
+            'name' => $this->character->name,
+            'content' => $this->character->content,
+            'video_url' => $this->video_url,
+            // 'main_photo' => new PhotoResource($this->getFirstMedia(MediaGroup::CHARACTERS['main'])),
+            // 'is_purchased' => $user->characters->contains('character_id', $this->id),
         ];
     }
 }
