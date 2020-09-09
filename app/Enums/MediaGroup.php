@@ -11,9 +11,9 @@ use BenSampo\Enum\Enum;
  */
 final class MediaGroup extends Enum
 {
-    const ATTRACTIONS =  [
-        'main' => 'AttractionMainPhotos',
-        'photos' => 'AttractionPhotos'
+    const SPOTS =  [
+        'main' => 'SpotMainPhotos',
+        'photos' => 'SpotPhotos'
     ];
 
     const CHARACTERS =   [

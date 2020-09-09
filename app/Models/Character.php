@@ -23,6 +23,14 @@ class Character extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'content', 'price'
+        'name', 'content', 'price', 'image_url'
     ];
+
+    /**
+     * Get spots.
+     */
+    public function spots()
+    {
+        return $this->hasMany(SpotCharacter::class);
+    }
 }

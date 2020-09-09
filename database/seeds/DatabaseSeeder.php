@@ -13,7 +13,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            DefaultDataSeeder::class // Should execute last.
+            DefaultDataSeeder::class, // Should execute last.
+            DummyDataSeeder::class
         ]);
 
         $this->generateApiPassport();

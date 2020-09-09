@@ -35,7 +35,7 @@ class DefaultDataSeeder extends Seeder
     {
         $this->generateAppUser();
         $this->generateAdminUser();
-        $this->generateAttractions();
+        $this->generateSpots();
         $this->generateCharacters();
     }
 
@@ -108,7 +108,7 @@ class DefaultDataSeeder extends Seeder
      *
      * @return void
      */
-    public function generateAttractions()
+    public function generateSpots()
     {
     }
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Views;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SpotResource extends JsonResource
+class SpotViewResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,8 +18,7 @@ class SpotResource extends JsonResource
             'id' => $this->uuid,
             'title' => $this->title,
             'content' => $this->content,
-            'video_url' => $this->video_url,
-            'location' => $this->location,
+            'characters' => $this->characters(),
             'created_at' => $this->created_at
         ];
     }

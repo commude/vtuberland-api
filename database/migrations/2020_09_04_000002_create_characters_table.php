@@ -18,6 +18,7 @@ class CreateCharactersTable extends Migration
             $table->text('name');
             $table->longText('content')->nullable();
             $table->decimal('price')->default(0.00);
+            $table->text('image_url')->nullable();
             $table->timestamps();
         });
     }

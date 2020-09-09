@@ -73,11 +73,19 @@ class User extends Authenticatable
     }
 
     /**
-     * Get attractions of the user.
+     * Get spots of the user.
      */
-    public function attractions()
+    public function spots()
     {
-        return $this->hasMany(UserAttraction::class);
+        return $this->hasMany(UserSpot::class);
+    }
+
+    /**
+     * Get chatacters of the user.
+     */
+    public function characters()
+    {
+        return $this->hasMany(UserSpotCharacter::class);
     }
 
     /**

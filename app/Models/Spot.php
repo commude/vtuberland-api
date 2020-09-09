@@ -6,7 +6,7 @@ use App\Models\Traits\HasUUID;
 use App\Models\Traits\MediaTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Attraction extends Model
+class Spot extends Model
 {
     use HasUUID, MediaTrait;
 
@@ -23,6 +23,14 @@ class Attraction extends Model
      * @var array
      */
     protected $fillable = [
-        'beacon_id', 'title', 'content', 'video_url', 'location'
+        'beacon_id', 'name', 'content', 'video_url', 'location', 'image_url'
     ];
+
+    /**
+     * Get characters of the spot.
+     */
+    public function characters()
+    {
+        return $this->hasMany(SpotCharacter::class);
+    }
 }
