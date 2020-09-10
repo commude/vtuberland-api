@@ -1,0 +1,142 @@
+/*===========================
+dashboardPageActionSec
+===========================*/
+
+.dashboardPageActionSec {
+  margin-top: 73px;
+  padding-left: 244px;
+
+  &__bar {
+    position: relative;
+    padding-right: 45px;
+    @include u-flex($jc: flex-start, $ai: flex-end);
+  }
+
+  &.dashboard02 {
+    padding-left: 222px;
+
+    .dataListSearchAction {
+      margin-left: 0;
+    }
+  }
+}
+
+/*===========================
+Filter Checkbox @ actionBar
+===========================*/
+.dataListFilterAction {
+  @include u-flex($jc: space-between, $ai: center);
+
+  &__filterOption {
+    position: relative;
+    display: block;
+    width: 18px;
+    height: 18px;
+    border: 0.25px solid $mineshaft;
+    border-radius: 4px;
+  }
+
+  &__filterInput {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 18px;
+    height: 18px;
+    opacity: 0;
+    cursor: pointer;
+
+    &:checked ~.dataListFilterAction__filterCusCheck {
+      opacity: 1;
+    }
+  }
+
+  &__filterCusCheck {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 10px;
+    height: 10px;
+    background: center / contain no-repeat url('../../../images/common/ico_check.svg');
+    opacity: 0;
+    pointer-events: none;
+    cursor: pointer;
+  }
+
+  &__filterSubmit {
+    margin-left: 18px;
+    width: 128px;
+    height: 28px;
+    background: $tradewind;
+    border-radius: 30px;
+    cursor: pointer;
+    @include u-flex($jc: center, $ai: center);
+    @include font ($fsPC: 0.7188rem, $fw: bold, $fc: $white);
+    @include u-trs;
+    @include u-hoverOp(0.5);
+
+    @include u-IEhack {
+      line-height: 3;
+    }
+  }
+}
+
+/*===========================
+Search @ actionBar
+===========================*/
+.dataListSearchAction {
+  margin-left: 33.5px;
+  position: relative;
+  @include u-flex($ai: center);
+  height: 28px;
+
+  &__input {
+    padding: 0 10px 0 50px;
+    width: 228px;
+    height: 28.5px;
+    border: 1px solid $zeus;
+    border-radius: 30px;
+    font-family: hiraginoKaku;
+    @include font ($fsPC: 0.8125rem, $fw: 300);
+    background: $white;
+
+    &::placeholder {
+      @include font ($fsPC: 0.6875rem, $fw: 300);
+    }
+  }
+
+  &__searchSubmit {
+    margin-left: 10px;
+    font-size: 0;
+    width: 16.835px;
+    height: 18.42px;
+    background: center / contain no-repeat url('../../../images/common/ico_search.svg');
+    cursor: pointer;
+    @include u-trs;
+    @include u-hoverOp;
+
+    @include u-IEhack {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+/*===========================
+  DataList status @ dashboard
+===========================*/
+.dataListStatus {
+  position: absolute;
+  right: 88.5px;
+  @include u-IEhack {
+    bottom: 0;
+  }
+
+  &__text {
+    @include font ($fsPC: 0.75rem, $fw: 300, $fc: $graphite);
+    color: $graphite;
+  }
+}

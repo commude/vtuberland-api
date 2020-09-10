@@ -1,0 +1,103 @@
+/*====================================================================
+COMMON LAYOUT
+====================================================================*/
+body {
+  font-size: 16px;
+  font-family: $hiraginoKaku;
+  @include fontFeature;
+}
+
+
+/*-----------------------------------------------
+PC/SP
+------------------------------------------------*/
+.u-pcDb {
+  display: block;
+}
+
+.u-pcDib {
+  display: inline-block;
+}
+
+.u-pcDin {
+  display: inline;
+}
+
+.u-pcDf {
+  display: flex;
+}
+
+.u-pcDt {
+  display: table;
+}
+
+.u-pcDtc {
+  display: table-cell;
+}
+
+.u-spDb,
+.u-spDib,
+.u-spDin,
+.u-spDf,
+.u-spDt,
+.u-spDtc {
+  display: none;
+}
+
+@include u-mqMax {
+
+  .u-pcDb,
+  .u-pcDib,
+  .u-pcDin,
+  .u-pcDf,
+  .u-pcDt,
+  .u-pcDtc {
+    display: none;
+  }
+
+  .u-spDb {
+    display: block;
+  }
+
+  .u-spDib {
+    display: inline-block;
+  }
+
+  .u-spDin {
+    display: inline;
+  }
+
+  .u-spDf {
+    display: flex;
+  }
+
+  .u-spDt {
+    display: table;
+  }
+
+  .u-spDtc {
+    display: table-cell;
+  }
+}
+
+/*===========================
+    Buttons
+===========================*/
+
+.btn-backToDashboard {
+  width: 128px;
+  height: 28.5px;
+  @include u-flex($jc: center, $ai: center);
+  background: $tradewind;
+  border-radius: 30px;
+  @include font ($fsPC: 0.875rem, $fw: bold, $fc: $white, $ff: hiraginoKaku);
+  cursor: pointer;
+  @include u-trs;
+  @include u-hoverOp(0.5);
+
+  @include u-IEhack {
+    line-height: 3;
+  }
+}
+
+

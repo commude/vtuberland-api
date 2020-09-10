@@ -1,0 +1,85 @@
+.dashboardDetailPage__detailCont {
+    margin-top: 15px;
+    padding-left: 222px;
+    padding-right: 58.5px;
+}
+
+.detailContInner {
+    padding: 24px 22px 47.5px;
+    border-radius: 20px;
+    background: $white;
+    box-shadow: 0 8px 10px 2px rgba($graphite, 0.09);
+
+    &__buyerNameText {
+        @include font($fsPC: 1.0625rem, $fw: bold, $ff: $hiraginoKaku, $fc: $brownderby);
+    }
+
+    &__deviceNameText {
+        margin-top: 15px;
+        @include font($fsPC: 0.875rem, $fw: 300, $ff: $hiraginoKaku, $fc: $brownderby);
+    }
+
+    &__purchaseDetail {
+        margin-top: 28px;
+        @include u-flex;
+    }
+
+    &__purchaseDetailNoText {
+        @include font($fsPC: 0.875rem, $fw: 300, $ff: $hiraginoKaku, $fc: $brownderby);
+    }
+
+    &__purchaseDetailTotalNoText {
+        margin-left: 108.5px;
+        @include font($fsPC: 0.875rem, $fw: 300, $ff: $hiraginoKaku, $fc: $brownderby);
+    }
+
+
+    &__tableCont {
+        margin-top: 20px;
+        border-radius: 16px;
+        border: 0.5px solid $paco;
+    }
+
+    &__table {
+        width: 100%;
+        @include font($fsPC: 0.8125rem, $fw: 300, $ff: $hiraginoKaku, $fc: $brownderby);
+
+        thead {
+            tr {
+                td {
+                    padding-top: 25px;
+                    box-sizing: content-box;
+                    height: 30px;
+                }
+            }
+        }
+
+        tbody {
+            tr {
+
+                td {
+                    height: 54px;
+                    vertical-align: middle;
+                }
+
+                &:nth-child(odd) {
+                    background: rgba($pampas, .7);
+                }
+            }
+        }
+    }
+
+    &__itemDateTime {
+        padding-left: 42px;
+        width: 263.5px;
+    }
+
+    &__itemPurchaseContent {
+        min-width: 250px;
+    }
+
+    &__itemPurchasePrice {
+        min-width: 142.5px;
+    }
+
+}

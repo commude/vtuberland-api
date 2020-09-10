@@ -1,0 +1,11 @@
+@mixin u-secTitle($color: $black) {
+  border-bottom: 2px solid $color;
+  color: $color;
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: 0.05em;
+
+  @include u-mqMax {
+    font-size: 16px;
+  }
+}

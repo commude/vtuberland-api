@@ -1,0 +1,13 @@
+@mixin u-contentCenter($widthPC: $contentCenter, $paddingLR-PC: 20px, $paddingLR-SP: 15px) {
+  width: $widthPC;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $paddingLR-PC;
+  padding-right: $paddingLR-PC;
+
+  @include u-mqMax {
+    width: 100%;
+    padding-left: $paddingLR-SP;
+    padding-right: $paddingLR-SP;
+  }
+}
