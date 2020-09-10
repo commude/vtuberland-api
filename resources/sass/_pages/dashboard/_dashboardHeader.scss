@@ -38,7 +38,7 @@ dashboardPageHeaderSec
   &__logoutButton {
     width: 40px;
     height: 40px;
-    background: center / contain no-repeat url('../../../images/common/ico_logout.svg');
+    background: center / contain no-repeat url('../images/common/ico_logout.svg');
     @include u-trs;
     @include u-hoverOp(0.8);
   }

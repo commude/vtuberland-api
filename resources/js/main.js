@@ -43,6 +43,11 @@ $(function () {
         table.search($('.js--searchInputText').val()).draw();
       });
 
+      $('.dataListSearchAction').submit(function(){
+            table.search($('.js--searchInputText').val()).draw();
+            return false;
+      });
+
       // Delete uneccessary modules
       $('.dataTables_paginate').appendTo('.dashboardPage__pagination');
       $('.dataTables_empty, .dataTables_length, .dataTables_filter').remove();
@@ -51,7 +56,7 @@ $(function () {
       $('.js--selectAll').on('click', function(e) {
         if ($(this).is( ":checked" )) {
             table.rows({page: 'current'}).select();
-            $('.dataList__inputSelect').prop('checked', true);  
+            $('.dataList__inputSelect').prop('checked', true);
         } else {
             table.rows({page: 'current'}).deselect();
             $('.dataList__inputSelect').prop('checked', false);

@@ -60,7 +60,7 @@ Filter Checkbox @ actionBar
     margin: auto;
     width: 10px;
     height: 10px;
-    background: center / contain no-repeat url('../../../images/common/ico_check.svg');
+    background: center / contain no-repeat url('../images/common/ico_check.svg');
     opacity: 0;
     pointer-events: none;
     cursor: pointer;
@@ -113,7 +113,7 @@ Search @ actionBar
     font-size: 0;
     width: 16.835px;
     height: 18.42px;
-    background: center / contain no-repeat url('../../../images/common/ico_search.svg');
+    background: center / contain no-repeat url('../images/common/ico_search.svg');
     cursor: pointer;
     @include u-trs;
     @include u-hoverOp;

@@ -69,7 +69,7 @@ loginPageLoginSec
       left: 28px;
       width: 14.41px;
       height: 11.275px;
-      background: center / contain no-repeat url('../../../images/common/ico_mail.svg');
+      background: center / contain no-repeat url('../images/common/ico_mail.svg');
 
       @include u-IEhack {
         top: 44%;
@@ -90,7 +90,7 @@ loginPageLoginSec
       left: 30px;
       width: 11.21px;
       height: 15.96px;
-      background: center / contain no-repeat url('../../../images/common/ico_lock.svg');
+      background: center / contain no-repeat url('../images/common/ico_lock.svg');
 
       @include u-IEhack {
         top: 44%;
@@ -173,7 +173,7 @@ loginPageLoginSec
     margin: auto;
     width: 13px;
     height: 13px;
-    background: center / contain no-repeat url('../../../images/common/ico_check.svg');
+    background: center / contain no-repeat url('../images/common/ico_check.svg');
     opacity: 1;
     pointer-events: none;
     cursor: pointer;
