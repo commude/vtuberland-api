@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\Locale;
+use App\Enums\OperatingSystem;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateUserRequest extends FormRequest
@@ -30,9 +32,9 @@ class CreateUserRequest extends FormRequest
             // 'password' => ['required', 'confirmed'],
             // 'password_confirmation' => ['required'],
             'manufacturer' => ['required'],
-            'os' => ['required'],
+            'os' => ['required'], 'in:'.implode(',', OperatingSystem::getValues()),
             'version' => ['nullable'],
-            'language' => ['nullable'],
+            'language' => ['sometimes', 'nullable', 'in:'.implode(',', Locale::getValues())],
             'token' => ['required']
         ];
     }
