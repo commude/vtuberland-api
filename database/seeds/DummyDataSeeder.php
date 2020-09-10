@@ -1,11 +1,12 @@
 <?php
 
-use App\Models\Character;
 use App\Models\Spot;
-use Illuminate\Database\Seeder;
-use App\Models\SpotCharacter;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Character;
 use Faker\Factory  as Faker;
+use App\Models\SpotCharacter;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Collection;
 
 class DummyDataSeeder extends Seeder
 {
@@ -18,16 +19,16 @@ class DummyDataSeeder extends Seeder
     {
         // Characters
         $characterList = new Collection([
-            'cat' => asset('images/characters/001-cat.png'),
-            'horse' => asset('images/characters/002-horse.png'),
-            'gorilla' => asset('images/characters/003-gorilla.png'),
-            'snake' => asset('images/characters/004-snake.png'),
-            'toucan' => asset('images/characters/005-toucan.png'),
-            'jaguar' => asset('images/characters/006-jaguar.png'),
-            'frog' => asset('images/characters/007-frog.png'),
-            'lion' => asset('images/characters/008-lion.png'),
-            'antilope' => asset('images/characters/antilope.png'),
-            'elephant' => asset('images/characters/elephant.png')
+            'cat' => Storage::url('characters/001-cat.png'),
+            'horse' => Storage::url('characters/002-horse.png'),
+            'gorilla' => Storage::url('characters/003-gorilla.png'),
+            'snake' => Storage::url('characters/004-snake.png'),
+            'toucan' => Storage::url('characters/005-toucan.png'),
+            'jaguar' => Storage::url('characters/006-jaguar.png'),
+            'frog' => Storage::url('characters/007-frog.png'),
+            'lion' => Storage::url('characters/008-lion.png'),
+            'antilope' => Storage::url('characters/antilope.png'),
+            'elephant' => Storage::url('characters/elephant.png')
         ]);
 
         $characterList->each(function($value, $key) {
@@ -36,11 +37,11 @@ class DummyDataSeeder extends Seeder
 
         // Spots
         $spotList = new Collection([
-            'Carousel' => asset('images/spots/carousel.jpg'),
-            'Ferris Wheel' => asset('images/spots/ferriswheel.jpg'),
-            'Jungle Log Jam' => asset('images/spots/logjump.jpg'),
-            'Roller Coaster' => asset('images/spots/rollercoaster.jpg'),
-            'Roller Coaster Xtreme' => asset('images/spots/rollercoasterextreme.jpg'),
+            'Carousel' => Storage::url('spots/carousel.jpg'),
+            'Ferris Wheel' => Storage::url('spots/ferriswheel.jpg'),
+            'Jungle Log Jam' => Storage::url('spots/logjam.jpg'),
+            'Roller Coaster' => Storage::url('spots/rollercoaster.jpg'),
+            'Roller Coaster Xtreme' => Storage::url('spots/rollercoasterextreme.jpg'),
         ]);
 
         $spotList->each(function ($value, $key) {
