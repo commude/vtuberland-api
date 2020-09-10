@@ -57,7 +57,7 @@ class DefaultDataSeeder extends Seeder
         $user = User::create([
             'name' => 'vtuberland-app-user',
             // 'username' => $username,
-            'email' => 'user@vtuberland.co.jp',
+            'email' => $email,
             'manufacturer' => 'Apple',
             'os' => OperatingSystem::IOS,
             'is_valid' => true,
