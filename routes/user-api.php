@@ -51,7 +51,7 @@ Route::group(['prefix' => 'me'], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['prefix' => 'spots', 'middleware' => 'auth:user'], function () {
-    Route::get('/', 'SpotController@index')->middleware('paginated'); // Home screen
+    Route::get('/', 'SpotController@index');//->middleware('paginated');  // Home screen
     Route::get('/{spot}', 'SpotController@show'); // View spot screen
 
     Route::group(['prefix' => 'characters'], function () {
