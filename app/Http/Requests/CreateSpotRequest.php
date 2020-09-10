@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAttractionRequest extends FormRequest
+class CreateSpotRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,10 @@ class UpdateAttractionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => ['required'],
+            'content' => ['nullable'],
+            'video_url' => ['nullable'],
+            'location' => ['nullable']
         ];
     }
 

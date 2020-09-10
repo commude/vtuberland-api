@@ -1,5 +1,6 @@
 <?php
 
+use Aws\Middleware;
 use Illuminate\Http\Request;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Route;
@@ -46,15 +47,26 @@ Route::group(['prefix' => 'me'], function () {
 
 /*
 |--------------------------------------------------------------------------
-| Attraction Routes
+| Spot Routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'attractions'], function () {
-    Route::get('/', 'AttractionController@index');
+Route::group(['prefix' => 'spots', 'middleware' => 'auth:user'], function () {
+    Route::get('/', 'SpotController@index')->middleware('paginated');  // Home screen
+    Route::get('/{spot}', 'SpotController@show'); // View spot screen
 
-    Route::group(['middleware' => 'auth:user'], function () {
-        // Route::get('/', 'AttractionController@index');
+    Route::group(['prefix' => 'characters'], function () {
+        Route::get('/', 'SpotController@characters');
+        Route::get('/{character}', 'SpotController@showCharacter');
     });
+});
+
+/*
+|--------------------------------------------------------------------------
+| Character Routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'characters', 'middleware' => 'auth:user'], function () {
+    Route::get('/', 'CharacterController@index')->middleware('paginated');  // Archive screen
 });
 
 /*

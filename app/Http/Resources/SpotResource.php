@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AttractionResource extends JsonResource
+class SpotResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,11 +15,11 @@ class AttractionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->uuid,
-            'title' => $this->title,
+            'id' => $this->id,
+            'beacon_id' => $this->beacon_id,
+            'name' => $this->name,
             'content' => $this->content,
-            'video_url' => $this->video_url,
-            'location' => $this->location,
+            'location' => json_decode($this->location),
             'created_at' => $this->created_at
         ];
     }

@@ -69,13 +69,66 @@
                 ]
             }
         },
+        "/characters": {
+            "get": {
+                "tags": [
+                    "Character"
+                ],
+                "summary": "Get the list of characters",
+                "description": "Home page screen.",
+                "operationId": "App\\Http\\Controllers\\User\\Api\\CharacterController::index",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ArchiveViewScreen"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
         "/me": {
             "get": {
                 "tags": [
                     "Me"
                 ],
                 "summary": "Get current user",
-                "description": "Home page",
+                "description": "Get current details of the user.",
                 "operationId": "App\\Http\\Controllers\\User\\Api\\MeController::index",
                 "responses": {
                     "200": {
@@ -108,7 +161,7 @@
                     "Me"
                 ],
                 "summary": "Register User",
-                "description": "User Registration",
+                "description": "Create a new user.",
                 "operationId": "App\\Http\\Controllers\\User\\Api\\MeController::register",
                 "parameters": [
                     {
@@ -185,7 +238,7 @@
                     "Me"
                 ],
                 "summary": "Logout User",
-                "description": "User Registration",
+                "description": "Revoke the current session of user.",
                 "operationId": "App\\Http\\Controllers\\User\\Api\\MeController::logout",
                 "responses": {
                     "200": {
@@ -227,10 +280,184 @@
                     }
                 ]
             }
+        },
+        "/spots": {
+            "get": {
+                "tags": [
+                    "Spot"
+                ],
+                "summary": "Get the list of spots",
+                "description": "Home page screen.",
+                "operationId": "App\\Http\\Controllers\\User\\Api\\SpotController::index",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HomeViewScreen"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/spots/{spot_id}": {
+            "get": {
+                "tags": [
+                    "Spot"
+                ],
+                "summary": "Get the list of spots",
+                "description": "View Spot Screen with characters.",
+                "operationId": "App\\Http\\Controllers\\User\\Api\\SpotController::show",
+                "parameters": [
+                    {
+                        "name": "spot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpotView"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
         }
     },
     "components": {
         "schemas": {
+            "links": {
+                "properties": {
+                    "first": {
+                        "description": "Handle an incoming request.",
+                        "type": "url",
+                        "format": "string",
+                        "example": "http://vtuberland.test/api/v1/spots?page=1"
+                    },
+                    "last": {
+                        "description": "Handle an incoming request.",
+                        "type": "url",
+                        "format": "string",
+                        "example": "http://vtuberland.test/api/v1/spots?page=6"
+                    },
+                    "prev": {
+                        "description": "Handle an incoming request.",
+                        "type": "url",
+                        "format": "string",
+                        "example": "http://vtuberland.test/api/v1/spots?page=1"
+                    },
+                    "next": {
+                        "description": "Handle an incoming request.",
+                        "type": "url",
+                        "format": "string",
+                        "example": "http://vtuberland.test/api/v1/spots?page=3"
+                    }
+                },
+                "type": "object"
+            },
+            "meta": {
+                "properties": {
+                    "current_page": {
+                        "description": "Handle an incoming request.",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "2"
+                    },
+                    "from": {
+                        "description": "Handle an incoming request.",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "11"
+                    },
+                    "last_page": {
+                        "description": "Handle an incoming request.",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "15"
+                    },
+                    "path": {
+                        "description": "Handle an incoming request.",
+                        "type": "url",
+                        "format": "string",
+                        "example": "http://vtuberland.test/api/v1/spots"
+                    },
+                    "per_page": {
+                        "description": "Handle an incoming request.",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "10"
+                    },
+                    "to": {
+                        "description": "Handle an incoming request.",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "14"
+                    },
+                    "total": {
+                        "description": "Handle an incoming request.",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "30"
+                    }
+                },
+                "type": "object"
+            },
             "Auth": {
                 "properties": {
                     "access_token": {
@@ -285,6 +512,164 @@
                         "type": "boolean",
                         "format": "boolean",
                         "example": 1
+                    },
+                    "created_at": {
+                        "description": "Transform the resource into an array.",
+                        "type": "timestamp",
+                        "format": "date",
+                        "example": "2020-03-10T19:42:31+09:00"
+                    }
+                },
+                "type": "object"
+            },
+            "ArchiveViewScreen": {
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/SpotCharacterList"
+                    },
+                    "links": {
+                        "$ref": "#/components/schemas/links"
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/meta"
+                    }
+                },
+                "type": "object"
+            },
+            "SpotCharacterList": {
+                "type": "array",
+                "items": {
+                    "properties": {
+                        "Roller Coaster": {
+                            "$ref": "#/components/schemas/CharacterList"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "CharacterList": {
+                "type": "array",
+                "items": {
+                    "properties": {
+                        "id": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "uuid",
+                            "format": "string",
+                            "example": "26397745-9126-438c-9706-5002baf5d3a4"
+                        },
+                        "name": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "string",
+                            "format": "string",
+                            "example": "lion"
+                        },
+                        "image_url": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "string",
+                            "format": "string",
+                            "example": "https://vtuberland.test/images/characters/008-lion.png"
+                        },
+                        "video_url": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "string",
+                            "format": "string",
+                            "example": "https://youtu.be/WjoplqS1u18"
+                        },
+                        "is_purchased": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "boolean",
+                            "format": "boolean",
+                            "example": true
+                        },
+                        "created_at": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "timestamp",
+                            "format": "date",
+                            "example": "2020-03-10T19:42:31+09:00"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "HomeViewScreen": {
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/SpotList"
+                    },
+                    "links": {
+                        "$ref": "#/components/schemas/links"
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/meta"
+                    }
+                },
+                "type": "object"
+            },
+            "SpotList": {
+                "type": "array",
+                "items": {
+                    "properties": {
+                        "id": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "uuid",
+                            "format": "string",
+                            "example": "26397745-9126-438c-9706-5002baf5d3a4"
+                        },
+                        "name": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "string",
+                            "format": "string",
+                            "example": "Roller Coaster"
+                        },
+                        "beacon_id": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "uuid",
+                            "format": "string",
+                            "example": "d3aacc6a-f618-3b19-b63f-8ab5e804e495"
+                        },
+                        "image_url": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "uuid",
+                            "format": "string",
+                            "example": "https://vtuberland.test/images/spots/rollercoaster.jpg"
+                        },
+                        "created_at": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "timestamp",
+                            "format": "date",
+                            "example": "2020-03-10T19:42:31+09:00"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "SpotView": {
+                "properties": {
+                    "id": {
+                        "description": "Transform the resource into an array.",
+                        "type": "uuid",
+                        "format": "string",
+                        "example": "26397745-9126-438c-9706-5002baf5d3a4"
+                    },
+                    "name": {
+                        "description": "Transform the resource into an array.",
+                        "type": "string",
+                        "format": "string",
+                        "example": "Roller Coaster"
+                    },
+                    "content": {
+                        "description": "Transform the resource into an array.",
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "image_url": {
+                        "description": "Transform the resource into an array.",
+                        "type": "string",
+                        "format": "string",
+                        "example": "https://vtuberland.test/images/spots/rollercoaster.jpg"
+                    },
+                    "characters": {
+                        "$ref": "#/components/schemas/CharacterList"
                     },
                     "created_at": {
                         "description": "Transform the resource into an array.",
