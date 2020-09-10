@@ -1,8 +1,5 @@
 <?php
 
-use Aws\Middleware;
-use Illuminate\Http\Request;
-use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Route;
 
 /*

@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Enums\Locale;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateUsersTable extends Migration
 {
@@ -16,11 +17,18 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->string('username')->unique();
-            $table->string('email')->nullable();
+            // $table->string('username')->unique();
+            $table->string('email')->unique();
+            // $table->boolean('is_valid')->default(0);
+            // $table->string('password');
+            // $table->rememberToken();
+            $table->string('password')->nullable();
+            $table->text('manufacturer');
+            $table->text('os');
+            $table->text('version')->nullable();
+            $table->string('language')->default(Locale::JAPAN);
+            $table->string('token')->unique();
             $table->boolean('is_valid')->default(0);
-            $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
     }

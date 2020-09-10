@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\Console\Output\StreamOutput;
 use App\Console\Commands\GenerateAccessTokenCommand;
+use App\Enums\OperatingSystem;
 use App\Models\Admin;
 use App\Models\Character;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -48,20 +49,27 @@ class DefaultDataSeeder extends Seeder
      */
     public function generateAppUser()
     {
-        $username = 'vtuberland-app-user';
+        // $username = 'vtuberland-app-user';
+        $email = 'user@vtuberland.co.jp';
         $password = Str::random(16);
+        $deviceToken = Str::random(64);
 
         $user = User::create([
             'name' => 'vtuberland-app-user',
-            'username' => $username,
+            // 'username' => $username,
+            'email' => 'user@vtuberland.co.jp',
+            'manufacturer' => 'Apple',
+            'os' => OperatingSystem::IOS,
             'is_valid' => true,
-            'password' => $password
+            'password' => $password,
+            'token' => $deviceToken
         ]);
 
         $userID = $user->id;
 
         // Print default user credentials.
-        $this->command->alert("APPLICATION USER\n\tAPP USER ID: {$userID}\n\tAPP USER USERNAME: {$username}\n\tAPP USER PASSWORD: {$password}");
+        // $this->command->alert("APPLICATION USER\n\tAPP USER ID: {$userID}\n\tAPP USER USERNAME: {$username}\n\tAPP USER PASSWORD: {$password}\n\tDEVICE TOKEN: {$deviceToken}");
+        $this->command->alert("APPLICATION USER\n\tAPP USER ID: {$userID}\n\tAPP USER EMAIL: {$email}\n\tDEVICE TOKEN: {$deviceToken}");
 
         // // Call the command to generate access client.
         // Artisan::call("passport:client --password --user_id={$userID} --name='{$appName} Password Grant Client' --provider=users", [], new BufferedOutput);

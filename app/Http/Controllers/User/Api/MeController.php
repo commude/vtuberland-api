@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Resources\MeResource;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AuthResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Auth\Events\Registered;
 use App\Exceptions\UserExistsException;
 use App\Http\Requests\CreateUserRequest;
 use App\Exceptions\UserNotFoundException;
-use Illuminate\Support\Facades\Lang;
 
 class MeController extends Controller
 {
@@ -64,15 +65,19 @@ class MeController extends Controller
      *  description="Create a new user.",
      *  @OA\Parameter(name="name",in="query",required=true,
      *      @OA\Schema(type="string"),),
-     *  @OA\Parameter(name="username",in="query",required=true,
+     *  @OA\Parameter(name="email",in="query",required=true,
      *      @OA\Schema(type="string"),),
-     *  @OA\Parameter(name="email",in="query",required=false,
+     *  @OA\Parameter(name="manufacturer",in="query",required=true,
      *      @OA\Schema(type="string"),),
-     *  @OA\Parameter(name="password",in="query",required=true,
+     *  @OA\Parameter(name="os",in="query",required=true,
      *      @OA\Schema(type="string"),),
-     *  @OA\Parameter(name="password_confirmation",in="query",required=true,
+     *  @OA\Parameter(name="version",in="query",required=false,
      *      @OA\Schema(type="string"),),
-     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/User")),
+     *  @OA\Parameter(name="language",in="query",required=false,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="token",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/Auth")),
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found"),
      * )
@@ -83,20 +88,25 @@ class MeController extends Controller
     public function register(CreateUserRequest $request)
     {
         $user = DB::transaction(function () use ($request) {
-            $user = User::where('username', $request->username)->first();
+            $user = User::where('email', $request->email)->first();
 
             if (!is_null($user)) {
-                throw new UserExistsException();
+                // throw new UserExistsException();
+                return $user;
             }
 
             $data = $request->data();
             $data['is_valid'] = true;
+
             event(new Registered($user = User::create($data)));
 
             return $user;
         });
 
-        return new MeResource($user);
+        $userToken = $user->createToken('Laravel Password Grant Client');
+
+        // return new MeResource($user);
+        return new AuthResource($userToken);
     }
 
     /**
@@ -132,39 +142,5 @@ class MeController extends Controller
             'code' => 200,
             'message' => Lang::get('auth.logout')
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
     }
 }

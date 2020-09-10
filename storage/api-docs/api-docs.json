@@ -26,15 +26,7 @@
                 "operationId": "App\\Http\\Controllers\\User\\Api\\AuthController::login",
                 "parameters": [
                     {
-                        "name": "username",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "password",
+                        "name": "email",
                         "in": "query",
                         "required": false,
                         "schema": {
@@ -75,7 +67,7 @@
                     "Character"
                 ],
                 "summary": "Get the list of characters",
-                "description": "Home page screen.",
+                "description": "Archive screen.",
                 "operationId": "App\\Http\\Controllers\\User\\Api\\CharacterController::index",
                 "parameters": [
                     {
@@ -173,7 +165,7 @@
                         }
                     },
                     {
-                        "name": "username",
+                        "name": "email",
                         "in": "query",
                         "required": true,
                         "schema": {
@@ -181,7 +173,23 @@
                         }
                     },
                     {
-                        "name": "email",
+                        "name": "manufacturer",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "os",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "version",
                         "in": "query",
                         "required": false,
                         "schema": {
@@ -189,15 +197,15 @@
                         }
                     },
                     {
-                        "name": "password",
+                        "name": "language",
                         "in": "query",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "password_confirmation",
+                        "name": "token",
                         "in": "query",
                         "required": true,
                         "schema": {
@@ -211,7 +219,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "$ref": "#/components/schemas/Auth"
                                 }
                             }
                         }
@@ -287,7 +295,7 @@
                     "Spot"
                 ],
                 "summary": "Get the list of spots",
-                "description": "Home page screen.",
+                "description": "Home screen.",
                 "operationId": "App\\Http\\Controllers\\User\\Api\\SpotController::index",
                 "parameters": [
                     {
@@ -484,37 +492,61 @@
             "User": {
                 "properties": {
                     "id": {
-                        "description": "Transform the resource into an array.",
+                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
                         "type": "uuid",
                         "format": "string",
                         "example": "bdca9348-ccf2-49b7-9743-d17348876fe9"
                     },
                     "name": {
-                        "description": "Transform the resource into an array.",
+                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
                         "type": "string",
                         "format": "string",
                         "example": "Takemoto Iwao"
                     },
-                    "username": {
-                        "description": "Transform the resource into an array.",
-                        "type": "string",
-                        "format": "string",
-                        "example": "takemoto99999"
-                    },
                     "email": {
-                        "description": "Transform the resource into an array.",
+                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
                         "type": "email",
                         "format": "string",
                         "example": "ultimate000@example.com"
                     },
+                    "manufacturer": {
+                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
+                        "type": "string",
+                        "format": "string",
+                        "example": "apple"
+                    },
+                    "os": {
+                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
+                        "type": "string",
+                        "format": "string",
+                        "example": "iOS"
+                    },
+                    "version": {
+                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
+                        "type": "string",
+                        "format": "string",
+                        "example": "1.0.0"
+                    },
+                    "language": {
+                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
+                        "type": "string",
+                        "format": "string",
+                        "example": "ja"
+                    },
+                    "token": {
+                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
+                        "type": "string",
+                        "format": "string",
+                        "example": "dbGSQlj-BxE:APA91bFiWkfqJvCZeHleij1zKFMRY7UkcujCzRj6JplJor1HroSN-iTd1NtP-jF-pn0XqAoUNnq3pw_KW-rZtMuacsFzTcgqsoyd8LgNDCd2kmJW2DGsgjL5nfZyxvlZfzDzTrTMpGwN"
+                    },
                     "is_valid": {
-                        "description": "Transform the resource into an array.",
+                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
                         "type": "boolean",
                         "format": "boolean",
                         "example": 1
                     },
                     "created_at": {
-                        "description": "Transform the resource into an array.",
+                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
                         "type": "timestamp",
                         "format": "date",
                         "example": "2020-03-10T19:42:31+09:00"
