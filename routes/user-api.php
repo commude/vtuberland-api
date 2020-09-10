@@ -51,13 +51,22 @@ Route::group(['prefix' => 'me'], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['prefix' => 'spots', 'middleware' => 'auth:user'], function () {
-    Route::get('/', 'SpotController@index');//->middleware('paginated');  // Home screen
+    Route::get('/', 'SpotController@index')->middleware('paginated');  // Home screen
     Route::get('/{spot}', 'SpotController@show'); // View spot screen
 
     Route::group(['prefix' => 'characters'], function () {
         Route::get('/', 'SpotController@characters');
         Route::get('/{character}', 'SpotController@showCharacter');
     });
+});
+
+/*
+|--------------------------------------------------------------------------
+| Character Routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'characters', 'middleware' => 'auth:user'], function () {
+    Route::get('/', 'CharacterController@index')->middleware('paginated');  // Archive screen
 });
 
 /*
