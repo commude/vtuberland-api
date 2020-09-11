@@ -8,21 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Character extends Model
 {
-    use HasUUID, MediaTrait;
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'uuid';
+    use MediaTrait;
 
     /**
      * The attributes that are mass assignable.

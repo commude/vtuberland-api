@@ -9,6 +9,7 @@ use Symfony\Component\Console\Output\StreamOutput;
 use App\Console\Commands\GenerateAccessTokenCommand;
 use App\Enums\OperatingSystem;
 use App\Models\Admin;
+use Faker\Factory  as Faker;
 use App\Models\Character;
 use Symfony\Component\Console\Output\BufferedOutput;
 
@@ -49,27 +50,28 @@ class DefaultDataSeeder extends Seeder
      */
     public function generateAppUser()
     {
+        $faker = Faker::create();
         // $username = 'vtuberland-app-user';
         $email = 'user@vtuberland.co.jp';
         $password = Str::random(16);
-        $deviceToken = Str::random(64);
+        $device_uuid = $faker->uuid();
 
         $user = User::create([
             'name' => 'vtuberland-app-user',
-            // 'username' => $username,
+            'password' => $password,
             'email' => $email,
             'manufacturer' => 'Apple',
             'os' => OperatingSystem::IOS,
             'is_valid' => true,
             'password' => $password,
-            'token' => $deviceToken
+            'device_uuid' => $device_uuid
         ]);
 
         $userID = $user->id;
 
         // Print default user credentials.
-        // $this->command->alert("APPLICATION USER\n\tAPP USER ID: {$userID}\n\tAPP USER USERNAME: {$username}\n\tAPP USER PASSWORD: {$password}\n\tDEVICE TOKEN: {$deviceToken}");
-        $this->command->alert("APPLICATION USER\n\tAPP USER ID: {$userID}\n\tAPP USER EMAIL: {$email}\n\tDEVICE TOKEN: {$deviceToken}");
+        $this->command->alert("APPLICATION USER\n\tAPP USER ID: {$userID}\n\tAPP USER EMAIL: {$email}\n\tAPP USER PASSWORD: {$password}\n\tDEVICE TOKEN: {$device_uuid}");
+        // $this->command->alert("APPLICATION USER\n\tAPP USER ID: {$userID}\n\tAPP USER EMAIL: {$email}\n\tDEVICE TOKEN: {$deviceToken}");
 
         // // Call the command to generate access client.
         // Artisan::call("passport:client --password --user_id={$userID} --name='{$appName} Password Grant Client' --provider=users", [], new BufferedOutput);

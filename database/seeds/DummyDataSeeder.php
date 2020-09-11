@@ -1,9 +1,13 @@
 <?php
 
+use App\Enums\Status;
 use App\Models\Spot;
+use App\Models\User;
 use App\Models\Character;
+use App\Models\Transaction;
 use Faker\Factory  as Faker;
 use App\Models\SpotCharacter;
+use App\Models\UserSpotCharacter;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Collection;
@@ -17,7 +21,24 @@ class DummyDataSeeder extends Seeder
      */
     public function run()
     {
-        // Characters
+        $this->generateCharacters();
+
+        $this->generateSpots();
+
+        $this->generateSpotCharacters();
+
+        $this->generateUserPurchases();
+    }
+
+    /**
+     * Generate characters.
+     *
+     * @param string $appName
+     *
+     * @return void
+     */
+    public function generateCharacters()
+    {
         $characterList = new Collection([
             'cat' => Storage::url('characters/001-cat.png'),
             'horse' => Storage::url('characters/002-horse.png'),
@@ -34,8 +55,17 @@ class DummyDataSeeder extends Seeder
         $characterList->each(function($value, $key) {
             factory(Character::class, 1)->create(['name' => $key, 'image_url' => $value]);
         });
+    }
 
-        // Spots
+    /**
+     * Generate spots.
+     *
+     * @param string $appName
+     *
+     * @return void
+     */
+    public function generateSpots()
+    {
         $spotList = new Collection([
             'Carousel' => Storage::url('spots/carousel.jpg'),
             'Ferris Wheel' => Storage::url('spots/ferriswheel.jpg'),
@@ -47,10 +77,21 @@ class DummyDataSeeder extends Seeder
         $spotList->each(function ($value, $key) {
             factory(Spot::class,1)->create(['name' => $key, 'image_url' => $value]);
         });
+    }
 
-        // Spot Characters
+    /**
+     * Generate characters in each spots.
+     *
+     * @param string $appName
+     *
+     * @return void
+     */
+    public function generateSpotCharacters()
+    {
         $characters = Character::all();
         $spots = Spot::all();
+
+        // randomizede video urls.
         $video_urls = new Collection([
             'https://youtu.be/EngW7tLk6R8',
             'https://youtu.be/xcJtL7QggTI',
@@ -70,6 +111,39 @@ class DummyDataSeeder extends Seeder
                     'video_url' => $video_urls->random(),
                 ]);
             });
+        });
+    }
+
+    /**
+     * Generate spots.
+     *
+     * @param string $appName
+     *
+     * @return void
+     */
+    public function generateUserPurchases()
+    {
+        $faker = Faker::create();
+        $user = User::first();
+        $spotCharacters = SpotCharacter::all()->random($faker->numberBetween(10,15));
+
+        $transactions = $spotCharacters->map(function($spotCharacter) use ($user) {
+            return [
+                'user_id' => $user->id,
+                'spot_character_id' => $spotCharacter->id,
+                'status' => Status::OK,
+            ];
+        });
+
+        Transaction::insert($transactions->toArray());
+
+        // Insert to User Spot Characters
+        $spotCharacters->each(function($spotCharacter) use ($user) {
+            UserSpotCharacter::create(                [
+                'user_id' => $user->id,
+                'spot_id' => $spotCharacter->spot_id,
+                'character_id' => $spotCharacter->character_id
+            ]);
         });
     }
 }

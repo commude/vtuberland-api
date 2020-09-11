@@ -31,15 +31,16 @@ class DatabaseSeeder extends Seeder
     public function generateApiPassport()
     {
         Artisan::call('passport:install');
-        $result = str_replace('"', '', Artisan::output());
-        $result = explode(',', str_replace("\r\n", ',', $result));
-        $personalClientID = substr($result[2], strpos($result[2], ": ") + 2);
-        $personalClientSecret = substr($result[3], strpos($result[3], ": ") + 2);
-        $passwordClientID = substr($result[5], strpos($result[5], ": ") + 2);
-        $passwordClientSecret = substr($result[6], strpos($result[6], ": ") + 2);
+        $this->command->alert('PASSPORT HAS BEEN SUCCESSFULLY INSTALLED');
+        // $result = str_replace('"', '', Artisan::output());
+        // $result = explode(',', str_replace("\r\n", ',', $result));
+        // $personalClientID = substr($result[2], strpos($result[2], ": ") + 2);
+        // $personalClientSecret = substr($result[3], strpos($result[3], ": ") + 2);
+        // $passwordClientID = substr($result[5], strpos($result[5], ": ") + 2);
+        // $passwordClientSecret = substr($result[6], strpos($result[6], ": ") + 2);
 
         // Print Access Keys
-        $this->command->alert("PERSONAL ACCESS CLIENT\n\tCLIENT ID: {$personalClientID}\n\tCLIENT SECRET: {$personalClientSecret}");
-        $this->command->alert("PASSWORD GRANT CLIENT\n\tCLIENT ID: {$passwordClientID}\n\tCLIENT SECRET: {$passwordClientSecret}");
+        // $this->command->alert("PERSONAL ACCESS CLIENT\n\tCLIENT ID: {$personalClientID}\n\tCLIENT SECRET: {$personalClientSecret}");
+        // $this->command->alert("PASSWORD GRANT CLIENT\n\tCLIENT ID: {$passwordClientID}\n\tCLIENT SECRET: {$passwordClientSecret}");
     }
 }

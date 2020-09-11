@@ -67,6 +67,10 @@ class MeController extends Controller
      *      @OA\Schema(type="string"),),
      *  @OA\Parameter(name="email",in="query",required=true,
      *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="password",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="password_confirmation",in="query",required=true,
+     *      @OA\Schema(type="string"),),
      *  @OA\Parameter(name="manufacturer",in="query",required=true,
      *      @OA\Schema(type="string"),),
      *  @OA\Parameter(name="os",in="query",required=true,
@@ -75,7 +79,7 @@ class MeController extends Controller
      *      @OA\Schema(type="string"),),
      *  @OA\Parameter(name="language",in="query",required=false,
      *      @OA\Schema(type="string"),),
-     *  @OA\Parameter(name="token",in="query",required=true,
+     *  @OA\Parameter(name="device_uuid",in="query",required=true,
      *      @OA\Schema(type="string"),),
      *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/Auth")),
      *  @OA\Response(response=400, description="Bad request"),
@@ -91,7 +95,6 @@ class MeController extends Controller
             $user = User::where('email', $request->email)->first();
 
             if (!is_null($user)) {
-                // throw new UserExistsException();
                 return $user;
             }
 
@@ -103,7 +106,7 @@ class MeController extends Controller
             return $user;
         });
 
-        $userToken = $user->createToken('Laravel Password Grant Client');
+        $userToken = $user->createToken('VTuberland Password Grant Client');
 
         // return new MeResource($user);
         return new AuthResource($userToken);
@@ -142,5 +145,33 @@ class MeController extends Controller
             'code' => 200,
             'message' => Lang::get('auth.logout')
         ]);
+    }
+
+    /**
+     * Generate new session of the user.
+     *
+     * @OA\Post(
+     *  path="/me/refresh",
+     *  tags={"Me"},
+     *  security={{"passport": {"*"}}},
+     *  summary="Refresh user session.",
+     *  description="Revoke and Generate new user session.",
+     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/Auth")),
+     *  @OA\Response(response=400, description="Bad request"),
+     *  @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function refresh()
+    {
+        $user = $this->guard()->user();
+
+        if (!$user) {
+            throw new UserNotFoundException();
+        }
+
+        $user->token()->revoke();
+        $userToken = $user->createToken('VTuberland Password Grant Client');
+
+        return new AuthResource($userToken);
     }
 }

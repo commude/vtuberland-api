@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'AuthController@login');
-    Route::post('refresh', 'AuthController@refresh');
 });
 
 /*
@@ -30,6 +29,7 @@ Route::group(['prefix' => 'auth'], function () {
 */
 Route::group(['prefix' => 'me'], function () {
     Route::post('/', 'MeController@register');
+    Route::post('refresh', 'AuthController@refresh');
     Route::post('/logout', 'MeController@logout');
 
     /*
@@ -47,7 +47,7 @@ Route::group(['prefix' => 'me'], function () {
 | Spot Routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'spots', 'middleware' => 'auth:user'], function () {
+Route::group(['prefix' => 'spots'], function () {
     Route::get('/', 'SpotController@index')->middleware('paginated');  // Home screen
     Route::get('/{spot}', 'SpotController@show'); // View spot screen
 
@@ -62,15 +62,15 @@ Route::group(['prefix' => 'spots', 'middleware' => 'auth:user'], function () {
 | Character Routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'characters', 'middleware' => 'auth:user'], function () {
+Route::group(['prefix' => 'characters'], function () {
     Route::get('/', 'CharacterController@index')->middleware('paginated');  // Archive screen
 });
 
 /*
 |--------------------------------------------------------------------------
-| Transaction Routes
+| Purchases Routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'transactions', 'middleware' => 'auth:user'], function () {
+Route::group(['prefix' => 'purchases', 'middleware' => 'auth:user'], function () {
     // Route::post('/', 'TransactionController@index');
 });

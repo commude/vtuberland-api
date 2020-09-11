@@ -14,7 +14,7 @@ class SpotViewResource extends JsonResource
      *     @OA\Property(property="name",type="string",format="string",example="Roller Coaster"),
      *     @OA\Property(property="content",type="string",format="string"),
      *     @OA\Property(property="image_url",type="string",format="string", example="https://vtuberland.test/images/spots/rollercoaster.jpg"),
-     *     @OA\Property(property="characters",ref="#/components/schemas/CharacterList"),
+     *     @OA\Property(property="characters",ref="#/components/schemas/SpotCharacter"),
      *     @OA\Property(property="created_at",type="timestamp",format="date",example="2020-03-10T19:42:31+09:00")
      * )
      *
@@ -28,7 +28,7 @@ class SpotViewResource extends JsonResource
             'name' => $this->name,
             'content' => $this->content,
             'image_url' => $this->image_url,
-            'characters' => CharacterListResource::collection($this->characters),
+            'characters' => SpotCharacterResource::collection($this->characters),
             'created_at' => $this->created_at
         ];
     }

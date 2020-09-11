@@ -9,8 +9,6 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AuthResource;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use GuzzleHttp\Client as GuzzleClient;
 use App\Exceptions\UserNotFoundException;
 
 class AuthController extends Controller
@@ -18,18 +16,15 @@ class AuthController extends Controller
     /**
      * Create a session of the user.
      *
-     * OA\Parameter(name="username",in="query",required=false,
-     *     OA\Schema(type="string"),),
-     * OA\Parameter(name="password",in="query",required=false,
-     *      OA\Schema(type="string"),),
-     *
      * @OA\Post(
      *  path="/auth/login",
      *  tags={"Auth"},
      *  security={{"passport": {"*"}}},
      *  summary="Login User",
      *  description="User Login",
-     *  @OA\Parameter(name="email",in="query",required=false,
+     *  @OA\Parameter(name="email",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="password",in="query",required=true,
      *      @OA\Schema(type="string"),),
      *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/Auth")),
      *  @OA\Response(response=400, description="Bad request"),
@@ -41,36 +36,17 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        // if (!Auth::attempt($request->data())){
-        //     throw new UserNotFoundException;
-        // }
-
-        // $userToken = $request->user()->createToken('Laravel Password Grant Client');
-
-        // if ($request->remember_me){
-        //     $token->expires_at = Carbon::now()->addWeeks(1);
-        // }
-
-        $user = User::where('email', $request->email)->first();
-
-        if(is_null($user)){
+        if (!Auth::attempt($request->data())){
             throw new UserNotFoundException;
         }
 
-        $userToken = $user->createToken('Laravel Password Grant Client');
+        $userToken = $request->user()->createToken('VTuberland Password Grant Client');
+        $token = $userToken->token;
+
+        if ($request->remember_me){
+            $token->expires_at = Carbon::now()->addWeeks(1);
+        }
 
         return new AuthResource($userToken);
-    }
-
-    /**
-     * Generate new session of the user.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function refresh(Request $request, $id)
-    {
-        //
     }
 }

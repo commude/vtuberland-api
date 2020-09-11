@@ -17,18 +17,15 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            // $table->string('username')->unique();
             $table->string('email')->unique();
-            // $table->boolean('is_valid')->default(0);
-            // $table->string('password');
-            // $table->rememberToken();
             $table->string('password')->nullable();
             $table->text('manufacturer');
             $table->text('os');
             $table->text('version')->nullable();
             $table->string('language')->default(Locale::JAPAN);
-            $table->string('token')->unique();
+            $table->string('device_uuid')->unique();
             $table->boolean('is_valid')->default(0);
+            $table->rememberToken();
             $table->timestamps();
         });
     }

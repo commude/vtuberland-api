@@ -13,24 +13,16 @@ class Transaction extends Model
      * @var array
      */
     protected $fillable = [
-        'device_id', 'original_transaction_id', 'transaction_id',
+        'user_id', 'spot_character_id', 'original_transaction_id', 'transaction_id',
         'purchase_token', 'receipt', 'currency', 'status',
         'purchased_at', 'expired_at'
     ];
 
     /**
-     * Get device used for transaction.
-     */
-    public function device()
-    {
-        return $this->hasOne(Device::class, 'device_id');
-    }
-
-    /**
      * Get transactions of the device.
      */
-    public function transactions()
+    public function spotCharacter()
     {
-        return $this->hasMany(Transaction::class, 'transaction_id');
+        return $this->hasMany(SpotCharacter::class, 'spot_character_id');
     }
 }

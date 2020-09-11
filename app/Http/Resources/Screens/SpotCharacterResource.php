@@ -6,13 +6,13 @@ use App\Http\Resources\PhotoResource;
 use App\Http\Resources\CharacterResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CharacterListResource extends JsonResource
+class SpotCharacterResource extends JsonResource
 {
     /**
      * Transform the spot resource into an array.
      *
      * @OA\Schema(
-     *     schema="CharacterList",
+     *     schema="SpotCharacter",
      *     type="array",
      *     @OA\Items(
      *      @OA\Property(property="id",type="uuid",format="string",example="26397745-9126-438c-9706-5002baf5d3a4"),
@@ -29,15 +29,22 @@ class CharacterListResource extends JsonResource
      */
     public function toArray($request)
     {
+        $spotCharacter = $this;
         $user = auth()->guard('user')->user();
 
         return [
-            'id' => $this->character->id,
-            'name' => $this->character->name,
-            'image_url' => $this->character->image_url,
-            'video_url' => $this->video_url,
-            'is_purchased' => true, //$user->characters->contains('character_id', $this->id),
-            'created_at' => $this->character->created_at,
+            'id' => $spotCharacter->character_id,
+            'name' => $spotCharacter->character->name,
+            'image_url' => $spotCharacter->character->image_url,
+            'video_url' => $spotCharacter->video_url,
+            'is_purchased' => !is_null($user)
+                                ? $user->spotCharacters->contains(function ($userSpotcharacter) use ($spotCharacter) {
+                                        // Match if the user's list of SpotCharacter with the current SpotCharacter.
+                                        return ($userSpotcharacter->character_id == $spotCharacter->character_id)
+                                            && ($userSpotcharacter->spot_id == $spotCharacter->spot_id);
+                                    })
+                                : false,
+            'created_at' => $spotCharacter->character->created_at,
         ];
     }
 }

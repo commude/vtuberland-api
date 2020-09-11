@@ -27,9 +27,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        // 'name', 'username', 'email', 'password', 'is_valid'
-        'name', 'username', 'email', 'password', 'is_valid',
-        'manufacturer', 'os', 'version', 'language', 'token'
+        'name', 'email', 'password', 'is_valid',
+        'manufacturer', 'os', 'version', 'language', 'device_uuid'
     ];
 
     /**
@@ -40,17 +39,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    /**
-     * Find the user instance for the given username.
-     *
-     * @param string  $username
-     * @return \App\Models\User
-     */
-    // public function findForPassport($username)
-    // {
-    //     return $this->where('username', $username)->first();
-    // }
 
     /**
      * Set the user's password in hashed
@@ -85,7 +73,7 @@ class User extends Authenticatable
     /**
      * Get chatacters of the user.
      */
-    public function characters()
+    public function spotCharacters()
     {
         return $this->hasMany(UserSpotCharacter::class);
     }

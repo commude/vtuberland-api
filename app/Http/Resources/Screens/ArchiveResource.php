@@ -20,7 +20,7 @@ class ArchiveResource extends JsonResource
      *     schema="SpotCharacterList",
      *     type="array",
      *     @OA\Items(
-     *      @OA\Property(property="Roller Coaster",ref="#/components/schemas/CharacterList"),
+     *      @OA\Property(property="Roller Coaster",ref="#/components/schemas/SpotCharacter"),
      *     )
      * )
      *

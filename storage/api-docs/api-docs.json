@@ -28,7 +28,15 @@
                     {
                         "name": "email",
                         "in": "query",
-                        "required": false,
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -173,6 +181,22 @@
                         }
                     },
                     {
+                        "name": "password",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password_confirmation",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "name": "manufacturer",
                         "in": "query",
                         "required": true,
@@ -205,7 +229,7 @@
                         }
                     },
                     {
-                        "name": "token",
+                        "name": "device_uuid",
                         "in": "query",
                         "required": true,
                         "schema": {
@@ -269,6 +293,41 @@
                                         }
                                     },
                                     "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/me/refresh": {
+            "post": {
+                "tags": [
+                    "Me"
+                ],
+                "summary": "Refresh user session.",
+                "description": "Revoke and Generate new user session.",
+                "operationId": "App\\Http\\Controllers\\User\\Api\\MeController::refresh",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Auth"
                                 }
                             }
                         }
@@ -492,61 +551,61 @@
             "User": {
                 "properties": {
                     "id": {
-                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
+                        "description": "Transform the resource into an array.",
                         "type": "uuid",
                         "format": "string",
                         "example": "bdca9348-ccf2-49b7-9743-d17348876fe9"
                     },
                     "name": {
-                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
+                        "description": "Transform the resource into an array.",
                         "type": "string",
                         "format": "string",
                         "example": "Takemoto Iwao"
                     },
                     "email": {
-                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
+                        "description": "Transform the resource into an array.",
                         "type": "email",
                         "format": "string",
                         "example": "ultimate000@example.com"
                     },
                     "manufacturer": {
-                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
+                        "description": "Transform the resource into an array.",
                         "type": "string",
                         "format": "string",
                         "example": "apple"
                     },
                     "os": {
-                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
+                        "description": "Transform the resource into an array.",
                         "type": "string",
                         "format": "string",
                         "example": "iOS"
                     },
                     "version": {
-                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
+                        "description": "Transform the resource into an array.",
                         "type": "string",
                         "format": "string",
                         "example": "1.0.0"
                     },
                     "language": {
-                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
+                        "description": "Transform the resource into an array.",
                         "type": "string",
                         "format": "string",
-                        "example": "ja"
+                        "example": "ja_JP"
                     },
-                    "token": {
-                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
+                    "device_uuid": {
+                        "description": "Transform the resource into an array.",
                         "type": "string",
                         "format": "string",
-                        "example": "dbGSQlj-BxE:APA91bFiWkfqJvCZeHleij1zKFMRY7UkcujCzRj6JplJor1HroSN-iTd1NtP-jF-pn0XqAoUNnq3pw_KW-rZtMuacsFzTcgqsoyd8LgNDCd2kmJW2DGsgjL5nfZyxvlZfzDzTrTMpGwN"
+                        "example": "26397745-9126-438c-9706-5002baf5d3a4"
                     },
                     "is_valid": {
-                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
+                        "description": "Transform the resource into an array.",
                         "type": "boolean",
                         "format": "boolean",
                         "example": 1
                     },
                     "created_at": {
-                        "description": "Transform the resource into an array.\n\nOA\\Property(property=\"username\",type=\"string\",format=\"string\",example=\"takemoto99999\"),\nOA\\Property(property=\"email\",type=\"email\",format=\"string\",example=\"ultimate000@example.com\"),",
+                        "description": "Transform the resource into an array.",
                         "type": "timestamp",
                         "format": "date",
                         "example": "2020-03-10T19:42:31+09:00"
@@ -573,51 +632,7 @@
                 "items": {
                     "properties": {
                         "Roller Coaster": {
-                            "$ref": "#/components/schemas/CharacterList"
-                        }
-                    },
-                    "type": "object"
-                }
-            },
-            "CharacterList": {
-                "type": "array",
-                "items": {
-                    "properties": {
-                        "id": {
-                            "description": "Transform the spot resource into an array.",
-                            "type": "uuid",
-                            "format": "string",
-                            "example": "26397745-9126-438c-9706-5002baf5d3a4"
-                        },
-                        "name": {
-                            "description": "Transform the spot resource into an array.",
-                            "type": "string",
-                            "format": "string",
-                            "example": "lion"
-                        },
-                        "image_url": {
-                            "description": "Transform the spot resource into an array.",
-                            "type": "string",
-                            "format": "string",
-                            "example": "https://vtuberland.test/images/characters/008-lion.png"
-                        },
-                        "video_url": {
-                            "description": "Transform the spot resource into an array.",
-                            "type": "string",
-                            "format": "string",
-                            "example": "https://youtu.be/WjoplqS1u18"
-                        },
-                        "is_purchased": {
-                            "description": "Transform the spot resource into an array.",
-                            "type": "boolean",
-                            "format": "boolean",
-                            "example": true
-                        },
-                        "created_at": {
-                            "description": "Transform the spot resource into an array.",
-                            "type": "timestamp",
-                            "format": "date",
-                            "example": "2020-03-10T19:42:31+09:00"
+                            "$ref": "#/components/schemas/SpotCharacter"
                         }
                     },
                     "type": "object"
@@ -675,6 +690,50 @@
                     "type": "object"
                 }
             },
+            "SpotCharacter": {
+                "type": "array",
+                "items": {
+                    "properties": {
+                        "id": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "uuid",
+                            "format": "string",
+                            "example": "26397745-9126-438c-9706-5002baf5d3a4"
+                        },
+                        "name": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "string",
+                            "format": "string",
+                            "example": "lion"
+                        },
+                        "image_url": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "string",
+                            "format": "string",
+                            "example": "https://vtuberland.test/images/characters/008-lion.png"
+                        },
+                        "video_url": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "string",
+                            "format": "string",
+                            "example": "https://youtu.be/WjoplqS1u18"
+                        },
+                        "is_purchased": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "boolean",
+                            "format": "boolean",
+                            "example": true
+                        },
+                        "created_at": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "timestamp",
+                            "format": "date",
+                            "example": "2020-03-10T19:42:31+09:00"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
             "SpotView": {
                 "properties": {
                     "id": {
@@ -701,7 +760,7 @@
                         "example": "https://vtuberland.test/images/spots/rollercoaster.jpg"
                     },
                     "characters": {
-                        "$ref": "#/components/schemas/CharacterList"
+                        "$ref": "#/components/schemas/SpotCharacter"
                     },
                     "created_at": {
                         "description": "Transform the resource into an array.",

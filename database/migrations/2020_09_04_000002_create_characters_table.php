@@ -14,7 +14,7 @@ class CreateCharactersTable extends Migration
     public function up()
     {
         Schema::create('characters', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->text('name');
             $table->longText('content')->nullable();
             $table->decimal('price')->default(0.00);

@@ -7,12 +7,14 @@ use Throwable;
 use Illuminate\Support\Str;
 use Illuminate\Auth\AuthenticationException;
 use GuzzleHttp\Exception\BadResponseException;
+use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Exceptions\PostTooLargeException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -81,10 +83,6 @@ class Handler extends ExceptionHandler
             return $this->response($exception, 404);
         }
 
-        if ($exception instanceof NotFoundHttpException) {
-            return $this->response(new Exception('404 Not Found.'), 404);
-        }
-
         if ($exception instanceof ModelNotFoundException) {
             return $this->response(new Exception('404 Model Not Found.'), 404);
         }
@@ -128,11 +126,11 @@ class Handler extends ExceptionHandler
      * @param  int $statusCode
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      */
-    protected function response(Throwable $exception, int $statusCode)
+    protected function response(Throwable $exception, int $statusCode = null)
     {
         return response()->json(
             [
-                'code' => $exception->getCode(),
+                'code' => $statusCode ?? $exception->getCode(),
                 'message' => $exception->getMessage()
             ],
             $statusCode

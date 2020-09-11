@@ -27,15 +27,14 @@ class CreateUserRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            // 'username' => ['required'],
             'email' => ['required'],
-            // 'password' => ['required', 'confirmed'],
-            // 'password_confirmation' => ['required'],
+            'password' => ['required', 'confirmed'],
+            'password_confirmation' => ['required'],
             'manufacturer' => ['required'],
-            'os' => ['required', 'in:'.implode(',', OperatingSystem::getValues())],
+            'os' => ['required', 'in:' . implode(',', OperatingSystem::getValues())],
             'version' => ['nullable'],
-            'language' => ['sometimes', 'nullable', 'in:'.implode(',', Locale::getValues())],
-            'token' => ['required']
+            'language' => ['sometimes', 'nullable', 'in:' . implode(',', Locale::getValues())],
+            'device_uuid' => ['required']
         ];
     }
 
@@ -46,7 +45,6 @@ class CreateUserRequest extends FormRequest
      */
     public function data()
     {
-        // return $this->only('name', 'username', 'email', 'password', 'is_valid');
-        return $this->only('name', 'email', 'manufacturer', 'os', 'version', 'language', 'token');
+        return $this->only('name', 'email', 'password', 'manufacturer', 'os', 'version', 'language', 'device_uuid');
     }
 }
