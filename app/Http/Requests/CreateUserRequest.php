@@ -32,7 +32,7 @@ class CreateUserRequest extends FormRequest
             // 'password' => ['required', 'confirmed'],
             // 'password_confirmation' => ['required'],
             'manufacturer' => ['required'],
-            'os' => ['required'], 'in:'.implode(',', OperatingSystem::getValues()),
+            'os' => ['required', 'in:'.implode(',', OperatingSystem::getValues())],
             'version' => ['nullable'],
             'language' => ['sometimes', 'nullable', 'in:'.implode(',', Locale::getValues())],
             'token' => ['required']
