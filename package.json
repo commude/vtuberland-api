@@ -18,11 +18,5 @@
         "sass": "^1.15.2",
         "sass-loader": "^8.0.0",
         "vue-template-compiler": "^2.6.12"
-    },
-    "dependencies": {
-        "datatables": "^1.10.18",
-        "datatables-select": "^1.1.0",
-        "datatables.net": "^1.10.21",
-        "jquery": "^3.3.1"
     }
 }

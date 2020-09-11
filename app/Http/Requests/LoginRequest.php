@@ -24,9 +24,10 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => ['required'],
-            'password' => ['required'],
-            'remember_me' => ['nullable']
+            // 'username' => ['required'],
+            // 'password' => ['required'],
+            // 'remember_me' => ['nullable']
+            'email' => ['required']
         ];
     }
 
@@ -37,6 +38,7 @@ class LoginRequest extends FormRequest
      */
     public function data()
     {
-        return $this->only('username', 'password');
+        // return $this->only('username', 'password');
+        return $this->only('email');
     }
 }

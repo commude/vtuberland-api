@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAttractionsTable extends Migration
+class CreateSpotCharactersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateAttractionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('attractions', function (Blueprint $table) {
+        Schema::create('spot_characters', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->unique();
-            $table->string('beacon_id')->unique();
-            $table->text('title');
-            $table->longText('content')->nullable();
+            $table->uuid('spot_id');
+            $table->uuid('character_id');
             $table->string('video_url')->nullable();
-            $table->longText('location')->nullable();
             $table->timestamps();
+
+            $table->foreign('spot_id')->references('id')->on('spots')->onDelete('cascade');
+            $table->foreign('character_id')->references('id')->on('characters')->onDelete('cascade');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateAttractionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attractions');
+        Schema::dropIfExists('spot_characters');
     }
 }

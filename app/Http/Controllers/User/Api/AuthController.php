@@ -18,15 +18,18 @@ class AuthController extends Controller
     /**
      * Create a session of the user.
      *
+     * OA\Parameter(name="username",in="query",required=false,
+     *     OA\Schema(type="string"),),
+     * OA\Parameter(name="password",in="query",required=false,
+     *      OA\Schema(type="string"),),
+     *
      * @OA\Post(
      *  path="/auth/login",
      *  tags={"Auth"},
      *  security={{"passport": {"*"}}},
      *  summary="Login User",
      *  description="User Login",
-     *  @OA\Parameter(name="username",in="query",required=false,
-     *      @OA\Schema(type="string"),),
-     *  @OA\Parameter(name="password",in="query",required=false,
+     *  @OA\Parameter(name="email",in="query",required=false,
      *      @OA\Schema(type="string"),),
      *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/Auth")),
      *  @OA\Response(response=400, description="Bad request"),
@@ -38,15 +41,23 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        if (!Auth::attempt($request->data())){
-            throw new UserNotFoundException;
-        }
+        // if (!Auth::attempt($request->data())){
+        //     throw new UserNotFoundException;
+        // }
 
-        $userToken = $request->user()->createToken('Laravel Password Grant Client');
+        // $userToken = $request->user()->createToken('Laravel Password Grant Client');
 
         // if ($request->remember_me){
         //     $token->expires_at = Carbon::now()->addWeeks(1);
         // }
+
+        $user = User::where('email', $request->email)->first();
+
+        if(is_null($user)){
+            throw new UserNotFoundException;
+        }
+
+        $userToken = $user->createToken('Laravel Password Grant Client');
 
         return new AuthResource($userToken);
     }

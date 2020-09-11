@@ -7,15 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-    use HasUUID;
-
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'uuid';
-
     /**
      * The attributes that are mass assignable.
      *

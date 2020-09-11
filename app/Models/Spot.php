@@ -6,7 +6,7 @@ use App\Models\Traits\HasUUID;
 use App\Models\Traits\MediaTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Character extends Model
+class Spot extends Model
 {
     use HasUUID, MediaTrait;
 
@@ -18,25 +18,18 @@ class Character extends Model
     public $incrementing = false;
 
     /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'uuid';
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'content', 'price', 'image_url'
+        'beacon_id', 'name', 'content', 'video_url', 'location', 'image_url'
     ];
 
     /**
-     * Get spots.
+     * Get characters of the spot.
      */
-    public function spots()
+    public function characters()
     {
         return $this->hasMany(SpotCharacter::class);
     }

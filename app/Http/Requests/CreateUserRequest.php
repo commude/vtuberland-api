@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\Locale;
+use App\Enums\OperatingSystem;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateUserRequest extends FormRequest
@@ -25,10 +27,15 @@ class CreateUserRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'username' => ['required'],
-            'email' => ['nullable'],
-            'password' => ['required', 'confirmed'],
-            'password_confirmation' => ['required']
+            // 'username' => ['required'],
+            'email' => ['required'],
+            // 'password' => ['required', 'confirmed'],
+            // 'password_confirmation' => ['required'],
+            'manufacturer' => ['required'],
+            'os' => ['required'], 'in:'.implode(',', OperatingSystem::getValues()),
+            'version' => ['nullable'],
+            'language' => ['sometimes', 'nullable', 'in:'.implode(',', Locale::getValues())],
+            'token' => ['required']
         ];
     }
 
@@ -39,6 +46,7 @@ class CreateUserRequest extends FormRequest
      */
     public function data()
     {
-        return $this->only('name', 'username', 'email', 'password', 'is_valid');
+        // return $this->only('name', 'username', 'email', 'password', 'is_valid');
+        return $this->only('name', 'email', 'manufacturer', 'os', 'version', 'language', 'token');
     }
 }
