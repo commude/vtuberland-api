@@ -13,6 +13,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.welcome');
+/*
+|--------------------------------------------------------------------------
+| Login Routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'auth/login', 'name' => 'auth.login.'], function () {
+    Route::get('/', 'LoginController@index')->name('index');
+    Route::post('/', 'LoginController@login')->name('login');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Dashboard Routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => '/', 'name' => 'dashboard.'], function () {
+    Route::get('/', 'PurchaseController@index')->name('purchase.index');
+
+    Route::group(['prefix' => '/buyers', 'name' => 'buyer.'], function () {
+        Route::get('/', 'BuyerController@index')->name('index');
+        Route::get('/{user}', 'BuyerController@show')->name('show');
+    });
 });

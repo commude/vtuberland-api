@@ -1,89 +1,61 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="ja">
+  <head>
+    <title>Login | Niijisanji</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, user-scalable=1, initial-scale=1, viewport-fit=cover">
+    {{--
+    <meta name="keywords" content="this is meta keyworks">
+    <meta name="description" content="this is meta description">
+    <meta property="og:title" content="Niijisanji">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="this is meta description">
+    <meta property="og:url" content="http://website.com">
+    <meta property="og:image" content="../../public/images/_etc/ogp.jpg">
+    <meta property="fb:app_id" content="XXXXXXXXXXXXXXXX">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@XXXXX">
+    <meta name="twitter:creator" content="@XXXXX">
+    <meta name="twitter:image:src" content="../../public/images/_etc/ogp.jpg">
+    <link rel="icon" type="image/x-icon" href="../../public/images/_etc/favicon.ico">
+    <link rel="icon" type="image/png" href="../../public/images/_etc/favicon.png">
+    <link rel="apple-touch-icon" type="image/png" href="../../public/images/_etc/custom-icon.png">
+    --}}
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Admin Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+    <!-- Styles-->
+    <link rel="stylesheet" media="print,screen" href={{ asset('css/app.css') }}>
+  </head>
+  <body class="loginPage">
+    <main class="siteContent">
+      <section class="loginPageLoginSec">
+        <div class="loginPageLoginSec__inner">
+          <figure class="loginPageLoginSec__logoThumb"><img src={{ asset('images/dashboard/login/loginPage_logo.png') }} alt="Logo"></figure>
+          <div class="loginPageLoginSec__innerLoginArea">
+            <form method="POST" action="#">
+              <div class="loginPageLoginSec__inputTextField">
+                <div class="loginPageLoginSec__inputUserField">
+                  <input class="loginPageLoginSec__inputText" type="email" name="form-user" placeholder="メールアドレス">
                 </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Admin VTuberland
+                <div class="loginPageLoginSec__inputPassField">
+                  <input class="loginPageLoginSec__inputText" type="password" name="form-password" placeholder="パスワード">
                 </div>
-            </div>
+              </div>
+              <div class="loginPageLoginSec__inputCheckField">
+                <div class="loginPageLoginSec__inputCheckCont">
+                  <input class="loginPageLoginSec__inputCheck" type="checkbox" name="form-remember">
+                  <div class="loginPageLoginSec__checkmark"></div>
+                </div>
+                <label for="form-remember"><span class="loginPageLoginSec__inputLabel">ログイン情報を保存する</span></label>
+              </div>
+              <div class="loginPageLoginSec__buttonField">
+                <input class="loginPageLoginSec__loginButton" type="submit" value="ログイン">
+              </div>
+            </form>
+          </div>
         </div>
-    </body>
+      </section>
+    </main>
+  </body>
 </html>
