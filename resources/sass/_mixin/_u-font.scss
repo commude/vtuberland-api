@@ -1,0 +1,28 @@
+@mixin font($fw: 100, $fsPC: 1rem, $fsSP: '', $ff: $hiraginoKaku, $flh: 1.5, $fc: '', $fa: '', $ls: '', $tt: '', $td: '') {
+    font: $fw $fsPC + / + $flh $ff;
+    @if $ls !='' {
+      letter-spacing: $ls;
+    }
+  
+    @if $fc !='' {
+      color: $fc;
+    }
+  
+    @if $fa !='' {
+      text-align: $fa;
+    }
+  
+    @if $tt !='' {
+      text-transform: $tt;
+    }
+  
+    @if $td !='' {
+      text-decoration: $td;
+    }
+  
+    @if $fsSP !='' {
+      @include u-mqMax {
+        font-size: $fsSP;
+      }
+    }
+  }

@@ -1,0 +1,17 @@
+@mixin u-mqMin($minW: $windowPC) {
+  @media screen and (min-width: $minW) {
+    @content;
+  }
+}
+
+@mixin u-mqMax($maxW: $windowSP) {
+  @media screen and (max-width: $maxW) {
+    @content;
+  }
+}
+
+@mixin u-mqMaxMin($maxW: $windowSP, $minW: $windowPC) {
+  @media screen and (max-width: $maxW) and (min-width: $minW) {
+    @content;
+  }
+}

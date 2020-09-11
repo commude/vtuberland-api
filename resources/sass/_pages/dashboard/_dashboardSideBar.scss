@@ -1,0 +1,47 @@
+/*===========================
+  Sidebar @ dashboard
+===========================*/
+.dashboardPageSideSec {
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 79px;
+  width: 221px;
+  height: 100%;
+  padding: 59px 16px;
+
+  &__item {
+    padding-left: 32px;
+    width: 100%;
+    border-radius: 11px;
+    box-shadow: 1px 1px 10px 2px rgba(#241308, .13);
+    @include u-hoverOp;
+    @include u-trs($duration: .5s);
+
+    &:not(:first-child) {
+      margin-top: 13px;
+    }
+
+    &.isActive {
+      background: $tradewind;
+
+      .dashboardPageSideSec__itemText {
+        color: $white;
+      }
+    }
+  }
+
+  &__itemAnchor {
+    @include u-flex($ai: center, $jc: flex-start);
+    height: 45.5px;
+  }
+
+  &__itemText {
+    text-decoration: none;
+    @include font ($fsPC: 0.875rem, $fw: 600, $fc: $graphite);
+    @include u-IEhack {
+      position: relative;
+      top: 3px;
+    }
+  }
+}

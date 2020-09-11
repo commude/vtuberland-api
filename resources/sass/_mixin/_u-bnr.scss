@@ -1,0 +1,22 @@
+@mixin u-bnr($bgColor: $black, $textColor: $white) {
+  @include u-trsPC;
+  width: 200px;
+  padding: 15px;
+  background: $bgColor;
+  border: 2px solid $bgColor;
+  color: $textColor;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  text-align: center;
+
+  @include u-hover {
+    background: $textColor;
+    color: $bgColor;
+  }
+
+  @include u-mqMax {
+    font-size: 16px;
+  }
+}

@@ -32,7 +32,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = [
         'user' => '/home',
-        'admin' => '/admin/home'
+        'admin' => '/admin'
     ];
 
     /**
@@ -103,6 +103,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
             ->prefix('admin')
+            ->name('admin.')
             ->namespace($this->namespace['admin']['web'])
             ->group(base_path('routes/admin-web.php'));
     }

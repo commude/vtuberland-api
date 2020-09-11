@@ -1,0 +1,181 @@
+/*====================================================================
+loginPage
+====================================================================*/
+
+.loginPage {
+  background: $tradewind;
+}
+
+/*====================================================================
+loginPageLoginSec
+====================================================================*/
+.loginPageLoginSec {
+  position: relative;
+  height: 100vh;
+
+  &__inner {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    max-width: 500px;
+    @include u-flex($fd: column, $ai: center);
+  }
+
+  &__logoThumb {
+    max-width: 243px;
+    height: 100%;
+  }
+
+  /*===========================
+  loginPageLoginSec__innerLoginArea
+  ===========================*/
+
+  &__innerLoginArea {
+    margin: 55px auto 0;
+    padding: 47.5px 60px 43.5px;
+    width: 100%;
+    border-radius: 24px;
+    background: $white;
+    box-shadow: 0 0 5px 2px rgba($graphite, .13);
+  }
+
+  &__inputTextField {
+    @include u-flex($jc: center, $ai: center, $fd: column);
+    font-size: 24px;
+    font-weight: 300;
+  }
+
+  &__inputPassField {
+    margin-top: 15px;
+  }
+
+  &__inputCheckField {
+    margin-top: 50px;
+    @include u-flex($jc: center, $ai: center);
+  }
+
+  &__inputUserField {
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 28px;
+      width: 14.41px;
+      height: 11.275px;
+      background: center / contain no-repeat url('../images/common/ico_mail.svg');
+
+      @include u-IEhack {
+        top: 44%;
+        width: 13px;
+        height: 11px;
+      }
+    }
+  }
+
+  &__inputPassField {
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 30px;
+      width: 11.21px;
+      height: 15.96px;
+      background: center / contain no-repeat url('../images/common/ico_lock.svg');
+
+      @include u-IEhack {
+        top: 44%;
+        width: 11px;
+        height: 15.50px;
+      }
+    }
+  }
+
+  &__inputText {
+    padding-left: 53.5px;
+    width: 380px;
+    height: 50px;
+    border-radius: 30px;
+    border: 2px solid $tradewind;
+    background: none;
+    color: $brownderby;
+    font-size: 12px;
+    font-weight: 300;
+
+    &::placeholder {
+      color: $brownderby;
+      font-size: 12px;
+    }
+  }
+
+  &__inputLabel {
+    margin-left: 11px;
+    font-size: 14px;
+    font-weight: 300;
+    color: $brownderby;
+  }
+
+  &__loginButton {
+    display: block;
+    margin: 48px auto 0;
+    width: 250px;
+    height: 50px;
+    background: $tradewind;
+    border-radius: 50px;
+    color: $white;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    @include u-trs;
+    @include u-hoverOp(0.8);
+  }
+
+  /*===========================
+    inputCheckCustom
+  ===========================*/
+
+  &__inputCheckCont {
+    position: relative;
+    display: block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid $lotus;
+    border-radius: 4px;
+  }
+
+  &__inputCheck {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    opacity: 0;
+    cursor: pointer;
+
+    &:checked ~ .loginPageLoginSec__checkmark {
+      opacity: 0;
+    }
+  }
+
+  &__checkmark {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 13px;
+    height: 13px;
+    background: center / contain no-repeat url('../images/common/ico_check.svg');
+    opacity: 1;
+    pointer-events: none;
+    cursor: pointer;
+  }
+}

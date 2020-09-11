@@ -1,0 +1,264 @@
+/*====================================================================
+dashboardPage
+====================================================================*/
+.dashboardPage {
+  padding-top: 79px;
+  background: $hintofred;
+
+  /*===========================
+  dashboardPage__dataList
+  ===========================*/
+  .dashboardPage__dataList {
+    position: relative;
+    margin-top: 22px;
+    width: 100%;
+    min-height: 571px;
+  }
+
+  /*===========================
+  dataList
+  ===========================*/
+  .dataList {
+
+    &__fixed {
+      position: absolute;
+      top: 0;
+      left: 220px;
+      // padding-right: 58.5px;
+      overflow: auto;
+      width: calc(100% - 221px);
+      border-radius: 40px;
+      box-shadow: 0 8px 10px 2px rgba($graphite, 0.09);
+
+      &::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: rgba($graphite, 0.1);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 20px;
+        background: rgba($tradewind, 0.5);
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: rgba($tradewind, 1);
+      }
+    }
+
+    &__table {
+      width: 100%;
+      background: $white;
+      border: 0 !important;
+
+      @include font($ff: $hiraginoKaku, $fsPC: 0.8125rem, $fw: 300);
+
+      thead {
+        tr {
+          td {
+            padding-top: 25px;
+            box-sizing: content-box;
+            height: 30px;
+            border: 0;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          height: 54px;
+
+          &:nth-child(odd) {
+            background: rgba($pampas,.7);
+          }
+
+          &.selected {
+            background: rgba($tradewind, 0.2);
+          }
+
+          td {
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+
+    &__dataSelectBox {
+      margin: auto 72px auto 0;
+      position: relative;
+      display: block;
+      width: 18px;
+      height: 18px;
+      border: 0.25px solid $mineshaft;
+      border-radius: 4px;
+    }
+
+    &__inputSelect {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 18px;
+      height: 18px;
+      opacity: 0;
+      cursor: pointer;
+
+      &:checked ~ .dataList__inputCusCheck {
+        opacity: 1;
+      }
+    }
+
+    &__inputCusCheck {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 10px;
+      height: 10px;
+      background: center / contain no-repeat url('../images/common/ico_check.svg');
+      opacity: 0;
+      pointer-events: none;
+      cursor: pointer;
+    }
+
+    &__itemAnchor {
+      @include u-hoverOp;
+      @include u-trs;
+    }
+
+    // DASHBOARD 01
+
+    &__itemSelect {
+      padding-left: 24px;
+      width: 92px;
+    }
+
+    &__itemPurchaseDate {
+      min-width: 163px;
+    }
+
+    &__itemBuyerAccount {
+      min-width: 283.5px;
+    }
+
+    &__itemBuyerContent {
+      min-width: 474px;
+    }
+
+    &__itemPurchasePrice {
+      min-width: 104px;
+    }
+
+    // DASHBOARD 02
+
+    &__itemDeviceName02 {
+      padding-left: 94px;
+      min-width: 282.5px;
+    }
+
+    &__itemBuyerName02 {
+      min-width: 397px;
+    }
+
+    &__itemPurchaseNo02 {
+      min-width: 243.5px;
+    }
+
+    &__itemPurchaseTotal02 {
+      min-width: 142px;
+    }
+  }
+
+  /*===========================
+  dashboardPage__pagination
+  ===========================*/
+  .dashboardPage__pagination {
+    padding-left: 230px;
+    padding-right: 58.5px;
+    margin: 44px auto;
+
+    .dataTables_paginate {
+
+      span {
+        @include u-flex($jc: center);
+      }
+
+      .paginate_button {
+        width: 30px;
+        height: 30px;
+        @include u-flex($jc: center, $ai: center);
+        border: 1px solid $trinidad;
+        border-radius: 10px;
+        cursor: pointer;
+        @include u-trs($duration: .3s);
+        @include font($fsPC: 0.8125rem, $ff:$Helvetica, $fc: $trinidad);
+        @include u-trs($duration: .3s);
+
+        &.current {
+          background: $tradewind;
+          border-color: $tradewind;
+          color: $white;
+        }
+
+        &:not(:first-child) {
+          margin-left: 8.5px;
+        }
+
+        &:hover {
+          background: $tradewind;
+          border-color: $tradewind;
+          color: $white;
+        }
+      }
+    }
+
+    // .paginationList {
+    //   @include u-flex($jc: center);
+
+    //   .pageNo {
+    //     width: 30px;
+    //     height: 30px;
+    //     @include u-flex($jc: center, $ai: center);
+    //     border: 1px solid $trinidad;
+    //     border-radius: 10px;
+    //     cursor: pointer;
+    //     @include u-trs($duration: .3s);
+
+    //     .pageNoText {
+    //       @include font($fsPC: 0.8125rem, $ff:$Helvetica, $fc: $trinidad);
+    //       @include u-trs($duration: .3s);
+    //     }
+
+    //     &.pageIsActive {
+    //       background: $tradewind;
+    //       border-color: $tradewind;
+
+    //       .pageNoText {
+    //         color: $white;
+    //       }
+    //     }
+
+    //     &:not(:first-child) {
+    //       margin-left: 8.5px;
+    //     }
+
+    //     &:hover {
+    //       background: $tradewind;
+    //       border-color: $tradewind;
+
+    //       .pageNoText {
+    //         color: $white;
+    //       }
+    //     }
+    //   }
+    // }
+  }
+}
+
+.dataTables_empty {
+  padding-left: 24px;
+}
