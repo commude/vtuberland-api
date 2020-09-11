@@ -33,6 +33,6 @@ Route::group(['prefix' => '/', 'name' => 'dashboard.'], function () {
 
     Route::group(['prefix' => '/buyers', 'name' => 'buyer.'], function () {
         Route::get('/', 'BuyerController@index')->name('index');
-        Route::get('/{user}', 'BuyerController@show')->name('show');
+        Route::get('/show', 'BuyerController@show')->name('show');
     });
 });

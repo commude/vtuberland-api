@@ -21,10 +21,10 @@ class BuyerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Attraction  $attraction
+     * @param  \App\Models\\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show()
     {
         return view('admin.dashboard.buyers.show');
     }
