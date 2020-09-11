@@ -100,17 +100,17 @@ class DefaultDataSeeder extends Seeder
      */
     public function generateAdminUser()
     {
-        $username = 'vtuberland-admin-user';
+        $email = 'admin@vtuberland.co.jp';
         $password = Str::random(16);
 
         Admin::create([
             'name' => 'vtuberland-admin',
-            'username' => $username,
+            'email' => $email,
             'password' => $password
         ]);
 
         // Print admin credentials.
-        $this->command->alert("ADMINISTRATOR\n\tADMIN USERNAME: {$username}\n\tADMIN PASSWORD: {$password}");
+        $this->command->alert("ADMINISTRATOR\n\tADMIN EMAIL: {$email}\n\tADMIN PASSWORD: {$password}");
     }
 
     /**
