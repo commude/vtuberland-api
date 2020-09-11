@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Screens\ArchiveResource;
+use App\Models\SpotCharacter;
 
-class CharacterController extends Controller
+class ArchiveController extends Controller
 {
     /**
      * Fetch the current user.
@@ -41,8 +42,9 @@ class CharacterController extends Controller
      */
     public function index(Request $request)
     {
+        $spotCharacters = SpotCharacter::latest()->paginate($request->query('per_page'));
         // $characters = ::paginate($request->query('per_page'));
 
-        // return ArchiveResource::collection($spot);
+        return ArchiveResource::collection($spotCharacters);
     }
 }

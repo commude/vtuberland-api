@@ -59,11 +59,11 @@ Route::group(['prefix' => 'spots'], function () {
 
 /*
 |--------------------------------------------------------------------------
-| Character Routes
+| Archive Routes
 |--------------------------------------------------------------------------
 */
 Route::group(['prefix' => 'characters'], function () {
-    Route::get('/', 'CharacterController@index')->middleware('paginated');  // Archive screen
+    Route::get('/', 'ArchiveController@index')->middleware('paginated');  // Archive screen
 });
 
 /*

@@ -16,6 +16,59 @@
         }
     ],
     "paths": {
+        "/characters": {
+            "get": {
+                "tags": [
+                    "Character"
+                ],
+                "summary": "Get the list of characters",
+                "description": "Archive screen.",
+                "operationId": "App\\Http\\Controllers\\User\\Api\\ArchiveController::index",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ArchiveViewScreen"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
         "/auth/login": {
             "post": {
                 "tags": [
@@ -49,59 +102,6 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Auth"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                },
-                "security": [
-                    {
-                        "passport": [
-                            "*"
-                        ]
-                    }
-                ]
-            }
-        },
-        "/characters": {
-            "get": {
-                "tags": [
-                    "Character"
-                ],
-                "summary": "Get the list of characters",
-                "description": "Archive screen.",
-                "operationId": "App\\Http\\Controllers\\User\\Api\\CharacterController::index",
-                "parameters": [
-                    {
-                        "name": "per_page",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ArchiveViewScreen"
                                 }
                             }
                         }
@@ -614,29 +614,63 @@
                 "type": "object"
             },
             "ArchiveViewScreen": {
-                "properties": {
-                    "data": {
-                        "$ref": "#/components/schemas/SpotCharacterList"
+                "type": "array",
+                "items": {
+                    "properties": {
+                        "data": {
+                            "$ref": "#/components/schemas/SpotCharacterList"
+                        },
+                        "links": {
+                            "$ref": "#/components/schemas/links"
+                        },
+                        "meta": {
+                            "$ref": "#/components/schemas/meta"
+                        }
                     },
-                    "links": {
-                        "$ref": "#/components/schemas/links"
-                    },
-                    "meta": {
-                        "$ref": "#/components/schemas/meta"
-                    }
-                },
-                "type": "object"
+                    "type": "object"
+                }
             },
             "SpotCharacterList": {
                 "type": "array",
                 "items": {
                     "properties": {
-                        "Roller Coaster": {
+                        "spot": {
+                            "$ref": "#/components/schemas/SpotArchiveView"
+                        },
+                        "characters": {
                             "$ref": "#/components/schemas/SpotCharacter"
                         }
                     },
                     "type": "object"
                 }
+            },
+            "SpotArchiveView": {
+                "properties": {
+                    "id": {
+                        "description": "Transform the spot resource into an array.",
+                        "type": "uuid",
+                        "format": "string",
+                        "example": "26397745-9126-438c-9706-5002baf5d3a4"
+                    },
+                    "name": {
+                        "description": "Transform the spot resource into an array.",
+                        "type": "string",
+                        "format": "string",
+                        "example": "Roller Coaster"
+                    },
+                    "beacon_id": {
+                        "description": "Transform the spot resource into an array.",
+                        "type": "uuid",
+                        "format": "string",
+                        "example": "d3aacc6a-f618-3b19-b63f-8ab5e804e495"
+                    },
+                    "created_at": {
+                        "description": "Transform the spot resource into an array.",
+                        "type": "string",
+                        "format": "string"
+                    }
+                },
+                "type": "object"
             },
             "HomeViewScreen": {
                 "properties": {
@@ -696,9 +730,9 @@
                     "properties": {
                         "id": {
                             "description": "Transform the spot resource into an array.",
-                            "type": "uuid",
-                            "format": "string",
-                            "example": "26397745-9126-438c-9706-5002baf5d3a4"
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 8
                         },
                         "name": {
                             "description": "Transform the spot resource into an array.",
