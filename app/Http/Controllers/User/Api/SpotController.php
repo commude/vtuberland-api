@@ -110,6 +110,8 @@ class SpotController extends Controller
      *  description="Get the character of the spot.",
      *  @OA\Parameter(name="spot_id",in="query",required=true,
      *      @OA\Schema(type="uuid"),),
+     * @OA\Parameter(name="character_id",in="query",required=true,
+     *      @OA\Schema(type="integer"),),
      *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/SpotCharacter")),
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found"),

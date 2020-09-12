@@ -552,6 +552,14 @@
                         "schema": {
                             "type": "uuid"
                         }
+                    },
+                    {
+                        "name": "character_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
