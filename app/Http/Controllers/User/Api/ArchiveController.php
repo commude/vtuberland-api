@@ -54,14 +54,14 @@ class ArchiveController extends Controller
      * Display the specified resource.
      *
      * @OA\Get(
-     *  path="/spots/{spot_id}",
-     *  tags={"Spot"},
+     *  path="/characters/{character_id}",
+     *  tags={"Character"},
      *  security={{"passport": {"*"}}},
-     *  summary="Get the list of spots",
-     *  description="View Spot Screen with characters.",
-     *  @OA\Parameter(name="spot_id",in="query",required=true,
-     *      @OA\Schema(type="string"),),
-     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/SpotView")),
+     *  summary="Get character details",
+     *  description="View character screen.",
+     *  @OA\Parameter(name="character_id",in="query",required=true,
+     *      @OA\Schema(type="integer"),),
+     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/CharacterView")),
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found"),
      * )

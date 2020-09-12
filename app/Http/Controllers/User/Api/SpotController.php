@@ -61,7 +61,7 @@ class SpotController extends Controller
      *  summary="Get the list of spots",
      *  description="View Spot Screen with characters.",
      *  @OA\Parameter(name="spot_id",in="query",required=true,
-     *      @OA\Schema(type="string"),),
+     *      @OA\Schema(type="uuid"),),
      *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/SpotView")),
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found"),
@@ -78,6 +78,19 @@ class SpotController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @OA\Get(
+     *  path="/spots/{spot_id}/characters",
+     *  tags={"Spot"},
+     *  security={{"passport": {"*"}}},
+     *  summary="Get the character list of the spot.",
+     *  description="Get the character list of the spot.",
+     *  @OA\Parameter(name="spot_id",in="query",required=true,
+     *      @OA\Schema(type="uuid"),),
+     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/SpotCharacters")),
+     *  @OA\Response(response=400, description="Bad request"),
+     *  @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     *
      * @param  \App\Models\Spot  $Spot
      * @return \Illuminate\Http\Response
      */
@@ -89,6 +102,18 @@ class SpotController extends Controller
     /**
      * Display the specified resource.
      *
+     * @OA\Get(
+     *  path="/spots/{spot_id}/characters/{character_id}",
+     *  tags={"Spot"},
+     *  security={{"passport": {"*"}}},
+     *  summary="Get the character of the spot.",
+     *  description="Get the character of the spot.",
+     *  @OA\Parameter(name="spot_id",in="query",required=true,
+     *      @OA\Schema(type="uuid"),),
+     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/SpotCharacter")),
+     *  @OA\Response(response=400, description="Bad request"),
+     *  @OA\Response(response=404, description="Resource Not Found"),
+     * )
      * @param  \App\Models\Spot  $Spot
      * @return \Illuminate\Http\Response
      */
