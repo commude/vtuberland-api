@@ -6,9 +6,11 @@ use App\Models\Spot;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Screens\HomeResource;
+use App\Http\Resources\Screens\SpotCharacterResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\SpotResource;
 use App\Http\Resources\Screens\SpotViewResource;
+use App\Models\Character;
 
 class SpotController extends Controller
 {
@@ -76,22 +78,24 @@ class SpotController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Spot  $Spot
      * @return \Illuminate\Http\Response
      */
-    public function characters(Request $request)
+    public function characters(Spot $spot)
     {
-        $user = $this->guard()->user();
+        return SpotCharacterResource::collection($spot->characters);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Spot  $Spot
+     * @param  \App\Models\Spot  $Spot
      * @return \Illuminate\Http\Response
      */
-    public function showCharacter(Spot $Spot)
+    public function showCharacter(Spot $spot, Character $character)
     {
-        $user = $this->guard()->user();
+        $spotCharacter = $spot->characters->where('character_id', $character->id)->first();
+
+        return new SpotCharacterResource($spotCharacter);
     }
 }

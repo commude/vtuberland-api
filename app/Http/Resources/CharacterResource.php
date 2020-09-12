@@ -22,9 +22,6 @@ class CharacterResource extends JsonResource
             'name' => $this->name,
             'content' => $this->content,
             'image_url' => $this->image_url,
-            'video_url' => $this->video_url,
-            'main_photo' => new PhotoResource($this->getFirstMedia(MediaGroup::CHARACTERS['main'])),
-            'is_purchased' => $user->characters->contains('character_id', $this->id),
         ];
     }
 }

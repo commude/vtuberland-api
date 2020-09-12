@@ -4,8 +4,10 @@ namespace App\Http\Controllers\User\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CharacterResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Screens\ArchiveResource;
+use App\Models\Character;
 use App\Models\SpotCharacter;
 
 class ArchiveController extends Controller
@@ -46,5 +48,29 @@ class ArchiveController extends Controller
         // $characters = ::paginate($request->query('per_page'));
 
         return ArchiveResource::collection($spotCharacters);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @OA\Get(
+     *  path="/spots/{spot_id}",
+     *  tags={"Spot"},
+     *  security={{"passport": {"*"}}},
+     *  summary="Get the list of spots",
+     *  description="View Spot Screen with characters.",
+     *  @OA\Parameter(name="spot_id",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/SpotView")),
+     *  @OA\Response(response=400, description="Bad request"),
+     *  @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     *
+     * @param  \App\Spot  $Spot
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Character $character)
+    {
+        return new CharacterResource($character);
     }
 }
