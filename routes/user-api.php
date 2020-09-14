@@ -73,5 +73,5 @@ Route::group(['prefix' => 'characters'], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['prefix' => 'purchases', 'middleware' => 'auth:user'], function () {
-    // Route::post('/', 'TransactionController@index');
+    Route::post('/', 'PurchaseController@store');
 });

@@ -393,6 +393,41 @@
                 ]
             }
         },
+        "/purchase": {
+            "post": {
+                "tags": [
+                    "Purchase"
+                ],
+                "summary": "Purchase an item from store.",
+                "description": "Purchase an item from store.",
+                "operationId": "App\\Http\\Controllers\\User\\Api\\PurchaseController::store",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Auth"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
         "/spots": {
             "get": {
                 "tags": [
