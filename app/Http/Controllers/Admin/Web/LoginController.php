@@ -43,9 +43,10 @@ class LoginController extends Controller
 
         try {
             if ($this->attemptLogin($request)) {
-                $request->session()->regenerate();
 
-                $this->clearLoginAttempts($request);
+                $this->guard()->attempt(
+                    $this->credentials($request), !$request->has('remember')
+                );
 
                 return redirect()->route('admin.purchase.index');
             } else {
@@ -56,5 +57,13 @@ class LoginController extends Controller
         }
 
         return back();
+    }
+
+    /**
+     * Logout
+     */
+    public function logout(){
+        $this->guard()->logout();
+        return redirect()->route('admin.index');
     }
 }
