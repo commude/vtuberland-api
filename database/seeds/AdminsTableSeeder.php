@@ -12,8 +12,6 @@ class AdminsTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i < 10 ; $i++){
-            factory(Admin::class)->create();
-        }
+        factory(Admin::class, 10)->create();
     }
 }
