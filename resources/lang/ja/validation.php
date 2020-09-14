@@ -38,7 +38,7 @@ return [
     'digits_between' => ':attributeは、:min桁から:max桁にしてください。',
     'dimensions'     => ':attributeの画像サイズが無効です',
     'distinct'       => ':attributeの値が重複しています。',
-    'email'          => ':attributeは、有効なメールアドレス形式で指定してください。',
+    'email'          => '正しいメールアドレスで入力してください。',
     'ends_with'      => ':attributeは、次のうちのいずれかで終わらなければなりません。: :values',
     'exists'         => '選択された:attributeは、有効ではありません。',
     'file'           => ':attributeはファイルでなければいけません。',

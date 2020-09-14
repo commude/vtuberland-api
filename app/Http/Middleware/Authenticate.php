@@ -51,7 +51,7 @@ class Authenticate extends Middleware
         }
 
         if (collect($guards)->contains('admin')) {
-            throw new AuthenticationException('Unauthenticated.', $guards, $this->redirectTo($request));
+            throw new AuthenticationException('Unauthenticated.', $guards, $this->adminRedirectTo($request));
         }
 
         if (collect($guards)->contains('user')) {

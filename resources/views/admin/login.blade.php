@@ -33,18 +33,29 @@
         <div class="loginPageLoginSec__inner">
           <figure class="loginPageLoginSec__logoThumb"><img src={{ asset('images/dashboard/login/loginPage_logo.png') }} alt="Logo"></figure>
           <div class="loginPageLoginSec__innerLoginArea">
-            <form method="POST" action="#">
+            <form method="POST" action="{{ route('admin.login') }}">
+            @csrf
               <div class="loginPageLoginSec__inputTextField">
                 <div class="loginPageLoginSec__inputUserField">
-                  <input class="loginPageLoginSec__inputText" type="email" name="form-user" placeholder="メールアドレス">
+                  <input class="loginPageLoginSec__inputText" type="email" name="email" placeholder="メールアドレス">
                 </div>
+                @error('email')
+                    <span class="loginPageLoginSec__inputLabel" role="alert">
+                        {{ $message }}
+                    </span>
+                @enderror
                 <div class="loginPageLoginSec__inputPassField">
-                  <input class="loginPageLoginSec__inputText" type="password" name="form-password" placeholder="パスワード">
+                  <input class="loginPageLoginSec__inputText" type="password" name="password" placeholder="パスワード">
                 </div>
+                @error('password')
+                    <span class="loginPageLoginSec__inputLabel" role="alert">
+                        {{ $message }}
+                    </span>
+                @enderror
               </div>
               <div class="loginPageLoginSec__inputCheckField">
                 <div class="loginPageLoginSec__inputCheckCont">
-                  <input class="loginPageLoginSec__inputCheck" type="checkbox" name="form-remember">
+                  <input class="loginPageLoginSec__inputCheck" type="checkbox" name="remember">
                   <div class="loginPageLoginSec__checkmark"></div>
                 </div>
                 <label for="form-remember"><span class="loginPageLoginSec__inputLabel">ログイン情報を保存する</span></label>
