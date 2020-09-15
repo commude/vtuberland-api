@@ -126,4 +126,33 @@ return [
 
     'password_timeout' => 10800,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Third Party Authentications
+    |--------------------------------------------------------------------------
+    |
+    | Here you may define the authentications to be used in API on third-party
+    | applications.
+    |
+    */
+
+    'google' => [
+        'api-key' => env('GOOGLE_API_AUTH_KEY'),
+        'service-account' => [
+            'type' => env('GOOGLE_TYPE', 'service_account'),
+            'project_id' => env('GOOGLE_PROJECT_ID'),
+            'private_key_id' => env('GOOGLE_PRIVATE_KEY_ID'),
+            'private_key' => env('GOOGLE_PRIVATE_KEY'),
+            'client_email' => env('GOOGLE_CLIENT_EMAIL'),
+            'client_id' => env('GOOGLE_CLIENT_ID'),
+            'auth_uri' => env('GOOGLE_AUTH_URI', 'https://accounts.google.com/o/oauth2/auth'),
+            'token_uri' => env('GOOGLE_TOKEN_URI', 'https://oauth2.googleapis.com/token'),
+            'auth_provider_x509_cert_url' => env('GOOGLE_AUTH_PROVIDER', 'https://www.googleapis.com/oauth2/v1/certs'),
+            'client_x509_cert_url' => env('GOOGLE_CLIENT_CERT_URL')
+        ]
+    ],
+
+    'apple' => [
+        'secret' => env('APPLE_SHARED_SECRET')
+    ]
 ];

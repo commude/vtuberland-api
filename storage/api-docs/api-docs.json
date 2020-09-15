@@ -393,41 +393,6 @@
                 ]
             }
         },
-        "/purchase": {
-            "post": {
-                "tags": [
-                    "Purchase"
-                ],
-                "summary": "Purchase an item from store.",
-                "description": "Purchase an item from store.",
-                "operationId": "App\\Http\\Controllers\\User\\Api\\PurchaseController::store",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Auth"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                },
-                "security": [
-                    {
-                        "passport": [
-                            "*"
-                        ]
-                    }
-                ]
-            }
-        },
         "/spots": {
             "get": {
                 "tags": [
@@ -604,6 +569,67 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/SpotCharacter"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/spots/{spot_id}/characters/{character_id}/purchase": {
+            "post": {
+                "tags": [
+                    "Spot"
+                ],
+                "summary": "Purchase an item from store.",
+                "description": "Purchase an item from store.",
+                "operationId": "App\\Http\\Controllers\\User\\Api\\SpotController::purchase",
+                "parameters": [
+                    {
+                        "name": "spot_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "uuid"
+                        }
+                    },
+                    {
+                        "name": "character_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "app",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Auth"
                                 }
                             }
                         }
