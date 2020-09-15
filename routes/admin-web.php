@@ -31,6 +31,7 @@ Route::group(['prefix' => 'auth', 'name' => 'auth.login.'], function () {
 */
 Route::group(['prefix' => '/', 'name' => 'dashboard.' ,'middleware' => 'auth:admin'], function () {
     Route::get('/', 'PurchaseController@index')->name('purchase.index');
+    Route::get('/purchaselist', 'PurchaseController@purchaseList')->name('purchase.list');
 
     Route::group(['prefix' => '/buyers', 'name' => 'buyer.'], function () {
         Route::get('/', 'BuyerController@index')->name('index');
