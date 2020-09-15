@@ -1090,3 +1090,11 @@ Search @ actionBar
 .detailContInner__itemPurchasePrice {
   min-width: 142.5px;
 }
+
+.dataTables_length {
+  display:none;
+}
+
+.dataTables_filter{
+  display:none;
+}

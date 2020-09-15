@@ -20,19 +20,22 @@ class DataTableResource extends JsonResource
      */
     protected $filteredCounts;
 
+    protected $totalPrice;
+
     /**
      * Create a new resource instance.
      *
      * @param mixed $resource
      * @param $me
      */
-    public function __construct($collection, $totalCounts, $filteredCounts)
+    public function __construct($collection, $totalCounts, $filteredCounts, $totalPrice)
     {
         parent::__construct($collection);
         $this->collection = $collection;
 
         $this->totalCounts = $totalCounts;
         $this->filteredCounts = $filteredCounts;
+        $this->totalPrice = $totalPrice;
     }
 
     /**
@@ -47,6 +50,7 @@ class DataTableResource extends JsonResource
             'draw' => $request->draw,
             'recordsTotal' => $this->totalCounts,
             'recordsFiltered' => $this->filteredCounts,
+            'totalPrice' => $this->totalPrice,
             'data' => $this->collection,
         ];
     }
