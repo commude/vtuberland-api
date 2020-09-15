@@ -19384,27 +19384,43 @@ $(function () {
     "ordering": false,
     "info": false,
     "pageLength": 10,
-    "columnDefs": [{
-      'checkboxes': {
-        'selectRow': true
-      }
-    }],
+    'searching': true,
+    'processing': true,
+    'serverSide': true,
+    'ajax':{
+      'url': '/admin/purchaselist',
+      'dataType': 'json',
+      'type': 'GET',
+    },
+    'columns': [
+      { 'data': 'purchase_id' },
+      { 'data': 'purchase_date' },
+      { 'data': 'user_name' },
+      { 'data': 'content' },
+      { 'data': 'price' },
+    ],
     'select': {
       'style': 'multi',
       'selector': '.dataList__inputSelect'
     },
+    "columnDefs": [
+      {
+        'targets': 0,
+        'searchable':false,
+        'orderable':false,
+        'className': 'dataList__itemSelect',
+        'render': function (data, type, full, meta){
+          return '<div class="dataList__dataSelectBox"><input id="checkbox' + data + '" class="dataList__inputSelect" type="checkbox" name="user_facilities_id[]" value="'
+            + $('<div/>').text(data).html() + '" onclick="subcheckboxClicked(this)"><div class="dataList__inputCusCheck"></div></div>';
+        }
+      },
+      { 'searchable': false, 'targets': [1, 3, 4] },
+    ],
+    
     "language": {
       "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Japanese.json"
     },
-    initComplete: function initComplete() {
-      $('.js--searchFilterSubmit').on('click', function () {
-        table.search($('.js--searchInputText').val()).draw();
-      });
-      $('.dataListSearchAction').submit(function () {
-        table.search($('.js--searchInputText').val()).draw();
-        return false;
-      }); // Delete uneccessary modules
-
+    "initComplete": function() {
       $('.dataTables_paginate').appendTo('.dashboardPage__pagination');
       $('.dataTables_empty, .dataTables_length, .dataTables_filter').remove(); // Select All Rows
 
@@ -19423,6 +19439,15 @@ $(function () {
       });
     }
   });
+
+
+  $('.js--searchFilterSubmit').on('click', function () {
+    table.column(2).search($('.js--searchInputText').val()).draw();
+  });
+  $('.dataListSearchAction').submit(function () {
+    table.column(2).search($('.js--searchInputText').val()).draw();
+    return false;
+  }); // Delete uneccessary modules
 });
 
 /***/ }),

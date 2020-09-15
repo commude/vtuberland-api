@@ -28,7 +28,7 @@ class PurchaseController extends Controller
      */
     public function purchaseList(Request $request)
     {
-        $search = $request->input('columns')[1]['search']['value'] ?? '';
+        $search = $request->input('columns')[2]['search']['value'] ?? '';
         $purchases = Transaction::offset($request->input('start'))
                                 ->join('users', 'transactions.user_id', '=', 'users.id')
                                 ->join('spot_characters', 'transactions.spot_character_id', '=', 'spot_characters.id')
@@ -36,6 +36,7 @@ class PurchaseController extends Controller
                                 ->orWhere('users.name', 'LIKE', "%{$search}%")
                                 ->limit($request->input('length'))
                                 ->select('transactions.id','transactions.created_at','users.name as userName','characters.name as charaName','characters.price' )
+                                ->orderBy('transactions.created_at')
                                 ->get();
 
         // Get all count from table.
@@ -54,7 +55,7 @@ class PurchaseController extends Controller
                 "content" => $purchase->charaName,
                 "price" => $purchase->price,
             ];
-            $purchaseList["data"][$key] = $tmpList;
+            $purchaseList[$key] = $tmpList;
         }
 
         return new DataTable($purchaseList, $totalCount, $totalFiltered); 
