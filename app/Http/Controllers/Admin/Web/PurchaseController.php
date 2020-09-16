@@ -52,8 +52,8 @@ class PurchaseController extends Controller
             $purchaseList[$key] = [
                 "purchase_date" => $purchase->created_at->format('Y-m-d H:m:s'),
                 "user_name" => $purchase->user->name,
-                "content" => $purchase->spotCharacter[0]->character->name,
-                "price" => $purchase->spotCharacter[0]->character->price,
+                "content" => isset($purchase->spotCharacter[0]) ? $purchase->spotCharacter[0]->character->name : '',
+                "price" => isset($purchase->spotCharacter[0]) ? $purchase->spotCharacter[0]->character->price : '',
             ];
         }
 
