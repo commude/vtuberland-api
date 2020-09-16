@@ -19378,7 +19378,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /***/ (function(module, exports) {
 
 $(function () {
-  var table = $('#dataList').DataTable({
+  var table = $('#purchaseDataList').DataTable({
     "paging": true,
     "pagingType": 'numbers',
     "ordering": false,

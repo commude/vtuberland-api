@@ -17,7 +17,7 @@
 
 <section class="dashboardPage__dataList">
     <div class="dataList__fixed">
-        <table class="dataList__table" id="dataList" cellspacing="0" cellpadding="0">
+        <table class="dataList__table" id="purchaseDataList" cellspacing="0" cellpadding="0">
             <thead>
                 <tr>
                     <td class="dataList__itemPurchaseDate head">購入日時</td>
