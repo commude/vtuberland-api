@@ -6,7 +6,7 @@
 <section class="dashboardPageActionSec">
   <div class="dashboardPageActionSec__bar">
     <form id="deleteForm" class="dataListFilterAction" method="POST" action="{{ route('admin.purchase.delete') }}">
-    @csrf
+      @csrf
       <div class="dataListFilterAction__filterOption">
         <input class="dataListFilterAction__filterInput js--selectAll" type="checkbox" name="datalist-selectAll">
         <div class="dataListFilterAction__filterCusCheck"></div>
@@ -42,4 +42,6 @@
   </section>
 
 <section class="dashboardPage__pagination"></section>
+
+<div class="api_route">{{route('admin.purchase.list')}}</div>
 @endsection

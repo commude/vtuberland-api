@@ -1095,6 +1095,10 @@ Search @ actionBar
   display:none;
 }
 
-.dataTables_filter{
+.dataTables_filter {
+  display:none;
+}
+
+.api_route {
   display:none;
 }

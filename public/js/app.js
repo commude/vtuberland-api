@@ -19388,7 +19388,7 @@ $(function () {
     'processing': false,
     'serverSide': true,
     'ajax':{
-      'url': '/admin/purchaselist',
+      'url': $(".api_route").html(),
       'dataType': 'json',
       'type': 'GET',
       "dataSrc": function ( json ) {

@@ -4,11 +4,12 @@ namespace App\Models;
 
 use App\Models\Traits\HasUUID;
 use App\Models\Traits\MediaTrait;
+use App\Models\Traits\ScopeTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Spot extends Model
 {
-    use HasUUID, MediaTrait;
+    use HasUUID, MediaTrait, ScopeTrait;
 
     /**
      * Indicates if the IDs are auto-incrementing.

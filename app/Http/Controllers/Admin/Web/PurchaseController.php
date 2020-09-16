@@ -41,12 +41,8 @@ class PurchaseController extends Controller
     {
         $search = $request->input('columns')[2]['search']['value'] ?? '';
         $purchases = Transaction::offset($request->input('start'))
-                                ->join('users', 'transactions.user_id', '=', 'users.id')
-                                ->join('spot_characters', 'transactions.spot_character_id', '=', 'spot_characters.id')
-                                ->join('characters', 'spot_characters.character_id', '=', 'characters.id')
-                                ->orWhere('users.name', 'LIKE', "%{$search}%")
+                                ->whereHasSearchFor('user', 'name', $search)
                                 ->limit($request->input('length'))
-                                ->select('transactions.id','transactions.created_at','users.name as userName','characters.name as charaName','characters.price' )
                                 ->orderBy('transactions.created_at')
                                 ->get();
 
@@ -54,29 +50,27 @@ class PurchaseController extends Controller
         $totalCount = Transaction::count();
 
         // Get all Filtered count from table.
-        $totalFiltered = Transaction::join('users', 'transactions.user_id', '=', 'users.id')
-                                    ->orWhere('users.name', 'LIKE', "%{$search}%")
+        $totalFiltered = Transaction::whereHasSearchFor('user', 'name', $search)
                                     ->count();
 
-        $totalPrice = Transaction::join('users', 'transactions.user_id', '=', 'users.id')
-                                    ->join('spot_characters', 'transactions.spot_character_id', '=', 'spot_characters.id')
-                                    ->join('characters', 'spot_characters.character_id', '=', 'characters.id')
-                                    ->orWhere('users.name', 'LIKE', "%{$search}%")
-                                    ->selectRaw('SUM(characters.price) as total_price')
-                                    ->get();
-
-        $purchaseList = array();
-        foreach ($purchases as $key => $purchase){
-            $tmpList = [
-                "purchase_id" => $purchase->id,
-                "purchase_date" => $purchase->created_at->format('Y-m-d H:m:s'),
-                "user_name" => $purchase->userName,
-                "content" => $purchase->charaName,
-                "price" => $purchase->price,
-            ];
-            $purchaseList[$key] = $tmpList;
+        // Get total price
+        $priceList = Transaction::whereHasSearchFor('user', 'name', $search)->get();
+        $totalPrice = 0;
+        foreach ($priceList as $eachPrice){
+            $totalPrice += $eachPrice->spotCharacter[0]->character->price;
         }
 
-        return new DataTable($purchaseList, $totalCount, $totalFiltered, $totalPrice->pluck('total_price')->first()); 
+        $purchaseList = [];
+        foreach ($purchases as $key => $purchase){
+            $purchaseList[$key] = [
+                "purchase_id" => $purchase->id,
+                "purchase_date" => $purchase->created_at->format('Y-m-d H:m:s'),
+                "user_name" => $purchase->user->name,
+                "content" => $purchase->spotCharacter[0]->character->name,
+                "price" => $purchase->spotCharacter[0]->character->price,
+            ];
+        }
+
+        return new DataTable($purchaseList, $totalCount, $totalFiltered, $totalPrice); 
     }
 }
