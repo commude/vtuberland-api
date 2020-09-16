@@ -3,14 +3,21 @@
 namespace App\Http\Controllers\User\Api;
 
 use App\Models\Spot;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Screens\HomeResource;
-use App\Http\Resources\Screens\SpotCharacterResource;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\SpotResource;
-use App\Http\Resources\Screens\SpotViewResource;
+use App\Enums\Status;
+use App\Models\Purchase;
 use App\Models\Character;
+use Illuminate\Http\Request;
+use App\Models\UserSpotCharacter;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\SpotResource;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Services\PurchaseService;
+use App\Http\Resources\PurchaseResource;
+use App\Exceptions\UserNotFoundException;
+use App\Http\Requests\CreatePurchaseRequest;
+use App\Http\Resources\Screens\HomeResource;
+use App\Http\Resources\Screens\SpotViewResource;
+use App\Http\Resources\Screens\SpotCharacterResource;
 
 class SpotController extends Controller
 {
@@ -124,5 +131,55 @@ class SpotController extends Controller
         $spotCharacter = $spot->characters->where('character_id', $character->id)->first();
 
         return new SpotCharacterResource($spotCharacter);
+    }
+
+    /**
+     * Generate new session of the user.
+     *
+     * @OA\Post(
+     *  path="/spots/{spot_id}/characters/{character_id}/purchase",
+     *  tags={"Spot"},
+     *  security={{"passport": {"*"}}},
+     *  summary="Purchase an item from store.",
+     *  description="Purchase an item from store.",
+     *  @OA\Parameter(name="spot_id",in="query",required=true,
+     *      @OA\Schema(type="uuid"),),
+     *  @OA\Parameter(name="character_id",in="query",required=true,
+     *      @OA\Schema(type="integer"),),
+     *  @OA\Parameter(name="app",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/Auth")),
+     *  @OA\Response(response=400, description="Bad request"),
+     *  @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function purchase(CreatePurchaseRequest $request, Spot $spot, Character $character, PurchaseService $service)
+    {
+        $user = $this->guard()->user();
+
+        if (!$user) {
+            throw new UserNotFoundException();
+        }
+
+        $transaction = $service->verify($request->data(), $user);
+
+        if ($transaction['status'] == Status::FAIL){
+            return response()->json([
+                'code' => 0,
+                'message' => 'Verifying receipt failed. Please check logs.'
+            ]);
+        }
+
+        // Save the current purchase for history.
+        $purchase = Purchase::create($transaction);
+
+        // Store user owned spot character.
+        UserSpotCharacter::create([
+            'user_id' => $user->id,
+            'spot_id' => $spot->id,
+            'character_id' => $character->id,
+        ]);
+
+        return new PurchaseResource($purchase);
     }
 }
