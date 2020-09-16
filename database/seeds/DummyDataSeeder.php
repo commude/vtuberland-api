@@ -7,6 +7,7 @@ use App\Models\Purchase;
 use App\Models\Character;
 use Faker\Factory  as Faker;
 use App\Models\SpotCharacter;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
 use App\Models\UserSpotCharacter;
 use Illuminate\Support\Facades\Storage;
@@ -131,6 +132,8 @@ class DummyDataSeeder extends Seeder
             return [
                 'user_id' => $user->id,
                 'status' => Status::OK,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ];
         });
 
