@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Traits\ScopeTrait;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
 {
-    use ScopeTrait;
+    use Notifiable, ScopeTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -27,4 +28,18 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Set the admin's password in hashed
+     *
+     * @var array
+     */
+    public function setPasswordAttribute($value)
+    {
+        if (Hash::needsRehash($value)) {
+            $password = Hash::make($value);
+        }
+
+        $this->attributes['password'] = $password;
+    }
 }
