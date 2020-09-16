@@ -120,7 +120,7 @@ class iOSPurchaseService
 
             return false;
         } catch (Exception $exception) {
-            Log::error('ITunes verification receipt failed.');
+            Log::error('iTunes verification receipt failed.');
             return false;
         }
     }
