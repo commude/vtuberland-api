@@ -34,4 +34,17 @@ return [
         'login_endpoint' => env('APP_API_URL') . '/oauth/token',
     ],
 
+    'google' => [
+        'package_name' => env('GOOGLE_PACKAGE_NAME'),
+        'subscription_id' => env('GOOGLE_SUBSCRIPTION_ID')
+    ],
+
+    'apple' => [
+        'store' => [
+            'production' =>  env('APPLE_STORE_PRODUCTION_ENDPOINT'),
+            'test' =>  env('APPLE_STORE_TEST_ENDPOINT'),
+        ],
+        'secret' => env('APPLE_SHARED_SECRET'),
+    ],
+
 ];

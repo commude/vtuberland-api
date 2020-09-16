@@ -53,7 +53,7 @@ class DefaultDataSeeder extends Seeder
         $faker = Faker::create();
         // $username = 'vtuberland-app-user';
         $email = 'user@vtuberland.co.jp';
-        $password = Str::random(16);
+        $password = 'Pg9NQdA8iw5YMFSL';// Str::random(16);
         $device_uuid = $faker->uuid();
 
         $user = User::create([
@@ -101,7 +101,7 @@ class DefaultDataSeeder extends Seeder
     public function generateAdminUser()
     {
         $email = 'admin@vtuberland.co.jp';
-        $password = Str::random(16);
+        $password = 'PtUlMS7Q6u8jYHVs'; //Str::random(16);
 
         Admin::create([
             'name' => 'vtuberland-admin',

@@ -54,6 +54,7 @@ Route::group(['prefix' => 'spots'], function () {
     Route::group(['prefix' => '{spot}/characters'], function () {
         Route::get('/', 'SpotController@characters');  // Spot character list
         Route::get('/{character}', 'SpotController@showCharacter'); // View archive Character screen
+        Route::post('/{character}/purchase', 'SpotController@purchase')->middleware('auth:user');  // Purchase Character
     });
 });
 
@@ -65,13 +66,4 @@ Route::group(['prefix' => 'spots'], function () {
 Route::group(['prefix' => 'characters'], function () {
     Route::get('/', 'ArchiveController@index')->middleware('paginated');  // Archive screen
     Route::get('/{character}', 'ArchiveController@show')->middleware('paginated');  // View character screen
-});
-
-/*
-|--------------------------------------------------------------------------
-| Purchases Routes
-|--------------------------------------------------------------------------
-*/
-Route::group(['prefix' => 'purchases', 'middleware' => 'auth:user'], function () {
-    // Route::post('/', 'TransactionController@index');
 });

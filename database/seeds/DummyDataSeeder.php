@@ -1,14 +1,15 @@
 <?php
 
-use App\Enums\Status;
 use App\Models\Spot;
 use App\Models\User;
+use App\Enums\Status;
+use App\Models\Purchase;
 use App\Models\Character;
-use App\Models\Transaction;
 use Faker\Factory  as Faker;
 use App\Models\SpotCharacter;
-use App\Models\UserSpotCharacter;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
+use App\Models\UserSpotCharacter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -130,12 +131,13 @@ class DummyDataSeeder extends Seeder
         $transactions = $spotCharacters->map(function($spotCharacter) use ($user) {
             return [
                 'user_id' => $user->id,
-                'spot_character_id' => $spotCharacter->id,
                 'status' => Status::OK,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ];
         });
 
-        Transaction::insert($transactions->toArray());
+        Purchase::insert($transactions->toArray());
 
         // Insert to User Spot Characters
         $spotCharacters->each(function($spotCharacter) use ($user) {
