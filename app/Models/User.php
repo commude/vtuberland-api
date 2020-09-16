@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\HasUUID;
 use App\Models\Traits\MediaTrait;
+use App\Models\Traits\ScopeTrait;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable, HasUUID, MediaTrait;
+    use HasApiTokens, Notifiable, HasUUID, MediaTrait, ScopeTrait;
 
     /**
      * Indicates if the IDs are auto-incrementing.

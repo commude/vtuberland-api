@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Traits\ScopeTrait;
 
 class Admin extends Authenticatable
 {
+    use ScopeTrait;
+
     /**
      * The attributes that are mass assignable.
      *

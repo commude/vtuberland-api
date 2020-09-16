@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Models\Traits\HasUUID;
+use App\Models\Traits\ScopeTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
+    use ScopeTrait;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -19,10 +22,18 @@ class Transaction extends Model
     ];
 
     /**
+     * Get user of transaction.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
      * Get transactions of the device.
      */
     public function spotCharacter()
     {
-        return $this->hasMany(SpotCharacter::class, 'spot_character_id');
+        return $this->hasMany(SpotCharacter::class, 'id');
     }
 }
