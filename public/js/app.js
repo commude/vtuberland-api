@@ -19397,7 +19397,6 @@ $(function () {
       }
     },
     'columns': [
-      { 'data': 'purchase_id' },
       { 'data': 'purchase_date' },
       { 'data': 'user_name' },
       { 'data': 'content' },
@@ -19408,21 +19407,11 @@ $(function () {
       'selector': '.dataList__inputSelect'
     },
     "columnDefs": [
-      {
-        'targets': 0,
-        'searchable':false,
-        'orderable':false,
-        'className': 'dataList__itemSelect',
-        'render': function (data, type, full, meta){
-          return '<div class="dataList__dataSelectBox"><input id="checkbox' + data + '" class="dataList__inputSelect" type="checkbox" name="user_facilities_id[]" value="'
-            + $('<div/>').text(data).html() + '" ><div class="dataList__inputCusCheck"></div></div>';
-        }
-      },
-      {'targets': 1, 'className': "dataList__itemPurchaseDate"},
-      {'targets': 2, 'className': "dataList__itemBuyerAccount"},
-      {'targets': 3, 'className': "dataList__itemBuyerContent"},
-      {'targets': 4, 'className': "dataList__itemPurchasePrice"},
-      { 'searchable': false, 'targets': [1, 3, 4] },
+      {'targets': 0, 'className': "dataList__itemPurchaseDate"},
+      {'targets': 1, 'className': "dataList__itemBuyerAccount"},
+      {'targets': 2, 'className': "dataList__itemBuyerContent"},
+      {'targets': 3, 'className': "dataList__itemPurchasePrice"},
+      { 'searchable': false, 'targets': [0, 2, 3] },
     ],
     
     "language": {
@@ -19436,20 +19425,6 @@ $(function () {
 
       $('.dataTables_paginate').appendTo('.dashboardPage__pagination');
       $('.dataTables_empty, .dataTables_length, .dataTables_filter').remove(); // Select All Rows
-
-      $('.js--selectAll').on('click', function (e) {
-        if ($(this).is(":checked")) {
-          table.rows({
-            page: 'current'
-          }).select();
-          $('.dataList__inputSelect').prop('checked', true);
-        } else {
-          table.rows({
-            page: 'current'
-          }).deselect();
-          $('.dataList__inputSelect').prop('checked', false);
-        }
-      });
     }
   });
 });
@@ -19482,21 +19457,3 @@ module.exports = __webpack_require__(/*! C:\xampp\htdocs\vtuberland-api\resource
 /***/ })
 
 /******/ });
-
-/**
- * On delete btn
- */
-$(function() {
-  $('.js--deleteSubmit').click(function(){
-    $('.selected input').each( function() {
-        console.log($(this).val());
-        $('<input>').attr({
-          type: 'hidden',
-          name: 'deleteId[]',
-          value: $(this).val()
-      }).appendTo('#deleteForm');
-    });
-    $('#deleteForm').submit();
-  });
-
-});

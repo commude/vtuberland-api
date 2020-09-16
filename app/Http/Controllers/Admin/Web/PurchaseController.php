@@ -63,7 +63,6 @@ class PurchaseController extends Controller
         $purchaseList = [];
         foreach ($purchases as $key => $purchase){
             $purchaseList[$key] = [
-                "purchase_id" => $purchase->id,
                 "purchase_date" => $purchase->created_at->format('Y-m-d H:m:s'),
                 "user_name" => $purchase->user->name,
                 "content" => $purchase->spotCharacter[0]->character->name,
