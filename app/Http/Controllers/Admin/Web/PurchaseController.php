@@ -19,19 +19,6 @@ class PurchaseController extends Controller
     }
 
     /**
-     * Delete selected purchase.
-     */
-    public function delete(Request $request)
-    {
-        if ($request->deleteId !== null){
-            foreach($request->deleteId as $deleteId){
-                Transaction::find($deleteId)->delete();
-            }
-        }
-        return redirect()->route('admin.purchase.index');
-    }
-
-    /**
      * Return list of purchases by Datatable's request
      * 
      * @param  \Illuminate\Http\Request $request
