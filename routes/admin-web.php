@@ -18,9 +18,10 @@ use Illuminate\Support\Facades\Route;
 | Login Routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'auth/login', 'name' => 'auth.login.'], function () {
-    Route::get('/', 'LoginController@index')->name('index');
-    Route::post('/', 'LoginController@login')->name('login');
+Route::group(['prefix' => 'auth', 'name' => 'auth.login.'], function () {
+    Route::get('/login', 'LoginController@index')->name('index');
+    Route::post('/login', 'LoginController@login')->name('login');
+    Route::post('/logout', 'LoginController@logout')->name('logout');
 });
 
 /*
@@ -28,8 +29,9 @@ Route::group(['prefix' => 'auth/login', 'name' => 'auth.login.'], function () {
 | Dashboard Routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => '/', 'name' => 'dashboard.'], function () {
+Route::group(['prefix' => '/', 'name' => 'dashboard.' ,'middleware' => 'auth:admin'], function () {
     Route::get('/', 'PurchaseController@index')->name('purchase.index');
+    Route::get('/purchaselist', 'PurchaseController@purchaseList')->name('purchase.list');
 
     Route::group(['prefix' => '/buyers', 'name' => 'buyer.'], function () {
         Route::get('/', 'BuyerController@index')->name('index');

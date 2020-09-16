@@ -19,6 +19,7 @@
         "laravel/framework": "^7.24",
         "laravel/passport": "^9.3",
         "laravel/tinker": "^2.0",
+        "laravel/ui": "2.4.0",
         "league/flysystem-aws-s3-v3": "^1.0",
         "spatie/laravel-medialibrary": "^7.0.0",
         "webpatser/laravel-uuid": "^3.0",

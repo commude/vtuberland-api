@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Models\Traits\HasUUID;
+use App\Models\Traits\ScopeTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Purchase extends Model
 {
+    use ScopeTrait;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -17,4 +20,12 @@ class Purchase extends Model
         'purchase_token', 'receipt', 'currency', 'status',
         'purchased_at', 'expired_at'
     ];
+
+    /**
+     * Get user owns the transaction.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\ScopeTrait;
 
 class SpotCharacter extends Model
 {
+    use ScopeTrait;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -20,7 +23,7 @@ class SpotCharacter extends Model
      */
     public function character()
     {
-        return $this->hasOne(Character::class, 'id', 'character_id');
+        return $this->belongsTo(Character::class, 'character_id');
     }
 
     /**
@@ -30,4 +33,13 @@ class SpotCharacter extends Model
     {
         return $this->hasOne(Spot::class, 'id', 'spot_id');
     }
+
+    /**
+     * Get transaction of spotCharacter.
+     */
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class, 'id');
+    }
+
 }

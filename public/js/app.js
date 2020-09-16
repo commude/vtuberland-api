@@ -19378,52 +19378,57 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /***/ (function(module, exports) {
 
 $(function () {
-  var table = $('#dataList').DataTable({
+  var table = $('#purchaseDataList').DataTable({
     "paging": true,
     "pagingType": 'numbers',
     "ordering": false,
     "info": false,
     "pageLength": 10,
-    "columnDefs": [{
-      'checkboxes': {
-        'selectRow': true
+    'searching': true,
+    'processing': false,
+    'serverSide': true,
+    'ajax':{
+      'url': $(".api_route").html(),
+      'dataType': 'json',
+      'type': 'GET',
+      "dataSrc": function ( json ) {
+        $('.dataListStatus__text').html("合計金額：" + json.totalPrice + "円");
+        return json.data;
       }
-    }],
+    },
+    'columns': [
+      { 'data': 'purchase_date' },
+      { 'data': 'user_name' },
+      { 'data': 'content' },
+      { 'data': 'price' },
+    ],
     'select': {
       'style': 'multi',
       'selector': '.dataList__inputSelect'
     },
+    "columnDefs": [
+      {'targets': 0, 'className': "dataList__itemPurchaseDate"},
+      {'targets': 1, 'className': "dataList__itemBuyerAccount"},
+      {'targets': 2, 'className': "dataList__itemBuyerContent"},
+      {'targets': 3, 'className': "dataList__itemPurchasePrice"},
+      { 'searchable': false, 'targets': [0, 2, 3] },
+    ],
+    
     "language": {
       "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Japanese.json"
     },
-    initComplete: function initComplete() {
+    "initComplete": function(settings, json) {
+      
       $('.js--searchFilterSubmit').on('click', function () {
-        table.search($('.js--searchInputText').val()).draw();
+        table.column(2).search($('.js--searchInputText').val()).draw();
       });
-      $('.dataListSearchAction').submit(function () {
-        table.search($('.js--searchInputText').val()).draw();
-        return false;
-      }); // Delete uneccessary modules
 
       $('.dataTables_paginate').appendTo('.dashboardPage__pagination');
       $('.dataTables_empty, .dataTables_length, .dataTables_filter').remove(); // Select All Rows
-
-      $('.js--selectAll').on('click', function (e) {
-        if ($(this).is(":checked")) {
-          table.rows({
-            page: 'current'
-          }).select();
-          $('.dataList__inputSelect').prop('checked', true);
-        } else {
-          table.rows({
-            page: 'current'
-          }).deselect();
-          $('.dataList__inputSelect').prop('checked', false);
-        }
-      });
     }
   });
 });
+
 
 /***/ }),
 
