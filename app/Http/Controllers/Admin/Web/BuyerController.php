@@ -30,10 +30,12 @@ class BuyerController extends Controller
     {
         $totalPrice = 0;
         $count = 0;
-        foreach ($user->spotCharacters as $eachPrice){
-            $count++;
-            $totalPrice += $eachPrice->character->price;
-        }
+
+        $totalPrice = $user->spotCharacters->sum(function ($eachPrice) {
+            return $eachPrice->character->price;
+        });
+
+        $count = $user->spotCharacters->count();
         
         return view('admin.dashboard.buyers.users')->with(compact(['user', 'count', 'totalPrice']));
     }
