@@ -257,8 +257,25 @@ dashboardPage
     //   }
     // }
   }
+
+  .dataList__itemPurchaseDate {
+    min-width: 163px;
+    padding-left: 50px;  
+  }
 }
 
 .dataTables_empty {
   padding-left: 24px;
+}
+
+.dataTables_length {
+  display:none;
+}
+
+.dataTables_filter {
+  display:none;
+}
+
+.api_route {
+  display:none;
 }

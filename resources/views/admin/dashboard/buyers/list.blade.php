@@ -17,7 +17,7 @@
 
 <section class="dashboardPage__dataList">
     <div class="dataList__fixed">
-        <table class="dataList__table" id="dataList" cellspacing="0" cellpadding="0">
+        <table class="dataList__table" id="userDataList" cellspacing="0" cellpadding="0">
             <thead>
                 <tr>
                     <td class="dataList__itemDeviceName02 head">デバイス(iOS/Android)</td>
@@ -27,16 +27,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="dataList__itemDeviceName02">デバイス(iOS/Android)</td>
-                    <td class="dataList__itemBuyerName02"> <a class="dataList__itemAnchor" href="./detail/index.html">購入者アカウント名</a></td>
-                    <td class="dataList__itemPurchaseNo02">購入件数</td>
-                    <td class="dataList__itemPurchaseTotal02">購入合計金額</td>
-                </tr>
             </tbody>
         </table>
     </div>
 </section>
 
 <section class="dashboardPage__pagination"></section>
+
+<div class="api_route">{{route('admin.list')}}</div>
+
 @endsection
