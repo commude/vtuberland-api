@@ -63,9 +63,9 @@ class BuyerController extends Controller
         // Get total price
         $priceList = UserSpotCharacter::whereHasSearchFor('user', 'name', $search)->get();
         $totalPrice = 0;
-        foreach ($priceList as $eachPrice){
-            $totalPrice += $eachPrice->character->price;
-        }
+        $totalPrice = $priceList->sum(function ($eachPrice) {
+            return $eachPrice->character->price;
+        });
 
         $userList = [];
         foreach ($users as $key => $user){

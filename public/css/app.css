@@ -677,7 +677,6 @@ dashboardPage
 }
 .dashboardPage .dataList__itemPurchaseDate {
   min-width: 163px;
-  padding-left: 50px;
 }
 .dashboardPage .dataList__itemBuyerAccount {
   min-width: 283.5px;
@@ -742,9 +741,25 @@ dashboardPage
   border-color: #4EA899;
   color: #fff;
 }
+.dashboardPage .dataList__itemPurchaseDate {
+  min-width: 163px;
+  padding-left: 50px;
+}
 
 .dataTables_empty {
   padding-left: 24px;
+}
+
+.dataTables_length {
+  display: none;
+}
+
+.dataTables_filter {
+  display: none;
+}
+
+.api_route {
+  display: none;
 }
 
 /*===========================
@@ -1090,16 +1105,4 @@ Search @ actionBar
 }
 .detailContInner__itemPurchasePrice {
   min-width: 142.5px;
-}
-
-.dataTables_length {
-  display:none;
-}
-
-.dataTables_filter {
-  display:none;
-}
-
-.api_route {
-  display:none;
 }
