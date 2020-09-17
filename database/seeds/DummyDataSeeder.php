@@ -28,6 +28,8 @@ class DummyDataSeeder extends Seeder
 
         $this->generateSpotCharacters();
 
+        $this->generateDefaultUserPurchases();
+
         $this->generateUserPurchases();
     }
 
@@ -124,27 +126,66 @@ class DummyDataSeeder extends Seeder
      */
     public function generateUserPurchases()
     {
+        factory(User::class, 5)->create()->each(function($user) {
+            $faker = Faker::create();
+            $spotCharacters = SpotCharacter::all()->random($faker->numberBetween(10,15));
+
+            $transactions = $spotCharacters->map(function($spotCharacter) use ($user) {
+                return [
+                    'user_id' => $user->id,
+                    'status' => Status::OK,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ];
+            });
+
+            Purchase::insert($transactions->toArray());
+
+            // Insert to User Spot Characters
+            $spotCharacters->each(function($spotCharacter) use ($user) {
+                UserSpotCharacter::create(                [
+                    'user_id' => $user->id,
+                    'spot_id' => $spotCharacter->spot_id,
+                    'character_id' => $spotCharacter->character_id
+                ]);
+            });
+        });
+    }
+
+    /**
+     * Generate spots.
+     *
+     * @param string $appName
+     *
+     * @return void
+     */
+    public function generateDefaultUserPurchases()
+    {
         $faker = Faker::create();
         $user = User::first();
         $spotCharacters = SpotCharacter::all()->random($faker->numberBetween(10,15));
 
-        $transactions = $spotCharacters->map(function($spotCharacter) use ($user) {
+        $transactions = $spotCharacters->map(function($spotCharacter) use ($user, $faker) {
+            $date = Carbon::now()->subDays($faker->numberBetween(1,30));
             return [
                 'user_id' => $user->id,
                 'status' => Status::OK,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_at' => $date,
+                'updated_at' => $date
             ];
         });
 
         Purchase::insert($transactions->toArray());
 
         // Insert to User Spot Characters
-        $spotCharacters->each(function($spotCharacter) use ($user) {
+        $spotCharacters->each(function($spotCharacter) use ($user, $faker) {
+            $date = Carbon::now()->subDays($faker->numberBetween(1,30));
             UserSpotCharacter::create(                [
                 'user_id' => $user->id,
                 'spot_id' => $spotCharacter->spot_id,
-                'character_id' => $spotCharacter->character_id
+                'character_id' => $spotCharacter->character_id,
+                'created_at' => $date,
+                'updated_at' => $date
             ]);
         });
     }

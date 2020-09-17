@@ -8,14 +8,14 @@ class DataTableResource extends JsonResource
 {
     /**
      * Declare total records
-     * 
+     *
      * @var $filteredCounts
      */
     protected $totalCounts;
 
     /**
      * Declare records filtered
-     * 
+     *
      * @var $filteredCounts
      */
     protected $filteredCounts;
@@ -50,7 +50,7 @@ class DataTableResource extends JsonResource
             'draw' => $request->draw,
             'recordsTotal' => $this->totalCounts,
             'recordsFiltered' => $this->filteredCounts,
-            'totalPrice' => $this->totalPrice,
+            'totalPrice' => number_format($this->totalPrice),
             'data' => $this->collection,
         ];
     }

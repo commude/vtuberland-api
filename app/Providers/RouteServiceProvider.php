@@ -120,6 +120,7 @@ class RouteServiceProvider extends ServiceProvider
         $version = config('app.api_version');
         Route::prefix("admin/api/{$version}")
             ->middleware('api')
+            ->name('api.admin.')
             ->namespace($this->namespace['admin']['api'])
             ->group(base_path('routes/admin-api.php'));
     }

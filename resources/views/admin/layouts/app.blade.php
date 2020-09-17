@@ -8,8 +8,8 @@
     @include('admin.dashboard.components.nav')
     <main class="siteContent" role="main">
         @yield('contents')
-        @stack('script')
     </main>
     @include('admin.dashboard.components.scripts')
+    @stack('script')
   </body>
 </html>
