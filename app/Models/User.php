@@ -80,10 +80,10 @@ class User extends Authenticatable
     }
 
     /**
-     * Get transactions of the user.
+     * Get purchases of the user.
      */
-    public function transactions()
+    public function purchases()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Purchase::class);
     }
 }

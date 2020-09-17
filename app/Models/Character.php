@@ -33,6 +33,6 @@ class Character extends Model
      */
     public function spotCharacter()
     {
-        return $this->hasMany(SpotCharacter::class, 'character_id');
+        return $this->hasMany(SpotCharacter::class, 'id');
     }
 }
