@@ -33,7 +33,7 @@
         <div class="loginPageLoginSec__inner">
           <figure class="loginPageLoginSec__logoThumb"><img src={{ asset('images/dashboard/login/loginPage_logo.png') }} alt="Logo"></figure>
           <div class="loginPageLoginSec__innerLoginArea">
-            <form method="POST" action="{{ route('admin.login') }}">
+            <form method="POST" action="{{ route('admin.auth.login.post') }}">
             @csrf
               <div class="loginPageLoginSec__inputTextField">
                 <div class="loginPageLoginSec__inputUserField">

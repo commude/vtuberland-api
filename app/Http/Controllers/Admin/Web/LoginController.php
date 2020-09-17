@@ -43,29 +43,14 @@ class LoginController extends Controller
     {
         $this->validateLogin($request);
 
-        try {
-            if ($this->attemptLogin($request)) {
-
-                $this->guard()->attempt(
-                    $this->credentials($request), !$request->has('remember')
-                );
-
-                return redirect()->route('admin.purchase.index');
-            } else {
-                throw new UserNotFoundException();
-            }
-        } catch (UserNotFoundException $e) {
+        if (!$this->attemptLogin($request)) {
             return back()->withErrors(['password' => 'ID、またはパスワードが違います。'])->withInput($request->only('email'));
         }
 
-        return back();
-    }
+        $this->guard()->attempt(
+            $this->credentials($request), !$request->has('remember')
+        );
 
-    /**
-     * Logout
-     */
-    public function logout(){
-        $this->guard()->logout();
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.dashboard.purchase.index');
     }
 }
