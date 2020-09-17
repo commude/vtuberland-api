@@ -12,7 +12,7 @@ dashboardPage
     position: relative;
     margin-top: 22px;
     width: 100%;
-    min-height: 571px;
+    height: 70%;
   }
 
   /*===========================
@@ -278,4 +278,8 @@ dashboardPage
 
 .api_route {
   display:none;
+}
+
+.dataTables_scrollBody{
+  background: rgba(255, 255, 255, 1);
 }

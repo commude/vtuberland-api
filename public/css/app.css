@@ -271,6 +271,16 @@ body {
   font-size: 16px;
   font-family: Helvetica Neue, Helvetica, Arial, "\6E38\30B4\30B7\30C3\30AF", YuGothic, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   font-feature-settings: "palt" 1;
+  height: 100%;
+  margin: 0;
+}
+
+main {
+  height: 100%;
+}
+
+html {
+  height: 100%;
 }
 
 /*-----------------------------------------------
@@ -579,7 +589,7 @@ dashboardPage
   position: relative;
   margin-top: 22px;
   width: 100%;
-  min-height: 571px;
+  height: 70%;
 }
 .dashboardPage .dataList__fixed {
   position: absolute;
@@ -762,6 +772,10 @@ dashboardPage
   display: none;
 }
 
+.dataTables_scrollBody {
+  background: white;
+}
+
 /*===========================
 dashboardPageHeaderSec
 ===========================*/
@@ -875,7 +889,7 @@ dashboardPageActionSec
 ===========================*/
 .dashboardPageActionSec {
   margin-top: 73px;
-  padding-left: 244px;
+  padding-left: 222px;
 }
 .dashboardPageActionSec__bar {
   position: relative;
@@ -969,7 +983,6 @@ Filter Checkbox @ actionBar
 Search @ actionBar
 ===========================*/
 .dataListSearchAction {
-  margin-left: 33.5px;
   position: relative;
   display: flex;
   flex-direction: row;
