@@ -39,7 +39,7 @@ class PurchaseController extends Controller
 
         $purchaseList = $purchases->map(function($purchase) {
             return [
-                'purchase_date' => $purchase->created_at->format('Y年m月d日 g:i'),
+                'purchase_date' => $purchase->created_at->format('Y年m月d日'),
                 'user_name' => $purchase->user->name,
                 'content' => $purchase->character->name,
                 'price' => number_format($purchase->character->price).'円',
