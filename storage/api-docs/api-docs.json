@@ -1004,6 +1004,12 @@
                             "format": "boolean",
                             "example": true
                         },
+                        "is_expired": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "boolean",
+                            "format": "boolean",
+                            "example": false
+                        },
                         "created_at": {
                             "description": "Transform the spot resource into an array.",
                             "type": "timestamp",
@@ -1045,6 +1051,12 @@
                         "type": "boolean",
                         "format": "boolean",
                         "example": true
+                    },
+                    "is_expired": {
+                        "description": "Transform the spot resource into an array.",
+                        "type": "boolean",
+                        "format": "boolean",
+                        "example": false
                     },
                     "created_at": {
                         "description": "Transform the spot resource into an array.",
