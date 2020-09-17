@@ -31,12 +31,9 @@ class BuyerController extends Controller
         // Get all Filtered count from table.
         $totalFiltered = User::orSearchFor('name', $filter)->count();
 
-        // Get total price
-        $spotCharacters = UserSpotCharacter::whereHasSearchFor('user', 'name', $filter)->get();
-        $totalPrice = 0;
-        $totalPrice = $spotCharacters->sum(function ($spotCharacters) {
-            return $spotCharacters->character->price;
-        });
+        // Get total Num
+        $totalNum = 0;
+        $totalNum = User::get()->count();
 
         $userList = $users->map(function($user) {
             return [
@@ -50,6 +47,6 @@ class BuyerController extends Controller
             ];
         });
 
-        return new DataTableResource($userList, $totalCount, $totalFiltered, $totalPrice);
+        return new DataTableResource($userList, $totalCount, $totalFiltered, $totalNum);
     }
 }
