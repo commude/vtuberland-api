@@ -12,19 +12,19 @@ use Illuminate\Support\Facades\Log;
 
 class AndroidPurchaseService
 {
-    protected $transaction;
+    protected $receipt;
 
     /**
      * Create a new event instance.
      *
-     * @param \App\Models\Transaction $transaction
+     * @param array $receipt
      * @param string $secret
      *
      * @return void
      */
-    public function __construct($transaction)
+    public function __construct($receipt)
     {
-        $this->transaction = $transaction;
+        $this->receipt = $receipt;
     }
 
     /**
@@ -38,7 +38,7 @@ class AndroidPurchaseService
         $isVerified = $this->verify();
 
         if (!$isVerified) {
-            throw new InvalidReceiptException;
+            return $this->parseErrorReceipt();
         }
 
         return $this->data;
@@ -47,8 +47,7 @@ class AndroidPurchaseService
     /**
      * Verify the receipt is valid
      *
-     * @param \App\Models\Transaction $transaction
-     * @param \App\Models\User $user
+     * @return boolean
      */
     public function verify()
     {
@@ -62,33 +61,54 @@ class AndroidPurchaseService
             $service = new Google_Service_AndroidPublisher($client);
 
             // Check the purchase and consumption status of an inapp item.
-            $product_purchased = $service->purchases_products->get(config('services.google.package_name'), $this->transaction['product_id'], $this->transaction['purchase_token']);
+            $product_purchased = $service->purchases_products->get(config('services.google.package_name'), $this->receipt['product_id'], $this->receipt['purchase_token']);
 
-            if (is_null($product_purchased)
-                || isset($product_purchased['error']['code'])
-                || !isset($product_purchased['expiryTimeMillis'])) {
-                    $code = $product_purchased['error']['code'];
+            dd($product_purchased);
+            if (is_null($product_purchased) || isset($product_purchased['error']['code']) || !isset($product_purchased['expiryTimeMillis'])) {
+                    $code = $product_purchased['error']['code'] ?? 0;
+                    $message = is_null($product_purchased) ? 'No Respoonse from Google Client.' : 'Invalid receipt.';
 
-                    $this->data['status'] = Status::FAIL;
-                    Log::error("Purchase Failed -- return code: {$code}");
+                    Log::error("Invalid Receipt -- return code: {$code}; message: {$message}");
                     return false;
             }
 
-            $this->data = [
-                'original_transaction_id' => $this->transaction['purchase_token'],
-                'transaction_id' => $product_purchased['orderId'],
-                'purchase_token' => $this->transaction['purchase_token'],
-                'amount' => $product_purchased['priceAmountMicros'] * 0.000001,
-                'currency' => $product_purchased['priceCurrencyCode'],
-                'status' => Status::OK,
-                'purchased_at' => new Carbon(date("d-m-Y H:i:s", $product_purchased['startTimeMillis'] / 1000)),
-                'expired_at' => new Carbon(date("d-m-Y H:i:s", $product_purchased['expiryTimeMillis'] / 1000)),
-            ];
+            $this->data = $this->parseReceipt($product_purchased);
 
             return true;
         } catch (Exception $e) {
             $exception = json_decode($e->getMessage(), true);
             throw new InvalidReceiptException($exception['error']['code'] . ' ' . $exception['error']['message']);
         }
+    }
+
+    /**
+     * Parse sucessful receipt
+     *
+     * @return array
+     */
+    private function parseReceipt($body)
+    {
+        return [
+            'original_transaction_id' => $this->receipt['purchase_token'],
+            'transaction_id' => $body['orderId'],
+            'purchase_token' => $this->receipt['purchase_token'],
+            'amount' => $body['priceAmountMicros'] * 0.000001,
+            'currency' => $body['priceCurrencyCode'],
+            'status' => Status::OK,
+            'purchased_at' => new Carbon(date("d-m-Y H:i:s", $body['startTimeMillis'] / 1000)),
+            'expired_at' => new Carbon(date("d-m-Y H:i:s", $body['expiryTimeMillis'] / 1000)),
+        ];
+    }
+
+    /**
+     * Parse sucessful receipt
+     *
+     * @return array
+     */
+    private function parseErrorReceipt()
+    {
+        return [
+            'status' => Status::FAIL
+        ];
     }
 }

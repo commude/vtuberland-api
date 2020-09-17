@@ -25,9 +25,7 @@ class CreatePurchaseRequest extends FormRequest
     {
         return [
             'app' => ['required', 'in:'.implode(',', \App\Enums\Store::getValues())],
-            'receipt' => ['sometimes', 'nullable'],
-            'product_id' => ['sometimes', 'nullable'],
-            'purchase_token' => ['sometimes', 'nullable'],
+            'receipt' => ['required'],
         ];
     }
 
@@ -38,6 +36,6 @@ class CreatePurchaseRequest extends FormRequest
      */
     public function data()
     {
-        return $this->only('app', 'receipt', 'purchase_token');
+        return $this->only('app', 'receipt');
     }
 }

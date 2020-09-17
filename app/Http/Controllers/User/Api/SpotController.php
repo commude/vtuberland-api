@@ -18,6 +18,9 @@ use App\Http\Requests\CreatePurchaseRequest;
 use App\Http\Resources\Screens\HomeResource;
 use App\Http\Resources\Screens\SpotViewResource;
 use App\Http\Resources\Screens\SpotCharacterResource;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SpotController extends Controller
 {
@@ -67,7 +70,7 @@ class SpotController extends Controller
      *  security={{"passport": {"*"}}},
      *  summary="Get the list of spots",
      *  description="View Spot Screen with characters.",
-     *  @OA\Parameter(name="spot_id",in="query",required=true,
+     *  @OA\Parameter(name="spot_id",in="path",required=true,
      *      @OA\Schema(type="uuid"),),
      *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/SpotView")),
      *  @OA\Response(response=400, description="Bad request"),
@@ -91,7 +94,7 @@ class SpotController extends Controller
      *  security={{"passport": {"*"}}},
      *  summary="Get the character list of the spot.",
      *  description="Get the character list of the spot.",
-     *  @OA\Parameter(name="spot_id",in="query",required=true,
+     *  @OA\Parameter(name="spot_id",in="path",required=true,
      *      @OA\Schema(type="uuid"),),
      *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/SpotCharacters")),
      *  @OA\Response(response=400, description="Bad request"),
@@ -115,9 +118,9 @@ class SpotController extends Controller
      *  security={{"passport": {"*"}}},
      *  summary="Get the character of the spot.",
      *  description="Get the character of the spot.",
-     *  @OA\Parameter(name="spot_id",in="query",required=true,
+     *  @OA\Parameter(name="spot_id",in="path",required=true,
      *      @OA\Schema(type="uuid"),),
-     * @OA\Parameter(name="character_id",in="query",required=true,
+     * @OA\Parameter(name="character_id",in="path",required=true,
      *      @OA\Schema(type="integer"),),
      *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/SpotCharacter")),
      *  @OA\Response(response=400, description="Bad request"),
@@ -142,11 +145,13 @@ class SpotController extends Controller
      *  security={{"passport": {"*"}}},
      *  summary="Purchase an item from store.",
      *  description="Purchase an item from store.",
-     *  @OA\Parameter(name="spot_id",in="query",required=true,
+     *  @OA\Parameter(name="spot_id",in="path",required=true,
      *      @OA\Schema(type="uuid"),),
-     *  @OA\Parameter(name="character_id",in="query",required=true,
+     *  @OA\Parameter(name="character_id",in="path",required=true,
      *      @OA\Schema(type="integer"),),
      *  @OA\Parameter(name="app",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="receipt",in="query",required=false,
      *      @OA\Schema(type="string"),),
      *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/Auth")),
      *  @OA\Response(response=400, description="Bad request"),
@@ -163,22 +168,28 @@ class SpotController extends Controller
 
         $transaction = $service->verify($request->data(), $user);
 
-        if ($transaction['status'] == Status::FAIL){
-            return response()->json([
-                'code' => 0,
-                'message' => 'Verifying receipt failed. Please check logs.'
-            ]);
-        }
-
-        // Save the current purchase for history.
-        $purchase = Purchase::create($transaction);
+        // Save the current purchase details.
+        $purchase = Purchase::create(array_merge($transaction, [
+            'user_id' => $user->id
+        ]));
 
         // Store user owned spot character.
-        UserSpotCharacter::create([
-            'user_id' => $user->id,
-            'spot_id' => $spot->id,
-            'character_id' => $character->id,
-        ]);
+        if ($purchase->status == Status::OK){
+            UserSpotCharacter::create([
+                'user_id' => $user->id,
+                'spot_id' => $spot->id,
+                'character_id' => $character->id,
+            ]);
+        } else{
+            DB::table('failed_purchases')->insert([
+                'purchase_id' => $purchase->id,
+                'user_id' => $user->id,
+                'spot_id' => $spot->id,
+                'character_id' => $character->id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+        }
 
         return new PurchaseResource($purchase);
     }

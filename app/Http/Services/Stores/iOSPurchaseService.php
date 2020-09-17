@@ -11,20 +11,20 @@ use App\Exceptions\InvalidReceiptException;
 
 class iOSPurchaseService
 {
-    protected $transaction;
+    protected $receipt;
     protected $data;
 
     /**
      * Create a new event instance.
      *
-     * @param array $transaction
+     * @param array $receipt
      * @param string $secret
      *
      * @return void
      */
-    public function __construct($transaction)
+    public function __construct($receipt)
     {
-        $this->transaction = $transaction;
+        $this->receipt = $receipt;
     }
 
     /**
@@ -34,7 +34,7 @@ class iOSPurchaseService
     {
         return [
             'json' => [
-                'receipt-data' => $this->transaction['receipt'],
+                'receipt-data' => $this->receipt,
                 'password' => config('auth.apple.secret')
             ]
         ];
@@ -62,7 +62,7 @@ class iOSPurchaseService
         $isVerified = $this->verify();
 
         if (!$isVerified) {
-            throw new InvalidReceiptException;
+            return $this->parseErrorReceipt();
         }
 
         return $this->data;
@@ -70,6 +70,8 @@ class iOSPurchaseService
 
     /**
      * Verify the Receipt is valid in test environment
+     *
+     * @return boolean
      */
     public function sandboxVerify()
     {
@@ -79,14 +81,14 @@ class iOSPurchaseService
             $response = $http->post(config('services.apple.store.test'), $this->params());
 
             $body = json_decode($response->getBody()->getContents(), true);
-
-            $this->data = $this->parseReceipt($body);
-
+            dd($body);
             if ($body['status'] != 'success') {
                 Log::error('Sandbox verification receipt failed.');
-                $this->transaction['status'] = Status::FAIL;
                 return false;
             }
+
+            // Parse the purchase data to be stored.
+            $this->data = $this->parseReceipt($body);
 
             return true;
         } catch (Exception $exception) {
@@ -97,6 +99,8 @@ class iOSPurchaseService
     /**
      * Verify the receipt is valid in production.
      * Purchase flow in Apple requires verifying the receipt first in iTunes endpoint then sandbox endpoint.
+     *
+     * @return boolean
      */
     public function verify()
     {
@@ -106,19 +110,12 @@ class iOSPurchaseService
             $response = $http->post(config('services.ios.store.production'), $this->params());
 
             $body = json_decode($response->getBody()->getContents(), true);
+            dd($body);
+            // 0 = itunes success || 21007 = Sandbox success
+            return ($body['status'] == 0 || $body['status'] == 21007)
+                ? $this->sandboxVerify()
+                : false;
 
-            /*
-                0 = itunes success
-                21007 = Sandbox success
-             */
-            switch ($body['status']) {
-                case 0:
-                case 21007:
-                    return $this->sandboxVerify();
-                break;
-            }
-
-            return false;
         } catch (Exception $exception) {
             Log::error('iTunes verification receipt failed.');
             return false;
@@ -127,6 +124,8 @@ class iOSPurchaseService
 
     /**
      * Parse sucessful receipt
+     *
+     * @return array
      */
     private function parseReceipt($body)
     {
@@ -134,12 +133,10 @@ class iOSPurchaseService
 
         dd($latestReceipt);
         // return [
-        //     'plan' => $this->transaction['plan'],
-        //     'type' => $this->transaction['type'],
         //     'original_transaction_id' => $latestReceipt['original_transaction_id'],
         //     'transaction_id' => $latestReceipt['transaction_id'],
         //     'receipt' => $body['latest_receipt'],
-        //     'amount' => SubscriptionPlan::getAmount($this->transaction['plan']),
+        //     'amount' => SubscriptionPlan::getAmount($this->receipt['plan']),
         //     'currency' => 'JPY',
         //     'status' => SubscriptionStatus::SUCCESS['name'],
         //     'purchased_at' => $this->convertEpochToCarbon($latestReceipt['purchase_date_ms']),
@@ -149,11 +146,26 @@ class iOSPurchaseService
 
     /**
      * Parse miliseconds epoch to Carbon
+     *
+     * @return \Illuminate\Support\Carbon
      */
     private function convertEpochToCarbon($epoch)
     {
         $seconds = $epoch / 1000;
         $date = date('d-m-Y H:i:s', $seconds);
+
         return  new Carbon($date);
+    }
+
+    /**
+     * Parse sucessful receipt
+     *
+     * @return array
+     */
+    private function parseErrorReceipt()
+    {
+        return [
+            'status' => Status::FAIL,
+        ];
     }
 }
