@@ -19454,7 +19454,6 @@ $(function () {
       'dataType': 'json',
       'type': 'GET',
       "dataSrc": function dataSrc(json) {
-        console.log(json);
         $('.dataListStatus__text').html("合計人数：" + json.totalPrice + "人");
         return json.data;
       }

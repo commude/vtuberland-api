@@ -53,10 +53,9 @@ class BuyerController extends Controller
         $totalFiltered = User::orWhere('name', 'LIKE', "%{$search}%")
                                     ->count();
 
-        // Get total price
-        $userList = User::get();
+        // Get total num
         $totalNum = 0;
-        $totalNum = $userList->count();
+        $totalNum = User::get()->count();
 
         $userList = [];
         foreach ($users as $key => $user){
