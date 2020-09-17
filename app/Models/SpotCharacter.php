@@ -8,7 +8,7 @@ use App\Models\Traits\ScopeTrait;
 class SpotCharacter extends Model
 {
     use ScopeTrait;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -33,13 +33,4 @@ class SpotCharacter extends Model
     {
         return $this->hasOne(Spot::class, 'id', 'spot_id');
     }
-
-    /**
-     * Get transaction of spotCharacter.
-     */
-    public function transaction()
-    {
-        return $this->belongsTo(Transaction::class, 'id');
-    }
-
 }
