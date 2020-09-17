@@ -20,6 +20,11 @@ class CreateFailedPurchasesTable extends Migration
             $table->uuid('spot_id');
             $table->unsignedBigInteger('character_id');
             $table->timestamps();
+
+            $table->foreign('purchase_id')->references('id')->on('purchases');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('spot_id')->references('id')->on('spots');
+            $table->foreign('character_id')->references('id')->on('characters');
         });
     }
 
