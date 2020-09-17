@@ -18,6 +18,7 @@ class CreateUserSpotCharactersTable extends Migration
             $table->uuid('user_id');
             $table->uuid('spot_id');
             $table->unsignedBigInteger('character_id');
+            $table->dateTime('expired_at')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -184,6 +184,7 @@ class DummyDataSeeder extends Seeder
                 'user_id' => $user->id,
                 'spot_id' => $spotCharacter->spot_id,
                 'character_id' => $spotCharacter->character_id,
+                'expired_at' => Carbon::now()->addMonth(),
                 'created_at' => $date,
                 'updated_at' => $date
             ]);

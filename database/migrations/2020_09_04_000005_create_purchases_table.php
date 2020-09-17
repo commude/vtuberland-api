@@ -16,14 +16,14 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->uuid('user_id');
-            $table->text('original_transaction_id')->nullable();
-            $table->text('transaction_id')->nullable(); // transaction_id from apple or google
-            $table->text('purchase_token')->nullable(); // for google's response
-            $table->longText('receipt')->nullable(); // from the app side
+            $table->text('product_id')->nullable();
+            $table->text('bundle_id')->nullable();
+            $table->text('download_id')->nullable();
+            $table->text('purchase_token')->nullable();
+            $table->longText('receipt')->nullable();
             $table->text('currency')->nullable();
             $table->integer('status')->index();
-            $table->dateTime('purchased_at')->nullable(); // date from the receipt
-            $table->dateTime('expired_at')->nullable(); // expiration_date from the receipt
+            $table->dateTime('purchased_at')->nullable();
             $table->longText('exception_message')->nullable();
             $table->timestamps();
 

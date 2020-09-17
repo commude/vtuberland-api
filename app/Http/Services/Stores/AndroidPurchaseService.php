@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Stores;
 
+use App\Enums\GoogleProduct;
 use Exception;
 use Google_Client;
 use App\Enums\Status;
@@ -64,7 +65,6 @@ class AndroidPurchaseService
             // Check the purchase and consumption status of an inapp item.
             $product_purchased = $service->purchases_products->get(config('services.google.package_name'), $this->receipt['product_id'], $this->receipt['purchase_token']);
 
-            dd($product_purchased);
             if (is_null($product_purchased) || isset($product_purchased['error']['code']) || !isset($product_purchased['expiryTimeMillis'])) {
                     $code = $product_purchased['error']['code'] ?? 0;
                     $message = is_null($product_purchased) ? 'No Respoonse from Google Client.' : 'Invalid receipt.';
@@ -99,14 +99,14 @@ class AndroidPurchaseService
     private function parseReceipt($body)
     {
         return [
-            'original_transaction_id' => $this->receipt['purchase_token'],
-            'transaction_id' => $body['orderId'],
-            'purchase_token' => $this->receipt['purchase_token'],
-            'amount' => $body['priceAmountMicros'] * 0.000001,
-            'currency' => $body['priceCurrencyCode'],
+            'product_id' => $body['productId'],
+            'bundle_id' =>$body['orderId'],
+            'purchase_token' => $body['purchaseToken'],
+            'receipt' => json_encode($this->receipt),
+            'amount' => GoogleProduct::getAmount($body['productId']), // $body['priceAmountMicros'] * 0.000001,
+            'currency' => 'JPY',
             'status' => Status::OK,
-            'purchased_at' => new Carbon(date("d-m-Y H:i:s", $body['startTimeMillis'] / 1000)),
-            'expired_at' => new Carbon(date("d-m-Y H:i:s", $body['expiryTimeMillis'] / 1000)),
+            'purchased_at' => new Carbon(date("d-m-Y H:i:s", $body['purchaseTimeMillis'] / 1000)),
         ];
     }
 

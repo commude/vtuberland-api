@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Stores;
 
+use App\Enums\AppleProduct;
 use Exception;
 use App\Enums\Status;
 use GuzzleHttp\Client;
@@ -82,7 +83,7 @@ class iOSPurchaseService
             $response = $http->post(config('services.apple.store.test'), $this->params());
 
             $body = json_decode($response->getBody()->getContents(), true);
-            dd($body);
+
             if ($body['status'] != 'success') {
                 $receipt = json_encode($this->receipt);
                 Log::error("Sandbox receipt verification failed.\nReceipt: {$receipt}");
@@ -121,7 +122,7 @@ class iOSPurchaseService
             $response = $http->post(config('services.ios.store.production'), $this->params());
 
             $body = json_decode($response->getBody()->getContents(), true);
-            dd($body);
+
             // 0 = itunes success || 21007 = Sandbox success
             return ($body['status'] == 0 || $body['status'] == 21007)
                 ? $this->sandboxVerify()
@@ -146,32 +147,16 @@ class iOSPurchaseService
      */
     private function parseReceipt($body)
     {
-        $latestReceipt = collect($body['latest_receipt_info'])->sortByDesc('purchase_date')->first();
-
-        dd($latestReceipt);
-        // return [
-        //     'original_transaction_id' => $latestReceipt['original_transaction_id'],
-        //     'transaction_id' => $latestReceipt['transaction_id'],
-        //     'receipt' => $body['latest_receipt'],
-        //     'amount' => SubscriptionPlan::getAmount($this->receipt['plan']),
-        //     'currency' => 'JPY',
-        //     'status' => SubscriptionStatus::SUCCESS['name'],
-        //     'purchased_at' => $this->convertEpochToCarbon($latestReceipt['purchase_date_ms']),
-        //     'expired_at' => $this->convertEpochToCarbon($latestReceipt['expires_date_ms']),
-        // ];
-    }
-
-    /**
-     * Parse miliseconds epoch to Carbon
-     *
-     * @return \Illuminate\Support\Carbon
-     */
-    private function convertEpochToCarbon($epoch)
-    {
-        $seconds = $epoch / 1000;
-        $date = date('d-m-Y H:i:s', $seconds);
-
-        return  new Carbon($date);
+        return [
+            'product_id' => $body['receipt']['app_item_id'],
+            'bundle_id' => $body['receipt']['bundle_id'],
+            'download_id' => $body['receipt']['download_id'],
+            'receipt' => json_encode($body['receipt']),
+            'amount' => AppleProduct::getAmount($body['receipt']['app_item_id']),
+            'currency' => 'JPY',
+            'status' => Status::OK,
+            'purchased_at' => new Carbon(date('d-m-Y H:i:s'), $body['receipt']['original_purchase_date_ms'] / 1000),
+        ];
     }
 
     /**
