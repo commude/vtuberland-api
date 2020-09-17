@@ -10,11 +10,11 @@
 <section class="dashboardDetailPage__detailCont">
     <div class="detailContInner">
         <div class="detailContInner__textArea">
-            <h4 class="detailContInner__buyerNameText">購入者アカウント名がこちらに入ります。</h4>
-            <p class="detailContInner__deviceNameText">デバイス(iOS/Android)がこちらに入ります。</p>
+            <h4 class="detailContInner__buyerNameText">{{ $user->name }}</h4>
+            <p class="detailContInner__deviceNameText">{{ $user->os }}</p>
             <div class="detailContInner__purchaseDetail">
-                <div class="detailContInner__purchaseDetailNoText">購入件数：000件</div>
-                <div class="detailContInner__purchaseDetailTotalNoText">購入合計金額：000000円</div>
+                <div class="detailContInner__purchaseDetailNoText">購入件数：{{ $count }}件</div>
+                <div class="detailContInner__purchaseDetailTotalNoText">購入合計金額：{{ $totalPrice }}円</div>
             </div>
         </div>
         <div class="detailContInner__tableCont">
