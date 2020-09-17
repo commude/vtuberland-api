@@ -19469,7 +19469,7 @@ $(function () {
         'orderable':false,
         'className': 'dataList__itemBuyerName02',
         'render': function (data, type, full, meta){
-          return '<a class="dataList__itemAnchor" href=./buyers/show/' + full.id + '>' + data + '</a>';
+          return '<a class="dataList__itemAnchor" href=./buyers/users/' + full.id + '>' + data + '</a>';
         }
       },
     ],

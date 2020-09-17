@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Web;
 
 use App\Models\User;
-use App\Models\Transaction;
+use App\Models\UserSpotCharacter;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Bases\DataTableResource as DataTable;
@@ -54,10 +54,10 @@ class BuyerController extends Controller
                                     ->count();
 
         // Get total price
-        $priceList = Transaction::whereHasSearchFor('user', 'name', $search)->get();
+        $priceList = UserSpotCharacter::whereHasSearchFor('user', 'name', $search)->get();
         $totalPrice = 0;
         foreach ($priceList as $eachPrice){
-            $totalPrice += $eachPrice->spotCharacter[0]->character->price;
+            $totalPrice += $eachPrice->character->price;
         }
 
         $userList = [];
@@ -66,11 +66,9 @@ class BuyerController extends Controller
             $purchase_num = 0;
             $sum_price = 0;
 
-            if (isset($user->transactions[0])){
-                foreach ($user->transactions as $purchase){
-                    $purchase_num += 1;
-                    $sum_price += isset($purchase->spotCharacter[0]) ? $purchase->spotCharacter[0]->character->price : 0 ;
-                }
+            foreach ($user->spotCharacters as $purchase){
+                $purchase_num += 1;
+                $sum_price += $purchase->character->price;
             }
 
             $userList[$key] = [
