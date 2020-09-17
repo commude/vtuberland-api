@@ -34,6 +34,6 @@
 
 <section class="dashboardPage__pagination"></section>
 
-<div class="api_route">{{route('admin.list')}}</div>
+<div class="api_route">{{route('api.admin.buyer.list')}}</div>
 
 @endsection

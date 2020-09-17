@@ -35,12 +35,12 @@ $(function () {
       {'targets': 3, 'className': "dataList__itemPurchasePrice"},
       { 'searchable': false, 'targets': [0, 2, 3] },
     ],
-    
+
     "language": {
       "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Japanese.json"
     },
     "initComplete": function(settings, json) {
-      
+
       $('.js--searchFilterSubmit').on('click', function () {
         table.column(1).search($('.js--searchInputText').val()).draw();
       });
@@ -96,12 +96,12 @@ $(function () {
         }
       },
     ],
-    
+
     "language": {
       "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Japanese.json"
     },
     "initComplete": function(settings, json) {
-      
+
       $('.js--searchFilterSubmit').on('click', function () {
         table.column(1).search($('.js--searchInputText').val()).draw();
       });
