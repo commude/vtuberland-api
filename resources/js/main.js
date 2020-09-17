@@ -67,7 +67,8 @@ $(function () {
       'dataType': 'json',
       'type': 'GET',
       "dataSrc": function ( json ) {
-        $('.dataListStatus__text').html("合計金額：" + json.totalPrice + "円");
+        console.log(json);
+        $('.dataListStatus__text').html("合計人数：" + json.totalPrice + "人");
         return json.data;
       }
     },

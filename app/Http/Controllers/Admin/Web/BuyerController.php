@@ -54,11 +54,9 @@ class BuyerController extends Controller
                                     ->count();
 
         // Get total price
-        $priceList = UserSpotCharacter::whereHasSearchFor('user', 'name', $search)->get();
-        $totalPrice = 0;
-        $totalPrice = $priceList->sum(function ($eachPrice) {
-            return $eachPrice->character->price;
-        });
+        $userList = User::get();
+        $totalNum = 0;
+        $totalNum = $userList->count();
 
         $userList = [];
         foreach ($users as $key => $user){
@@ -80,6 +78,6 @@ class BuyerController extends Controller
             ];
         }
 
-        return new DataTable($userList, $totalCount, $totalFiltered, $totalPrice); 
+        return new DataTable($userList, $totalCount, $totalFiltered, $totalNum); 
     }
 }

@@ -10,7 +10,7 @@
             <div class="dataListSearchAction__searchSubmit js--searchFilterSubmit"></div>
         </form>
         <div class="dataListStatus">
-            <p class="dataListStatus__text">合計金額：220,034円</p>
+            <p class="dataListStatus__text">合計人数：人</p>
         </div>
     </div>
 </section>
