@@ -12,6 +12,7 @@ use App\Exceptions\InvalidReceiptException;
 class iOSPurchaseService
 {
     protected $receipt;
+    protected $exception_message;
     protected $data;
 
     /**
@@ -83,7 +84,10 @@ class iOSPurchaseService
             $body = json_decode($response->getBody()->getContents(), true);
             dd($body);
             if ($body['status'] != 'success') {
-                Log::error('Sandbox verification receipt failed.');
+                $receipt = json_encode($this->receipt);
+                Log::error("Sandbox receipt verification failed.\nReceipt: {$receipt}");
+
+                $this->exception_message = "Sandbox receipt verification failed. Receipt data: {$receipt}";
                 return false;
             }
 
@@ -91,7 +95,14 @@ class iOSPurchaseService
             $this->data = $this->parseReceipt($body);
 
             return true;
-        } catch (Exception $exception) {
+        } catch (Exception $e) {
+            $exception = json_decode($e->getMessage(), true);
+            $receipt = json_encode($this->receipt);
+            $message = $exception['error']['message'];
+
+            $this->exception_message = $message;
+            Log::error("Sandbox verification receipt failed.\nException: {$message}\nReceipt: {$receipt}");
+
             return false;
         }
     }
@@ -116,8 +127,14 @@ class iOSPurchaseService
                 ? $this->sandboxVerify()
                 : false;
 
-        } catch (Exception $exception) {
-            Log::error('iTunes verification receipt failed.');
+        } catch (Exception $e) {
+            $exception = json_decode($e->getMessage(), true);
+            $receipt = json_encode($this->receipt);
+            $message = $exception['error']['message'];
+
+            $this->exception_message = $message;
+            Log::error("iTunes verification receipt failed.\nException: {$message}\nReceipt: {$receipt}");
+
             return false;
         }
     }
@@ -166,6 +183,7 @@ class iOSPurchaseService
     {
         return [
             'status' => Status::FAIL,
+            'exception_message' => $this->exception_message,
         ];
     }
 }

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 class AndroidPurchaseService
 {
     protected $receipt;
+    protected $exception_message;
 
     /**
      * Create a new event instance.
@@ -67,8 +68,11 @@ class AndroidPurchaseService
             if (is_null($product_purchased) || isset($product_purchased['error']['code']) || !isset($product_purchased['expiryTimeMillis'])) {
                     $code = $product_purchased['error']['code'] ?? 0;
                     $message = is_null($product_purchased) ? 'No Respoonse from Google Client.' : 'Invalid receipt.';
+                    $receipt = json_encode($this->receipt);
 
-                    Log::error("Invalid Receipt -- return code: {$code}; message: {$message}");
+                    $this->exception_message = $message;
+                    Log::error("Invalid Receipt.\nReturn Code: {$code}\nMessage: {$message}\nReceipt: {$receipt}");
+
                     return false;
             }
 
@@ -77,7 +81,13 @@ class AndroidPurchaseService
             return true;
         } catch (Exception $e) {
             $exception = json_decode($e->getMessage(), true);
-            throw new InvalidReceiptException($exception['error']['code'] . ' ' . $exception['error']['message']);
+            $receipt = json_encode($this->receipt);
+            $message = $exception['error']['message'];
+
+            $this->exception_message = $message;
+            Log::error("Google Play receipt verification failed.\nException: {$message}\nReceipt: {$receipt}");
+
+            return false;
         }
     }
 
@@ -108,7 +118,8 @@ class AndroidPurchaseService
     private function parseErrorReceipt()
     {
         return [
-            'status' => Status::FAIL
+            'status' => Status::FAIL,
+            'exception_message' => $this->exception_message
         ];
     }
 }

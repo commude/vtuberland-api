@@ -18,7 +18,7 @@ class Purchase extends Model
     protected $fillable = [
         'user_id', 'original_transaction_id', 'transaction_id',
         'purchase_token', 'receipt', 'currency', 'status',
-        'purchased_at', 'expired_at'
+        'purchased_at', 'expired_at', 'exception_message'
     ];
 
     /**

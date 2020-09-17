@@ -24,6 +24,7 @@ class CreatePurchasesTable extends Migration
             $table->integer('status')->index();
             $table->dateTime('purchased_at')->nullable(); // date from the receipt
             $table->dateTime('expired_at')->nullable(); // expiration_date from the receipt
+            $table->longText('exception_message')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
