@@ -7,6 +7,9 @@ cd /var/www/app
 composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 # npm install
 
+# run assets compiler
+npm run production
+
 # copy environment variables
 # cp .env.staging .env
 # cp .env.production .env
