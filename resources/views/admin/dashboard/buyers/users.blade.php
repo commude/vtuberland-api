@@ -4,7 +4,7 @@
 
 @section('contents')
 <section class="dashboardPageActionSec dashboard02">
-    <div class="dashboardPageActionSec__bar"><a class="btn-backToDashboard" href="{{ route('admin.index') }}">一覧へもどる</a></div>
+    <div class="dashboardPageActionSec__bar"><a class="btn-backToDashboard" href="{{ route('admin.dashboard.buyer.index') }}">一覧へもどる</a></div>
 </section>
 
 <section class="dashboardDetailPage__detailCont">

@@ -17,7 +17,7 @@ class PurchaseController extends Controller
      */
     public function list(Request $request)
     {
-        $search = $request->input('columns')[2]['search']['value'] ?? '';
+        $search = $request->input('columns')[1]['search']['value'] ?? '';
         $purchases = UserSpotCharacter::offset($request->input('start'))
                         ->whereHasSearchFor('user', 'name', $search)
                         ->limit($request->input('length'))
