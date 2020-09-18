@@ -23,7 +23,7 @@ class SpotCharacter extends Model
      */
     public function character()
     {
-        return $this->belongsTo(Character::class, 'character_id');
+        return $this->belongsTo(Character::class, 'character_id', 'id');
     }
 
     /**

@@ -5,7 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Support\Facades\Lang;
 
-class StoreNotSupportedException extends Exception
+class PurchaseNotFoundException extends Exception
 {
     protected $message;
 
@@ -18,7 +18,7 @@ class StoreNotSupportedException extends Exception
      */
     public function __construct()
     {
-        $this->message = Lang::get('purchase.store-non-exists');
+        $this->message = Lang::get('purchase.non-exists');
         $this->code = 404;
     }
 }

@@ -41,7 +41,7 @@ class MeController extends Controller
      *  @OA\Response(response=404, description="Resource Not Found"),
      * )
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\MeResource
      */
     public function index()
     {
@@ -86,8 +86,8 @@ class MeController extends Controller
      *  @OA\Response(response=404, description="Resource Not Found"),
      * )
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\CreateUserRequest  $request
+     * @return \App\Http\Resources\AuthResource
      */
     public function register(CreateUserRequest $request)
     {
@@ -108,7 +108,6 @@ class MeController extends Controller
 
         $userToken = $user->createToken('VTuberland Password Grant Client');
 
-        // return new MeResource($user);
         return new AuthResource($userToken);
     }
 
@@ -160,6 +159,8 @@ class MeController extends Controller
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found"),
      * )
+     *
+     * @return \App\Http\Resources\AuthResource
      */
     public function refresh()
     {

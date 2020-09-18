@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\User\Api;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\CharacterResource;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Resources\Screens\ArchiveResource;
 use App\Models\Character;
+use Illuminate\Http\Request;
 use App\Models\SpotCharacter;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Exceptions\UserNotFoundException;
+use App\Http\Resources\Screens\ArchiveResource;
+use App\Http\Resources\Screens\ArchiveViewResource;
 
 class ArchiveController extends Controller
 {
@@ -40,7 +41,8 @@ class ArchiveController extends Controller
      *  @OA\Response(response=404, description="Resource Not Found")
      * )
      *
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request
+     * @return \App\Http\Resources\Screens\ArchiveResource
      */
     public function index(Request $request)
     {
@@ -54,23 +56,29 @@ class ArchiveController extends Controller
      * Display the specified resource.
      *
      * @OA\Get(
-     *  path="/characters/{character_id}",
+     *  path="/characters/{spot_character_id}",
      *  tags={"Character"},
      *  security={{"passport": {"*"}}},
      *  summary="Get character details",
      *  description="View character screen.",
-     *  @OA\Parameter(name="character_id",in="path",required=true,
+     *  @OA\Parameter(name="spot_character_id",in="path",required=true,
      *      @OA\Schema(type="integer"),),
      *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/CharacterView")),
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found"),
      * )
      *
-     * @param  \App\Spot  $Spot
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Character  $character
+     * @return \App\Http\Resources\CharacterResource
      */
-    public function show(Character $character)
+    public function show(SpotCharacter $spot_character)
     {
-        return new CharacterResource($character);
+        $user = $this->guard()->user();
+
+        if (!$user) {
+            throw new UserNotFoundException;
+        }
+
+        return new ArchiveViewResource($spot_character);
     }
 }

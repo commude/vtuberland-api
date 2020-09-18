@@ -4,7 +4,7 @@ namespace App\Http\Resources\Screens;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class HomeResource extends JsonResource
+class SpotResource extends JsonResource
 {
     /**
      * Transform the spot resource into an array.
