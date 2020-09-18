@@ -236,9 +236,4 @@ return [
 
     ],
 
-    /**
-     * IP address for administrator
-     */
-    'adminwhitelist' => env('ADMIN_WHITELIST_IP'),
-
 ];
