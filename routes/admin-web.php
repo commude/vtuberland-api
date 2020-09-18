@@ -34,7 +34,7 @@ Route::group(['middleware' => 'admin.ip'], function () {
 
         Route::group(['prefix' => '/buyers', 'as' => 'buyer.'], function () {
             Route::get('/', 'BuyerController@index')->name('index');
-            Route::get('/users/{user}', 'BuyerController@show')->name('users');
+            Route::get('/users/{user}', 'BuyerController@user')->name('user');
         });
     });
 });

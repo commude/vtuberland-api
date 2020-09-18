@@ -69,7 +69,7 @@
                 ]
             }
         },
-        "/characters/{character_id}": {
+        "/characters/{spot_character_id}": {
             "get": {
                 "tags": [
                     "Character"
@@ -79,7 +79,7 @@
                 "operationId": "App\\Http\\Controllers\\User\\Api\\ArchiveController::show",
                 "parameters": [
                     {
-                        "name": "character_id",
+                        "name": "spot_character_id",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -373,6 +373,104 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Auth"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/purchases": {
+            "get": {
+                "tags": [
+                    "Purchase"
+                ],
+                "summary": "Get current purchases",
+                "description": "Get current purchases of the user.",
+                "operationId": "App\\Http\\Controllers\\User\\Api\\PurchaseController::index",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PurchaseViewScreen"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "passport": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/purchases/{user_spot_character_id}": {
+            "get": {
+                "tags": [
+                    "Purchase"
+                ],
+                "summary": "View Purchase screen.",
+                "description": "View Purchase.",
+                "operationId": "App\\Http\\Controllers\\User\\Api\\PurchaseController::show",
+                "parameters": [
+                    {
+                        "name": "user_spot_character_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PurchaseView"
                                 }
                             }
                         }
@@ -760,7 +858,7 @@
                 },
                 "type": "object"
             },
-            "CharacterView": {
+            "Character": {
                 "properties": {
                     "id": {
                         "description": "Transform the resource into an array.",
@@ -784,12 +882,6 @@
                         "type": "string",
                         "format": "string",
                         "example": "https://vtuberland.test/images/characters/008-lion.png"
-                    },
-                    "created_at": {
-                        "description": "Transform the resource into an array.",
-                        "type": "timestamp",
-                        "format": "date",
-                        "example": "2020-03-10T19:42:31+09:00"
                     }
                 },
                 "type": "object"
@@ -880,8 +972,14 @@
                 "type": "array",
                 "items": {
                     "properties": {
+                        "id": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 1
+                        },
                         "spot": {
-                            "$ref": "#/components/schemas/SpotArchiveView"
+                            "$ref": "#/components/schemas/Spot"
                         },
                         "characters": {
                             "$ref": "#/components/schemas/SpotCharacter"
@@ -890,38 +988,36 @@
                     "type": "object"
                 }
             },
-            "SpotArchiveView": {
+            "CharacterView": {
                 "properties": {
                     "id": {
-                        "description": "Transform the spot resource into an array.",
-                        "type": "uuid",
-                        "format": "string",
-                        "example": "26397745-9126-438c-9706-5002baf5d3a4"
+                        "description": "Transform the resource into an array.",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
                     },
-                    "name": {
-                        "description": "Transform the spot resource into an array.",
+                    "character": {
+                        "$ref": "#/components/schemas/Character"
+                    },
+                    "video_url": {
+                        "description": "Transform the resource into an array.",
                         "type": "string",
                         "format": "string",
-                        "example": "Roller Coaster"
-                    },
-                    "beacon_id": {
-                        "description": "Transform the spot resource into an array.",
-                        "type": "uuid",
-                        "format": "string",
-                        "example": "d3aacc6a-f618-3b19-b63f-8ab5e804e495"
+                        "example": "https://youtu.be/WjoplqS1u18"
                     },
                     "created_at": {
-                        "description": "Transform the spot resource into an array.",
-                        "type": "string",
-                        "format": "string"
+                        "description": "Transform the resource into an array.",
+                        "type": "timestamp",
+                        "format": "date",
+                        "example": "2020-03-10T19:42:31+09:00"
                     }
                 },
                 "type": "object"
             },
-            "HomeViewScreen": {
+            "PurchaseViewScreen": {
                 "properties": {
                     "data": {
-                        "$ref": "#/components/schemas/SpotList"
+                        "$ref": "#/components/schemas/PurchaseList"
                     },
                     "links": {
                         "$ref": "#/components/schemas/links"
@@ -932,33 +1028,18 @@
                 },
                 "type": "object"
             },
-            "SpotList": {
+            "PurchaseList": {
                 "type": "array",
                 "items": {
                     "properties": {
                         "id": {
                             "description": "Transform the spot resource into an array.",
-                            "type": "uuid",
-                            "format": "string",
-                            "example": "26397745-9126-438c-9706-5002baf5d3a4"
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 1
                         },
-                        "name": {
-                            "description": "Transform the spot resource into an array.",
-                            "type": "string",
-                            "format": "string",
-                            "example": "Roller Coaster"
-                        },
-                        "beacon_id": {
-                            "description": "Transform the spot resource into an array.",
-                            "type": "uuid",
-                            "format": "string",
-                            "example": "d3aacc6a-f618-3b19-b63f-8ab5e804e495"
-                        },
-                        "image_url": {
-                            "description": "Transform the spot resource into an array.",
-                            "type": "uuid",
-                            "format": "string",
-                            "example": "https://vtuberland.test/images/spots/rollercoaster.jpg"
+                        "spot": {
+                            "$ref": "#/components/schemas/Spot"
                         },
                         "created_at": {
                             "description": "Transform the spot resource into an array.",
@@ -969,6 +1050,17 @@
                     },
                     "type": "object"
                 }
+            },
+            "PurchaseView": {
+                "properties": {
+                    "spot": {
+                        "$ref": "#/components/schemas/Spot"
+                    },
+                    "characters": {
+                        "$ref": "#/components/schemas/SpotCharacters"
+                    }
+                },
+                "type": "object"
             },
             "SpotCharacters": {
                 "type": "array",
@@ -1067,6 +1159,58 @@
                 },
                 "type": "object"
             },
+            "HomeViewScreen": {
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/SpotList"
+                    },
+                    "links": {
+                        "$ref": "#/components/schemas/links"
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/meta"
+                    }
+                },
+                "type": "object"
+            },
+            "SpotList": {
+                "type": "array",
+                "items": {
+                    "properties": {
+                        "id": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "uuid",
+                            "format": "string",
+                            "example": "26397745-9126-438c-9706-5002baf5d3a4"
+                        },
+                        "name": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "string",
+                            "format": "string",
+                            "example": "Roller Coaster"
+                        },
+                        "beacon_id": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "uuid",
+                            "format": "string",
+                            "example": "d3aacc6a-f618-3b19-b63f-8ab5e804e495"
+                        },
+                        "image_url": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "uuid",
+                            "format": "string",
+                            "example": "https://vtuberland.test/images/spots/rollercoaster.jpg"
+                        },
+                        "created_at": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "timestamp",
+                            "format": "date",
+                            "example": "2020-03-10T19:42:31+09:00"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
             "SpotView": {
                 "properties": {
                     "id": {
@@ -1100,6 +1244,34 @@
                         "type": "timestamp",
                         "format": "date",
                         "example": "2020-03-10T19:42:31+09:00"
+                    }
+                },
+                "type": "object"
+            },
+            "Spot": {
+                "properties": {
+                    "id": {
+                        "description": "Transform the resource into an array.",
+                        "type": "uuid",
+                        "format": "string",
+                        "example": "26397745-9126-438c-9706-5002baf5d3a4"
+                    },
+                    "name": {
+                        "description": "Transform the resource into an array.",
+                        "type": "string",
+                        "format": "string",
+                        "example": "Roller Coaster"
+                    },
+                    "content": {
+                        "description": "Transform the resource into an array.",
+                        "type": "string",
+                        "format": "string"
+                    },
+                    "image_url": {
+                        "description": "Transform the resource into an array.",
+                        "type": "uuid",
+                        "format": "string",
+                        "example": "https://vtuberland.test/images/spots/rollercoaster.jpg"
                     }
                 },
                 "type": "object"

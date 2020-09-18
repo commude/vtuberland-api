@@ -32,7 +32,7 @@ class AuthController extends Controller
      * )
      *
      * @param  \App\Http\Requests\LoginRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\AuthResource
      */
     public function login(LoginRequest $request)
     {

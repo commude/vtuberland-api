@@ -68,7 +68,7 @@ class User extends Authenticatable
      */
     public function spots()
     {
-        return $this->hasMany(UserSpot::class);
+        return $this->hasManyThrough(Spot::class, UserSpotCharacter::class, 'user_id', 'id', 'id', 'spot_id');
     }
 
     /**

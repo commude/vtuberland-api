@@ -12,7 +12,8 @@ return [
     |
     */
 
-    'non-exists' => 'ストアが存在しません。',
+    'non-exists' => '購入は見つかりませんでした。',
+    'store-non-exists' => 'ストアが存在しません。',
     'receipt' => [
         'invalid' => '領収書は無効です。'
     ],

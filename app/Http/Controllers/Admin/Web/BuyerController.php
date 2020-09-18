@@ -26,8 +26,14 @@ class BuyerController extends Controller
      * @param  \App\Models\\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function user(User $user)
     {
-        return view('admin.dashboard.buyers.show');
+        $totalPrice = $user->spotCharacters->sum(function ($eachPrice) {
+            return $eachPrice->character->price;
+        });
+
+        $count = $user->spotCharacters->count();
+
+        return view('admin.dashboard.buyers.user')->with(compact(['user', 'count', 'totalPrice']));
     }
 }

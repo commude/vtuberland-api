@@ -9,13 +9,12 @@ use App\Models\Character;
 use Illuminate\Http\Request;
 use App\Models\UserSpotCharacter;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\SpotResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\PurchaseService;
 use App\Http\Resources\PurchaseResource;
 use App\Exceptions\UserNotFoundException;
 use App\Http\Requests\CreatePurchaseRequest;
-use App\Http\Resources\Screens\HomeResource;
+use App\Http\Resources\Screens\SpotResource;
 use App\Http\Resources\Screens\SpotViewResource;
 use App\Http\Resources\Screens\SpotCharacterResource;
 use Illuminate\Support\Carbon;
@@ -52,13 +51,14 @@ class SpotController extends Controller
      *  @OA\Response(response=404, description="Resource Not Found"),
      * )
      *
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request
+     * @return \App\Http\Resources\Screens\SpotResource
      */
     public function index(Request $request)
     {
         $spot = Spot::paginate($request->query('per_page'));
 
-        return HomeResource::collection($spot);
+        return SpotResource::collection($spot);
     }
 
     /**
@@ -78,7 +78,7 @@ class SpotController extends Controller
      * )
      *
      * @param  \App\Spot  $Spot
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\Screens\SpotViewResource
      */
     public function show(Spot $Spot)
     {
@@ -101,8 +101,8 @@ class SpotController extends Controller
      *  @OA\Response(response=404, description="Resource Not Found"),
      * )
      *
-     * @param  \App\Models\Spot  $Spot
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Spot  $spot
+     * @return \App\Http\Resources\Screens\SpotCharacterResource
      */
     public function characters(Spot $spot)
     {
@@ -120,14 +120,16 @@ class SpotController extends Controller
      *  description="Get the character of the spot.",
      *  @OA\Parameter(name="spot_id",in="path",required=true,
      *      @OA\Schema(type="uuid"),),
-     * @OA\Parameter(name="character_id",in="path",required=true,
+     *  @OA\Parameter(name="character_id",in="path",required=true,
      *      @OA\Schema(type="integer"),),
      *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/SpotCharacter")),
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found"),
      * )
-     * @param  \App\Models\Spot  $Spot
-     * @return \Illuminate\Http\Response
+     *
+     * @param  \App\Models\Spot  $spot
+     * @param  \App\Models\Character  $character
+     * @return \App\Http\Resources\Screens\PurchaseResource
      */
     public function showCharacter(Spot $spot, Character $character)
     {
@@ -157,6 +159,12 @@ class SpotController extends Controller
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found"),
      * )
+     *
+     * @param  \App\Http\Requests\CreatePurchaseRequest  $request
+     * @param  \App\Models\Spot  $spot
+     * @param  \App\Models\Character  $character
+     * @param  \App\Http\Services\PurchaseService  $service
+     * @return \App\Http\Resources\PurchaseResource
      */
     public function purchase(CreatePurchaseRequest $request, Spot $spot, Character $character, PurchaseService $service)
     {
