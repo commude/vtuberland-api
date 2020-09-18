@@ -12,28 +12,29 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['middleware' => 'admin.ip'], function () {
+    /*
+    |--------------------------------------------------------------------------
+    | Login Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::group(['prefix' => 'auth', 'as' => 'auth.login.'], function () {
+        Route::get('/login', 'LoginController@index')->name('index');
+        Route::post('/login', 'LoginController@login')->name('post');
+    });
 
-/*
-|--------------------------------------------------------------------------
-| Login Routes
-|--------------------------------------------------------------------------
-*/
-Route::group(['prefix' => 'auth', 'as' => 'auth.login.'], function () {
-    Route::get('/login', 'LoginController@index')->name('index');
-    Route::post('/login', 'LoginController@login')->name('post');
-});
+    /*
+    |--------------------------------------------------------------------------
+    | Dashboard Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::group(['prefix' => '/', 'as' => 'dashboard.' ,'middleware' => 'auth:admin'], function () {
+        Route::post('/logout', 'DashboardController@logout')->name('logout');
+        Route::get('/', 'PurchaseController@index')->name('purchase.index');
 
-/*
-|--------------------------------------------------------------------------
-| Dashboard Routes
-|--------------------------------------------------------------------------
-*/
-Route::group(['prefix' => '/', 'as' => 'dashboard.' ,'middleware' => 'auth:admin'], function () {
-    Route::post('/logout', 'DashboardController@logout')->name('logout');
-    Route::get('/', 'PurchaseController@index')->name('purchase.index');
-
-    Route::group(['prefix' => '/buyers', 'as' => 'buyer.'], function () {
-        Route::get('/', 'BuyerController@index')->name('index');
-        Route::get('/users/{user}', 'BuyerController@show')->name('users');
+        Route::group(['prefix' => '/buyers', 'as' => 'buyer.'], function () {
+            Route::get('/', 'BuyerController@index')->name('index');
+            Route::get('/users/{user}', 'BuyerController@show')->name('users');
+        });
     });
 });
