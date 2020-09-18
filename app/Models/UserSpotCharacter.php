@@ -23,7 +23,7 @@ class UserSpotCharacter extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     /**
@@ -31,7 +31,7 @@ class UserSpotCharacter extends Model
      */
     public function character()
     {
-        return $this->belongsTo(Character::class, 'character_id');
+        return $this->belongsTo(Character::class, 'character_id', 'id');
     }
 
     /**
@@ -39,6 +39,6 @@ class UserSpotCharacter extends Model
      */
     public function spot()
     {
-        return $this->hasOne(Spot::class);
+        return $this->hasOne(Spot::class, 'id', 'spot_id');
     }
 }
