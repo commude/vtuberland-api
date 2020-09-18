@@ -22,11 +22,11 @@ class PurchaseService
 
         switch ($transaction['app']) {
             case Store::APPLE:
-                $service = new iOSPurchaseService($transaction);
+                $service = new iOSPurchaseService($transaction['receipt']);
                 $transaction = $service->transact();
             break;
             case Store::GOOGLE:
-                $service = new AndroidPurchaseService($transaction);
+                $service = new AndroidPurchaseService($transaction['receipt']);
                 $transaction = $service->transact();
             break;
         }

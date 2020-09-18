@@ -80,7 +80,7 @@
                 "parameters": [
                     {
                         "name": "character_id",
-                        "in": "query",
+                        "in": "path",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -457,7 +457,7 @@
                 "parameters": [
                     {
                         "name": "spot_id",
-                        "in": "query",
+                        "in": "path",
                         "required": true,
                         "schema": {
                             "type": "uuid"
@@ -502,7 +502,7 @@
                 "parameters": [
                     {
                         "name": "spot_id",
-                        "in": "query",
+                        "in": "path",
                         "required": true,
                         "schema": {
                             "type": "uuid"
@@ -547,7 +547,7 @@
                 "parameters": [
                     {
                         "name": "spot_id",
-                        "in": "query",
+                        "in": "path",
                         "required": true,
                         "schema": {
                             "type": "uuid"
@@ -555,7 +555,7 @@
                     },
                     {
                         "name": "character_id",
-                        "in": "query",
+                        "in": "path",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -600,7 +600,7 @@
                 "parameters": [
                     {
                         "name": "spot_id",
-                        "in": "query",
+                        "in": "path",
                         "required": true,
                         "schema": {
                             "type": "uuid"
@@ -608,7 +608,7 @@
                     },
                     {
                         "name": "character_id",
-                        "in": "query",
+                        "in": "path",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -618,6 +618,14 @@
                         "name": "app",
                         "in": "query",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "receipt",
+                        "in": "query",
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -996,6 +1004,12 @@
                             "format": "boolean",
                             "example": true
                         },
+                        "is_expired": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "boolean",
+                            "format": "boolean",
+                            "example": false
+                        },
                         "created_at": {
                             "description": "Transform the spot resource into an array.",
                             "type": "timestamp",
@@ -1037,6 +1051,12 @@
                         "type": "boolean",
                         "format": "boolean",
                         "example": true
+                    },
+                    "is_expired": {
+                        "description": "Transform the spot resource into an array.",
+                        "type": "boolean",
+                        "format": "boolean",
+                        "example": false
                     },
                     "created_at": {
                         "description": "Transform the spot resource into an array.",

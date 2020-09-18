@@ -16,9 +16,9 @@ class Purchase extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'original_transaction_id', 'transaction_id',
+        'user_id', 'product_id', 'bundle_id', 'download_id',
         'purchase_token', 'receipt', 'currency', 'status',
-        'purchased_at', 'expired_at'
+        'purchased_at', 'exception_message'
     ];
 
     /**

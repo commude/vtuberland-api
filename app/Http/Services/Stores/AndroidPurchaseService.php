@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Stores;
 
+use App\Enums\GoogleProduct;
 use Exception;
 use Google_Client;
 use App\Enums\Status;
@@ -12,19 +13,20 @@ use Illuminate\Support\Facades\Log;
 
 class AndroidPurchaseService
 {
-    protected $transaction;
+    protected $receipt;
+    protected $exception_message;
 
     /**
      * Create a new event instance.
      *
-     * @param \App\Models\Transaction $transaction
+     * @param array $receipt
      * @param string $secret
      *
      * @return void
      */
-    public function __construct($transaction)
+    public function __construct($receipt)
     {
-        $this->transaction = $transaction;
+        $this->receipt = $receipt;
     }
 
     /**
@@ -38,7 +40,7 @@ class AndroidPurchaseService
         $isVerified = $this->verify();
 
         if (!$isVerified) {
-            throw new InvalidReceiptException;
+            return $this->parseErrorReceipt();
         }
 
         return $this->data;
@@ -47,8 +49,7 @@ class AndroidPurchaseService
     /**
      * Verify the receipt is valid
      *
-     * @param \App\Models\Transaction $transaction
-     * @param \App\Models\User $user
+     * @return boolean
      */
     public function verify()
     {
@@ -62,33 +63,63 @@ class AndroidPurchaseService
             $service = new Google_Service_AndroidPublisher($client);
 
             // Check the purchase and consumption status of an inapp item.
-            $product_purchased = $service->purchases_products->get(config('services.google.package_name'), $this->transaction['product_id'], $this->transaction['purchase_token']);
+            $product_purchased = $service->purchases_products->get(config('services.google.package_name'), $this->receipt['product_id'], $this->receipt['purchase_token']);
 
-            if (is_null($product_purchased)
-                || isset($product_purchased['error']['code'])
-                || !isset($product_purchased['expiryTimeMillis'])) {
-                    $code = $product_purchased['error']['code'];
+            if (is_null($product_purchased) || isset($product_purchased['error']['code']) || !isset($product_purchased['expiryTimeMillis'])) {
+                    $code = $product_purchased['error']['code'] ?? 0;
+                    $message = is_null($product_purchased) ? 'No Respoonse from Google Client.' : 'Invalid receipt.';
+                    $receipt = json_encode($this->receipt);
 
-                    $this->data['status'] = Status::FAIL;
-                    Log::error("Purchase Failed -- return code: {$code}");
+                    $this->exception_message = $message;
+                    Log::error("Invalid Receipt.\nReturn Code: {$code}\nMessage: {$message}\nReceipt: {$receipt}");
+
                     return false;
             }
 
-            $this->data = [
-                'original_transaction_id' => $this->transaction['purchase_token'],
-                'transaction_id' => $product_purchased['orderId'],
-                'purchase_token' => $this->transaction['purchase_token'],
-                'amount' => $product_purchased['priceAmountMicros'] * 0.000001,
-                'currency' => $product_purchased['priceCurrencyCode'],
-                'status' => Status::OK,
-                'purchased_at' => new Carbon(date("d-m-Y H:i:s", $product_purchased['startTimeMillis'] / 1000)),
-                'expired_at' => new Carbon(date("d-m-Y H:i:s", $product_purchased['expiryTimeMillis'] / 1000)),
-            ];
+            $this->data = $this->parseReceipt($product_purchased);
 
             return true;
         } catch (Exception $e) {
             $exception = json_decode($e->getMessage(), true);
-            throw new InvalidReceiptException($exception['error']['code'] . ' ' . $exception['error']['message']);
+            $receipt = json_encode($this->receipt);
+            $message = $exception['error']['message'];
+
+            $this->exception_message = $message;
+            Log::error("Google Play receipt verification failed.\nException: {$message}\nReceipt: {$receipt}");
+
+            return false;
         }
+    }
+
+    /**
+     * Parse sucessful receipt
+     *
+     * @return array
+     */
+    private function parseReceipt($body)
+    {
+        return [
+            'product_id' => $body['productId'],
+            'bundle_id' =>$body['orderId'],
+            'purchase_token' => $body['purchaseToken'],
+            'receipt' => json_encode($this->receipt),
+            'amount' => GoogleProduct::getAmount($body['productId']), // $body['priceAmountMicros'] * 0.000001,
+            'currency' => 'JPY',
+            'status' => Status::OK,
+            'purchased_at' => new Carbon(date("d-m-Y H:i:s", $body['purchaseTimeMillis'] / 1000)),
+        ];
+    }
+
+    /**
+     * Parse sucessful receipt
+     *
+     * @return array
+     */
+    private function parseErrorReceipt()
+    {
+        return [
+            'status' => Status::FAIL,
+            'exception_message' => $this->exception_message
+        ];
     }
 }

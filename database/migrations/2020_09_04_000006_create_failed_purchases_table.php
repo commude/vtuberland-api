@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserSpotCharactersTable extends Migration
+class CreateFailedPurchasesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,18 @@ class CreateUserSpotCharactersTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_spot_characters', function (Blueprint $table) {
+        Schema::create('failed_purchases', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('purchase_id');
             $table->uuid('user_id');
             $table->uuid('spot_id');
             $table->unsignedBigInteger('character_id');
-            $table->dateTime('expired_at')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('spot_id')->references('id')->on('spots')->onDelete('cascade');
-            $table->foreign('character_id')->references('id')->on('characters')->onDelete('cascade');
+            $table->foreign('purchase_id')->references('id')->on('purchases');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('spot_id')->references('id')->on('spots');
+            $table->foreign('character_id')->references('id')->on('characters');
         });
     }
 
@@ -34,6 +35,6 @@ class CreateUserSpotCharactersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_spot_characters');
+        Schema::dropIfExists('failed_purchases');
     }
 }

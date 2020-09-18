@@ -8,14 +8,14 @@ use App\Models\Traits\ScopeTrait;
 class UserSpotCharacter extends Model
 {
     use ScopeTrait;
-    
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'user_id', 'spot_id', 'character_id',
+        'user_id', 'spot_id', 'character_id', 'expired_at'
     ];
 
     /**
