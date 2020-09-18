@@ -13,8 +13,8 @@
             <h4 class="detailContInner__buyerNameText">{{ $user->name }}</h4>
             <p class="detailContInner__deviceNameText">{{ $user->os }}</p>
             <div class="detailContInner__purchaseDetail">
-                <div class="detailContInner__purchaseDetailNoText">購入件数：{{ $count }}件</div>
-                <div class="detailContInner__purchaseDetailTotalNoText">購入合計金額：{{ $totalPrice }}円</div>
+                <div class="detailContInner__purchaseDetailNoText">購入件数：{{ number_format($count) }}件</div>
+                <div class="detailContInner__purchaseDetailTotalNoText">購入合計金額：{{ number_format($totalPrice) }}円</div>
             </div>
         </div>
         <div class="detailContInner__tableCont">
@@ -31,7 +31,7 @@
                     <tr class="detailContInner__row">
                         <td class="detailContInner__itemDateTime">{{ $character->created_at }}</td>
                         <td class="detailContInner__itemPurchaseContent">{{ $character->character->name }}</td>
-                        <td class="detailContInner__itemPurchasePrice">{{ $character->character->price }}</td>
+                        <td class="detailContInner__itemPurchasePrice">{{ number_format($character->character->price) }}円</td>
                     </tr>
                     @endforeach
                 </tbody>
