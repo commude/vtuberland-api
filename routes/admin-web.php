@@ -34,6 +34,6 @@ Route::group(['prefix' => '/', 'as' => 'dashboard.' ,'middleware' => 'auth:admin
 
     Route::group(['prefix' => '/buyers', 'as' => 'buyer.'], function () {
         Route::get('/', 'BuyerController@index')->name('index');
-        Route::get('/users/{user}', 'BuyerController@users')->name('users');
+        Route::get('/users/{user}', 'BuyerController@user')->name('user');
     });
 });

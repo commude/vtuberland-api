@@ -26,7 +26,7 @@ class BuyerController extends Controller
      * @param  \App\Models\\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function users(User $user)
+    public function user(User $user)
     {
         $totalPrice = $user->spotCharacters->sum(function ($eachPrice) {
             return $eachPrice->character->price;
