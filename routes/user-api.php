@@ -75,6 +75,6 @@ Route::group(['prefix' => 'characters'], function () {
 */
 Route::group(['prefix' => 'purchases', 'middleware' => 'auth:user'], function () {
     Route::get('/', 'PurchaseController@index')->middleware(['paginated']);  // Get the list of Purchases
-    Route::get('/{user_spot_character}', 'PurchaseController@show')->middleware('paginated');  // View Purchase screen
+    Route::get('/{user_spot_character}', 'PurchaseController@show');  // View Purchase screen
 });
 
