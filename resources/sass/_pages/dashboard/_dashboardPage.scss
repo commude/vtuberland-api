@@ -21,43 +21,45 @@ dashboardPage
   .dataList {
 
     &__fixed {
-      position: absolute;
+      // position: absolute;
+      position: relative;
       top: 0;
+      // padding-left: 220px;
       left: 220px;
       // padding-right: 58.5px;
-      overflow: auto;
-      width: calc(100% - 221px);
+      // overflow: auto;
+      width: calc(100% - 220px);
       border-radius: 40px;
       box-shadow: 0 8px 10px 2px rgba($graphite, 0.09);
 
       &::-webkit-scrollbar {
         height: 8px;
       }
-
+      
       &::-webkit-scrollbar-track {
-        background: rgba($graphite, 0.1);
+        background: rgba($graphite, 0.1); 
       }
-
+      
       &::-webkit-scrollbar-thumb {
         border-radius: 20px;
-        background: rgba($tradewind, 0.5);
+        background: rgba($tradewind, 0.5); 
       }
 
       &::-webkit-scrollbar-thumb:hover {
-        background: rgba($tradewind, 1);
+        background: rgba($tradewind, 1); 
       }
     }
-
+    
     &__table {
       width: 100%;
       background: $white;
       border: 0 !important;
-
+      
       @include font($ff: $hiraginoKaku, $fsPC: 0.8125rem, $fw: 300);
-
+      
       thead {
         tr {
-          td {
+          th {
             padding-top: 25px;
             box-sizing: content-box;
             height: 30px;
@@ -84,7 +86,7 @@ dashboardPage
         }
       }
     }
-
+  
     &__dataSelectBox {
       margin: auto 72px auto 0;
       position: relative;
@@ -104,12 +106,12 @@ dashboardPage
       height: 18px;
       opacity: 0;
       cursor: pointer;
-
+  
       &:checked ~ .dataList__inputCusCheck {
         opacity: 1;
       }
     }
-
+  
     &__inputCusCheck {
       position: absolute;
       top: 50%;
@@ -134,42 +136,60 @@ dashboardPage
 
     &__itemSelect {
       padding-left: 24px;
-      width: 92px;
+      min-width: 92px;
+      width: 92px !important;
     }
 
     &__itemPurchaseDate {
-      min-width: 163px;
+      padding-left: 94px;
+      // min-width: 163px;
+      min-width: 249px;
+      width: 249px !important;
     }
 
     &__itemBuyerAccount {
-      min-width: 283.5px;
+      // min-width: 283.5px;
+      min-width: 434px;
+      width: 434px !important;
     }
 
     &__itemBuyerContent {
-      min-width: 474px;
+      // min-width: 474px;
+      min-width: 724px;
+      width: 724px !important;
     }
 
     &__itemPurchasePrice {
-      min-width: 104px;
+      // min-width: 104px;
+      min-width: 160px;
+      width: 160px !important;
     }
 
     // DASHBOARD 02
 
     &__itemDeviceName02 {
       padding-left: 94px;
-      min-width: 282.5px;
+      // min-width: 282.5px;
+      min-width: 546px;
+      width: 546px !important;
     }
 
     &__itemBuyerName02 {
-      min-width: 397px;
+      // min-width: 397px;
+      min-width: 576px;
+      width: 576px !important;
     }
 
     &__itemPurchaseNo02 {
-      min-width: 243.5px;
+      // min-width: 243.5px;
+      min-width: 354px;
+      width: 354px !important;
     }
 
     &__itemPurchaseTotal02 {
-      min-width: 142px;
+      // min-width: 142px;
+      min-width: 207px;
+      width: 207px !important;
     }
   }
 
@@ -182,7 +202,7 @@ dashboardPage
     margin: 44px auto;
 
     .dataTables_paginate {
-
+      
       span {
         @include u-flex($jc: center);
       }
@@ -257,15 +277,14 @@ dashboardPage
     //   }
     // }
   }
-
-  .dataList__itemPurchaseDate {
-    min-width: 163px;
-    padding-left: 50px;  
-  }
 }
 
 .dataTables_empty {
   padding-left: 24px;
+}
+
+.dataList__table {
+  width: 100%;
 }
 
 .dataTables_length {
@@ -278,4 +297,8 @@ dashboardPage
 
 .api_route {
   display:none;
+}
+
+.dataTables_scrollBody{
+  background: rgba(255, 255, 255, 1);
 }

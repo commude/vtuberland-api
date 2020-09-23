@@ -4,7 +4,7 @@ dashboardPageActionSec
 
 .dashboardPageActionSec {
   margin-top: 73px;
-  padding-left: 244px;
+  padding-left: 222px;
 
   &__bar {
     position: relative;
@@ -88,7 +88,6 @@ Filter Checkbox @ actionBar
 Search @ actionBar
 ===========================*/
 .dataListSearchAction {
-  margin-left: 33.5px;
   position: relative;
   @include u-flex($ai: center);
   height: 28px;

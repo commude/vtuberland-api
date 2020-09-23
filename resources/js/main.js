@@ -4,7 +4,11 @@ $(function () {
     "pagingType": 'numbers',
     "ordering": false,
     "info": false,
-    "pageLength": 10,
+    "autoWidth": false,
+    "pageLength" : 20,
+    "fixedHeader" : true,
+    "scrollY": "530px",
+    "scrollX": "100%",
     'searching': true,
     'processing': false,
     'serverSide': true,
@@ -56,7 +60,11 @@ $(function () {
     "pagingType": 'numbers',
     "ordering": false,
     "info": false,
-    "pageLength": 10,
+    "autoWidth": false,
+    "pageLength": 20,
+    "fixedHeader":!0,
+    "scrollY":"530px",
+    "scrollX": "100%",
     'searching': true,
     'processing': false,
     'serverSide': true,
@@ -65,7 +73,7 @@ $(function () {
       'dataType': 'json',
       'type': 'GET',
       "dataSrc": function ( json ) {
-        $('.dataListStatus__text').html("合計金額：" + json.totalPrice + "円");
+        $('.dataListStatus__text').html("合計人数：" + json.totalPrice + "人");
         return json.data;
       }
     },
@@ -81,8 +89,8 @@ $(function () {
     },
     "columnDefs": [
       {'targets': 0, 'className': "dataList__itemDeviceName02"},
-      {'targets': 2, 'className': "dataList__itemBuyerContent"},
-      {'targets': 3, 'className': "dataList__itemPurchasePrice"},
+      {'targets': 2, 'className': "dataList__itemPurchaseNo02"},
+      {'targets': 3, 'className': "dataList__itemPurchaseTotal02"},
       { 'searchable': false, 'targets': [0, 2, 3] },
       {
         'targets': 1,

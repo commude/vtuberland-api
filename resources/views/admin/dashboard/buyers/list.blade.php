@@ -10,7 +10,7 @@
             <div class="dataListSearchAction__searchSubmit js--searchFilterSubmit"></div>
         </form>
         <div class="dataListStatus">
-            <p class="dataListStatus__text">合計金額：220,034円</p>
+            <p class="dataListStatus__text">合計人数：人</p>
         </div>
     </div>
 </section>
@@ -20,10 +20,10 @@
         <table class="dataList__table" id="userDataList" cellspacing="0" cellpadding="0">
             <thead>
                 <tr>
-                    <td class="dataList__itemDeviceName02 head">デバイス(iOS/Android)</td>
-                    <td class="dataList__itemBuyerName02 head">購入者アカウント名</td>
-                    <td class="dataList__itemPurchaseNo02 head">購入件数</td>
-                    <td class="dataList__itemPurchaseTotal02 head">購入合計金額</td>
+                    <th class="dataList__itemDeviceName02 head">デバイス(iOS/Android)</th>
+                    <th class="dataList__itemBuyerName02 head">購入者アカウント名</th>
+                    <th class="dataList__itemPurchaseNo02 head">購入件数</th>
+                    <th class="dataList__itemPurchaseTotal02 head">購入合計金額</th>
                 </tr>
             </thead>
             <tbody>
