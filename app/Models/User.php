@@ -29,7 +29,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password', 'is_valid',
-        'manufacturer', 'os', 'version', 'language', 'device_uuid'
+        'manufacturer', 'os', 'version', 'language'
     ];
 
     /**

@@ -54,7 +54,6 @@ class DefaultDataSeeder extends Seeder
         // $username = 'vtuberland-app-user';
         $email = 'user@vtuberland.co.jp';
         $password = 'Pg9NQdA8iw5YMFSL';// Str::random(16);
-        $device_uuid = $faker->uuid();
 
         $user = User::create([
             'name' => 'vtuberland-app-user',
@@ -64,13 +63,12 @@ class DefaultDataSeeder extends Seeder
             'os' => OperatingSystem::IOS,
             'is_valid' => true,
             'password' => $password,
-            'device_uuid' => $device_uuid
         ]);
 
         $userID = $user->id;
 
         // Print default user credentials.
-        $this->command->alert("APPLICATION USER\n\tAPP USER ID: {$userID}\n\tAPP USER EMAIL: {$email}\n\tAPP USER PASSWORD: {$password}\n\tDEVICE TOKEN: {$device_uuid}");
+        $this->command->alert("APPLICATION USER\n\tAPP USER ID: {$userID}\n\tAPP USER EMAIL: {$email}\n\tAPP USER PASSWORD: {$password}");
         // $this->command->alert("APPLICATION USER\n\tAPP USER ID: {$userID}\n\tAPP USER EMAIL: {$email}\n\tDEVICE TOKEN: {$deviceToken}");
 
         // // Call the command to generate access client.

@@ -79,8 +79,6 @@ class MeController extends Controller
      *      @OA\Schema(type="string"),),
      *  @OA\Parameter(name="language",in="query",required=false,
      *      @OA\Schema(type="string"),),
-     *  @OA\Parameter(name="device_uuid",in="query",required=true,
-     *      @OA\Schema(type="string"),),
      *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/Auth")),
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found"),

@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->text('os');
             $table->text('version')->nullable();
             $table->string('language')->default(Locale::JAPAN);
-            $table->string('device_uuid')->unique();
             $table->boolean('is_valid')->default(0);
             $table->rememberToken();
             $table->timestamps();

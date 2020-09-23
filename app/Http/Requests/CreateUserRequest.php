@@ -34,7 +34,6 @@ class CreateUserRequest extends FormRequest
             'os' => ['required', 'in:' . implode(',', OperatingSystem::getValues())],
             'version' => ['nullable'],
             'language' => ['sometimes', 'nullable', 'in:' . implode(',', Locale::getValues())],
-            'device_uuid' => ['required']
         ];
     }
 
@@ -45,6 +44,6 @@ class CreateUserRequest extends FormRequest
      */
     public function data()
     {
-        return $this->only('name', 'email', 'password', 'manufacturer', 'os', 'version', 'language', 'device_uuid');
+        return $this->only('name', 'email', 'password', 'manufacturer', 'os', 'version', 'language');
     }
 }

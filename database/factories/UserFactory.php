@@ -24,7 +24,6 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => 'password', // password
         'remember_token' => Str::random(10),
-        'device_uuid' => Str::random(121),
         'os' => $manufacturer == 'Samusng' ? 'android' : 'iOS',
         'manufacturer' => $manufacturer
     ];
