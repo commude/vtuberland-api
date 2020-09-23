@@ -31,10 +31,6 @@ class BuyerController extends Controller
         // Get all Filtered count from table.
         $totalFiltered = User::orSearchFor('name', $filter)->count();
 
-        // Get total Num
-        $totalNum = 0;
-        $totalNum = User::get()->count();
-
         $userList = $users->map(function($user) {
             return [
                 "id" => $user->id,
@@ -47,6 +43,6 @@ class BuyerController extends Controller
             ];
         });
 
-        return new DataTableResource($userList, $totalCount, $totalFiltered, $totalNum);
+        return new DataTableResource($userList, $totalCount, $totalFiltered, $totalCount);
     }
 }
