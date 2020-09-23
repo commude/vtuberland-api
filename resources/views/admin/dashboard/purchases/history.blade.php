@@ -17,13 +17,13 @@
 
 <section class="dashboardPage__dataList">
     <div class="dataList__fixed">
-        <table class="dataList__table" id="purchaseDataList" cellspacing="0" cellpadding="0">
+        <table class="dataList__table" id="purchaseDataList" cellspacing="0" cellpadding="0" width="100%">
             <thead>
                 <tr>
-                    <td class="dataList__itemPurchaseDate head">購入日時</td>
-                    <td class="dataList__itemBuyerAccount head">購入者アカウント名</td>
-                    <td class="dataList__itemBuyerContent head">購入コンテンツ</td>
-                    <td class="dataList__itemPurchasePrice head">購入金額</td>
+                  <th class="dataList__itemPurchaseDate head">購入日時</th>
+                  <th class="dataList__itemBuyerAccount head">購入者アカウント名</th>
+                  <th class="dataList__itemBuyerContent head">購入コンテンツ</th>
+                  <th class="dataList__itemPurchasePrice head">購入金額</th>
                 </tr>
             </thead>
             <tbody>
