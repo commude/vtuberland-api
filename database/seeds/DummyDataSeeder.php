@@ -51,8 +51,8 @@ class DummyDataSeeder extends Seeder
             'jaguar' => Storage::url('characters/006-jaguar.png'),
             'frog' => Storage::url('characters/007-frog.png'),
             'lion' => Storage::url('characters/008-lion.png'),
-            'antilope' => Storage::url('characters/antilope.png'),
-            'elephant' => Storage::url('characters/elephant.png')
+            'antilope' => Storage::url('characters/009-antilope.png'),
+            'elephant' => Storage::url('characters/010-elephant.png')
         ]);
 
         $characterList->each(function($value, $key) {
