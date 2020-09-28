@@ -35,3 +35,9 @@ sudo chmod -R 600 storage/keys
 
 # Generate API Documentation
 php artisan l5-swagger:generate
+
+# Refresh  Storage
+# cd /var/www/app/storage/app/public
+
+# rm -rf characters/ !(.gitignore)
+# rm -rf spots/ !(.gitignore)

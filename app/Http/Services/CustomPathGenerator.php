@@ -10,7 +10,7 @@ class CustomPathGenerator implements PathGenerator
 {
     public function getPath(Media $media) : string
     {
-        return mb_convert_encoding(Uuid::generate(4), 'UTF-8', 'UTF-8') . '/';
+        return $media->id . '/';
     }
 
     public function getPathForConversions(Media $media) : string

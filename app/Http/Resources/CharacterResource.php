@@ -13,10 +13,10 @@ class CharacterResource extends JsonResource
      *
      * @OA\Schema(
      *     schema="Character",
-     *     @OA\Property(property="id",type="uuid",format="string",example="09d676d4-039f-49eb-98eb-773f08b4d2fb"),
+     *     @OA\Property(property="id",type="uuid",format="string",example="06762a4e-bb7c-4715-b30e-0f4b3ce77e40"),
      *     @OA\Property(property="name",type="string",format="string",example="鷹宮リオン"),
      *     @OA\Property(property="content",type="string",format="string"),
-     *     @OA\Property(property="image_url",type="string",format="string",example="https://vtuberland.test/storage/characters/takamiya.png"),
+     *     @OA\Property(property="image_url",type="string",format="string",example="https://vtuberland.test/storage/characters/3/VpLiOA5MeB5SBJPef7tJUrBg5.png"),
      * )
      *
      * @param  \Illuminate\Http\Request  $request
@@ -28,7 +28,7 @@ class CharacterResource extends JsonResource
             'id' => $this->id,
             'name' => Character::getJPName($this->name),
             'content' => $this->content,
-            'image_url' => $this->image_url,
+            'image_url' => $this->getFirstMedia(MediaGroup::CHARACTERS['main'])->getFullUrl(),
         ];
     }
 }

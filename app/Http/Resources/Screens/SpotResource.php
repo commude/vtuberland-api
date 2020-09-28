@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Screens;
 
+use App\Enums\MediaGroup;
+use App\Enums\Spot;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SpotResource extends JsonResource
@@ -37,9 +39,9 @@ class SpotResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => Spot::getJPName($this->name),
             'beacon_id' => $this->beacon_id,
-            'image_url' => $this->image_url,
+            'image_url' => $this->getFirstMedia(MediaGroup::SPOTS['main'])->getFullUrl(),
             'created_at' => $this->created_at
         ];
     }

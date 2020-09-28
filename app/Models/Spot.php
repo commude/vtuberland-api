@@ -25,7 +25,7 @@ class Spot extends Model implements HasMedia
      * @var array
      */
     protected $fillable = [
-        'beacon_id', 'name', 'content', 'video_url', 'location'
+        'beacon_id', 'name', 'content',
     ];
 
     /**
