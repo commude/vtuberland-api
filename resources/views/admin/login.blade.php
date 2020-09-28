@@ -55,7 +55,7 @@
               </div>
               <div class="loginPageLoginSec__inputCheckField">
                 <div class="loginPageLoginSec__inputCheckCont">
-                  <input class="loginPageLoginSec__inputCheck" type="checkbox" name="remember">
+                  <input class="loginPageLoginSec__inputCheck" type="checkbox" name="remember_me" checked>
                   <div class="loginPageLoginSec__checkmark"></div>
                 </div>
                 <label for="form-remember"><span class="loginPageLoginSec__inputLabel">ログイン情報を保存する</span></label>

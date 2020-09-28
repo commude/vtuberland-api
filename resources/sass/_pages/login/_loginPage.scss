@@ -160,7 +160,7 @@ loginPageLoginSec
     cursor: pointer;
 
     &:checked ~ .loginPageLoginSec__checkmark {
-      opacity: 0;
+      opacity: 1;
     }
   }
 
@@ -174,7 +174,7 @@ loginPageLoginSec
     width: 13px;
     height: 13px;
     background: center / contain no-repeat url('../images/common/ico_check.svg');
-    opacity: 1;
+    opacity: 0;
     pointer-events: none;
     cursor: pointer;
   }

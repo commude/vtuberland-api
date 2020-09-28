@@ -47,9 +47,7 @@ class LoginController extends Controller
             return back()->withErrors(['password' => 'ID、またはパスワードが違います。'])->withInput($request->only('email'));
         }
 
-        $this->guard()->attempt(
-            $this->credentials($request), !$request->has('remember')
-        );
+        $this->guard()->attempt($this->credentials($request), $request->has('remember_me'));
 
         return redirect()->route('admin.dashboard.purchase.index');
     }
