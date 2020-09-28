@@ -69,20 +69,6 @@ return [
             'visibility' => 'public',
         ],
 
-        'raw-characters' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/raw/characters'),
-            'url' => env('APP_URL').'/storage/raw/characters',
-            'visibility' => 'public',
-        ],
-
-        'raw-spots' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/raw/spots'),
-            'url' => env('APP_URL').'/storage/raw/spots',
-            'visibility' => 'public',
-        ],
-
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

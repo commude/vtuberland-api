@@ -18,6 +18,7 @@ class CreateSpotsTable extends Migration
             $table->string('beacon_id')->unique();
             $table->text('name');
             $table->longText('content')->nullable();
+            $table->text('image_path')->nullable();
             $table->timestamps();
         });
     }
