@@ -8,6 +8,5 @@ use Faker\Generator as Faker;
 $factory->define(Character::class, function (Faker $faker) {
     return [
         'content' => $faker->realText(50),
-        'price' => $faker->randomNumber(3,true),
     ];
 });

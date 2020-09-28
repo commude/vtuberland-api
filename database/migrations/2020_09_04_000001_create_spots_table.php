@@ -14,13 +14,10 @@ class CreateSpotsTable extends Migration
     public function up()
     {
         Schema::create('spots', function (Blueprint $table) {
-            // $table->id();
             $table->uuid('id')->primary();
             $table->string('beacon_id')->unique();
             $table->text('name');
             $table->longText('content')->nullable();
-            $table->longText('location')->nullable();
-            $table->text('image_url')->nullable();
             $table->timestamps();
         });
     }

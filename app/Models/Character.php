@@ -6,10 +6,18 @@ use App\Models\Traits\HasUUID;
 use App\Models\Traits\MediaTrait;
 use App\Models\Traits\ScopeTrait;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 
-class Character extends Model
+class Character extends Model implements HasMedia
 {
-    use MediaTrait, ScopeTrait;
+    use HasUUID, ScopeTrait, MediaTrait;
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +25,7 @@ class Character extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'content', 'price', 'image_url'
+        'name', 'content',
     ];
 
     /**

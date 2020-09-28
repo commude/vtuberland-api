@@ -22,13 +22,13 @@ class DummyDataSeeder extends Seeder
      */
     public function run()
     {
-        $this->generateCharacters();
+        // $this->generateCharacters();
 
-        $this->generateSpots();
+        // $this->generateSpots();
 
-        $this->generateSpotCharacters();
+        // $this->generateSpotCharacters();
 
-        $this->generateDefaultUserPurchases();
+        // $this->generateDefaultUserPurchases();
 
         $this->generateUserPurchases();
     }
@@ -43,20 +43,20 @@ class DummyDataSeeder extends Seeder
     public function generateCharacters()
     {
         $characterList = new Collection([
-            'cat' => Storage::url('characters/001-cat.png'),
-            'horse' => Storage::url('characters/002-horse.png'),
-            'gorilla' => Storage::url('characters/003-gorilla.png'),
-            'snake' => Storage::url('characters/004-snake.png'),
-            'toucan' => Storage::url('characters/005-toucan.png'),
-            'jaguar' => Storage::url('characters/006-jaguar.png'),
-            'frog' => Storage::url('characters/007-frog.png'),
-            'lion' => Storage::url('characters/008-lion.png'),
-            'antilope' => Storage::url('characters/009-antilope.png'),
-            'elephant' => Storage::url('characters/010-elephant.png')
+            'cat' => Storage::url('dummy/characters/001-cat.png'),
+            'horse' => Storage::url('dummy/characters/002-horse.png'),
+            'gorilla' => Storage::url('dummy/characters/003-gorilla.png'),
+            'snake' => Storage::url('dummy/characters/004-snake.png'),
+            'toucan' => Storage::url('dummy/characters/005-toucan.png'),
+            'jaguar' => Storage::url('dummy/characters/006-jaguar.png'),
+            'frog' => Storage::url('dummy/characters/007-frog.png'),
+            'lion' => Storage::url('dummy/characters/008-lion.png'),
+            'antilope' => Storage::url('dummy/characters/009-antilope.png'),
+            'elephant' => Storage::url('dummy/characters/010-elephant.png')
         ]);
 
         $characterList->each(function($value, $key) {
-            factory(Character::class, 1)->create(['name' => $key, 'image_url' => $value]);
+            $character = factory(Character::class, 1)->create(['name' => $key]);
         });
     }
 
@@ -70,11 +70,11 @@ class DummyDataSeeder extends Seeder
     public function generateSpots()
     {
         $spotList = new Collection([
-            'Carousel' => Storage::url('spots/carousel.jpg'),
-            'Ferris Wheel' => Storage::url('spots/ferriswheel.jpg'),
-            'Jungle Log Jam' => Storage::url('spots/logjam.jpg'),
-            'Roller Coaster' => Storage::url('spots/rollercoaster.jpg'),
-            'Roller Coaster Xtreme' => Storage::url('spots/rollercoasterextreme.jpg'),
+            'Carousel' => Storage::url('dummy/spots/carousel.jpg'),
+            'Ferris Wheel' => Storage::url('dummy/spots/ferriswheel.jpg'),
+            'Jungle Log Jam' => Storage::url('dummy/spots/logjam.jpg'),
+            'Roller Coaster' => Storage::url('dummy/spots/rollercoaster.jpg'),
+            'Roller Coaster Xtreme' => Storage::url('dummy/spots/rollercoasterextreme.jpg'),
         ]);
 
         $spotList->each(function ($value, $key) {
@@ -91,6 +91,7 @@ class DummyDataSeeder extends Seeder
      */
     public function generateSpotCharacters()
     {
+        $faker = Faker::create();
         $characters = Character::all();
         $spots = Spot::all();
 
@@ -106,11 +107,12 @@ class DummyDataSeeder extends Seeder
             'https://youtu.be/EUX6lXTX9zQ'
         ]);
 
-        $spots->each(function ($spot) use ($characters, $video_urls){
-            $characters->each(function ($character) use ($spot, $video_urls){
+        $spots->each(function ($spot) use ($characters, $video_urls, $faker){
+            $characters->each(function ($character) use ($spot, $video_urls, $faker){
                 SpotCharacter::create([
                     'spot_id' => $spot->id,
                     'character_id' => $character->id,
+                    'price' => $faker->randomNumber(3,true),
                     'video_url' => $video_urls->random(),
                 ]);
             });

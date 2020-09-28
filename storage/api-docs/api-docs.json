@@ -272,14 +272,6 @@
                         "schema": {
                             "type": "string"
                         }
-                    },
-                    {
-                        "name": "device_uuid",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
                     }
                 ],
                 "responses": {
@@ -862,15 +854,15 @@
                 "properties": {
                     "id": {
                         "description": "Transform the resource into an array.",
-                        "type": "integer",
-                        "format": "int64",
-                        "example": 8
+                        "type": "uuid",
+                        "format": "string",
+                        "example": "06762a4e-bb7c-4715-b30e-0f4b3ce77e40"
                     },
                     "name": {
                         "description": "Transform the resource into an array.",
                         "type": "string",
                         "format": "string",
-                        "example": "lion"
+                        "example": "鷹宮リオン"
                     },
                     "content": {
                         "description": "Transform the resource into an array.",
@@ -881,7 +873,7 @@
                         "description": "Transform the resource into an array.",
                         "type": "string",
                         "format": "string",
-                        "example": "https://vtuberland.test/images/characters/008-lion.png"
+                        "example": "https://vtuberland.test/storage/characters/3/VpLiOA5MeB5SBJPef7tJUrBg5.png"
                     }
                 },
                 "type": "object"
@@ -929,12 +921,6 @@
                         "type": "string",
                         "format": "string",
                         "example": "ja_JP"
-                    },
-                    "device_uuid": {
-                        "description": "Transform the resource into an array.",
-                        "type": "string",
-                        "format": "string",
-                        "example": "26397745-9126-438c-9706-5002baf5d3a4"
                     },
                     "is_valid": {
                         "description": "Transform the resource into an array.",
@@ -1076,13 +1062,13 @@
                             "description": "Transform the spot resource into an array.",
                             "type": "string",
                             "format": "string",
-                            "example": "lion"
+                            "example": "鷹宮リオン"
                         },
                         "image_url": {
                             "description": "Transform the spot resource into an array.",
                             "type": "string",
                             "format": "string",
-                            "example": "https://vtuberland.test/images/characters/008-lion.png"
+                            "example": "https://vtuberland.test/storage/characters/3/VpLiOA5MeB5SBJPef7tJUrBg5.png"
                         },
                         "video_url": {
                             "description": "Transform the spot resource into an array.",
@@ -1124,13 +1110,13 @@
                         "description": "Transform the spot resource into an array.",
                         "type": "string",
                         "format": "string",
-                        "example": "lion"
+                        "example": "鷹宮リオン"
                     },
                     "image_url": {
                         "description": "Transform the spot resource into an array.",
                         "type": "string",
                         "format": "string",
-                        "example": "https://vtuberland.test/images/characters/008-lion.png"
+                        "example": "https://vtuberland.test/storage/characters/3/VpLiOA5MeB5SBJPef7tJUrBg5.png"
                     },
                     "video_url": {
                         "description": "Transform the spot resource into an array.",
@@ -1260,7 +1246,7 @@
                         "description": "Transform the resource into an array.",
                         "type": "string",
                         "format": "string",
-                        "example": "Roller Coaster"
+                        "example": "アニマルレスキュー"
                     },
                     "content": {
                         "description": "Transform the resource into an array.",
@@ -1271,7 +1257,7 @@
                         "description": "Transform the resource into an array.",
                         "type": "uuid",
                         "format": "string",
-                        "example": "https://vtuberland.test/images/spots/rollercoaster.jpg"
+                        "example": "https://vtuberland.test/storage/spots/7/jWCkOYpSWmaoCKxWaTVZCtUxf.jpg"
                     }
                 },
                 "type": "object"
