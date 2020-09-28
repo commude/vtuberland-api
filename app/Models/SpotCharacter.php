@@ -15,7 +15,7 @@ class SpotCharacter extends Model
      * @var array
      */
     protected $fillable = [
-        'spot_id', 'character_id', 'video_url'
+        'spot_id', 'character_id', 'price', 'video_url'
     ];
 
     /**

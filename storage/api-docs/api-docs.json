@@ -272,14 +272,6 @@
                         "schema": {
                             "type": "string"
                         }
-                    },
-                    {
-                        "name": "device_uuid",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
                     }
                 ],
                 "responses": {
@@ -862,15 +854,15 @@
                 "properties": {
                     "id": {
                         "description": "Transform the resource into an array.",
-                        "type": "integer",
-                        "format": "int64",
-                        "example": 8
+                        "type": "uuid",
+                        "format": "string",
+                        "example": "09d676d4-039f-49eb-98eb-773f08b4d2fb"
                     },
                     "name": {
                         "description": "Transform the resource into an array.",
                         "type": "string",
                         "format": "string",
-                        "example": "lion"
+                        "example": "鷹宮リオン"
                     },
                     "content": {
                         "description": "Transform the resource into an array.",
@@ -881,7 +873,7 @@
                         "description": "Transform the resource into an array.",
                         "type": "string",
                         "format": "string",
-                        "example": "https://vtuberland.test/images/characters/008-lion.png"
+                        "example": "https://vtuberland.test/storage/characters/takamiya.png"
                     }
                 },
                 "type": "object"
@@ -929,12 +921,6 @@
                         "type": "string",
                         "format": "string",
                         "example": "ja_JP"
-                    },
-                    "device_uuid": {
-                        "description": "Transform the resource into an array.",
-                        "type": "string",
-                        "format": "string",
-                        "example": "26397745-9126-438c-9706-5002baf5d3a4"
                     },
                     "is_valid": {
                         "description": "Transform the resource into an array.",

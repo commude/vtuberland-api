@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             DefaultDataSeeder::class,
-            DummyDataSeeder::class,
+            // DummyDataSeeder::class,
         ]);
 
         $this->generateApiPassport();
@@ -32,15 +32,5 @@ class DatabaseSeeder extends Seeder
     {
         Artisan::call('passport:install');
         $this->command->alert('PASSPORT HAS BEEN SUCCESSFULLY INSTALLED');
-        // $result = str_replace('"', '', Artisan::output());
-        // $result = explode(',', str_replace("\r\n", ',', $result));
-        // $personalClientID = substr($result[2], strpos($result[2], ": ") + 2);
-        // $personalClientSecret = substr($result[3], strpos($result[3], ": ") + 2);
-        // $passwordClientID = substr($result[5], strpos($result[5], ": ") + 2);
-        // $passwordClientSecret = substr($result[6], strpos($result[6], ": ") + 2);
-
-        // Print Access Keys
-        // $this->command->alert("PERSONAL ACCESS CLIENT\n\tCLIENT ID: {$personalClientID}\n\tCLIENT SECRET: {$personalClientSecret}");
-        // $this->command->alert("PASSWORD GRANT CLIENT\n\tCLIENT ID: {$passwordClientID}\n\tCLIENT SECRET: {$passwordClientSecret}");
     }
 }

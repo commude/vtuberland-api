@@ -6,10 +6,11 @@ use App\Models\Traits\HasUUID;
 use App\Models\Traits\MediaTrait;
 use App\Models\Traits\ScopeTrait;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 
-class Spot extends Model
+class Spot extends Model implements HasMedia
 {
-    use HasUUID, MediaTrait, ScopeTrait;
+    use HasUUID, ScopeTrait, MediaTrait;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -24,7 +25,7 @@ class Spot extends Model
      * @var array
      */
     protected $fillable = [
-        'beacon_id', 'name', 'content', 'video_url', 'location', 'image_url'
+        'beacon_id', 'name', 'content', 'video_url', 'location'
     ];
 
     /**

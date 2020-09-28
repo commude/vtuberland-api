@@ -17,7 +17,7 @@ class CreateUserSpotCharactersTable extends Migration
             $table->id();
             $table->uuid('user_id');
             $table->uuid('spot_id');
-            $table->unsignedBigInteger('character_id');
+            $table->uuid('character_id');
             $table->dateTime('expired_at')->nullable();
             $table->timestamps();
 

@@ -26,6 +26,21 @@ trait ScopeTrait
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string                                $columnName
+     * @param array                                $values
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearchIn($query, $columnName, $values)
+    {
+        return $query->whereIn($columnName, $values);
+    }
+
+    /**
+     * Scope a query to search for value.
+     * If this query is slow, remove first '%' from the where clause.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string                                $columnName
      * @param string                                $value
      *
      * @return \Illuminate\Database\Eloquent\Builder
