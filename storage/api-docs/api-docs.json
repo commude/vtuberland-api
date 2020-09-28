@@ -873,7 +873,7 @@
                         "description": "Transform the resource into an array.",
                         "type": "string",
                         "format": "string",
-                        "example": "https://vtuberland.test/storage/characters/3/VpLiOA5MeB5SBJPef7tJUrBg5.png"
+                        "example": "https://vtuberland.test/storage/characters/yumetsuki.png"
                     }
                 },
                 "type": "object"
@@ -1068,7 +1068,7 @@
                             "description": "Transform the spot resource into an array.",
                             "type": "string",
                             "format": "string",
-                            "example": "https://vtuberland.test/storage/characters/3/VpLiOA5MeB5SBJPef7tJUrBg5.png"
+                            "example": "https://vtuberland.test/storage/characters/yumetsuki.png"
                         },
                         "video_url": {
                             "description": "Transform the spot resource into an array.",
@@ -1116,7 +1116,7 @@
                         "description": "Transform the spot resource into an array.",
                         "type": "string",
                         "format": "string",
-                        "example": "https://vtuberland.test/storage/characters/3/VpLiOA5MeB5SBJPef7tJUrBg5.png"
+                        "example": "https://vtuberland.test/storage/characters/yumetsuki.png"
                     },
                     "video_url": {
                         "description": "Transform the spot resource into an array.",
@@ -1173,7 +1173,7 @@
                             "description": "Transform the spot resource into an array.",
                             "type": "string",
                             "format": "string",
-                            "example": "Roller Coaster"
+                            "example": "ハシビロGO！"
                         },
                         "beacon_id": {
                             "description": "Transform the spot resource into an array.",
@@ -1185,7 +1185,7 @@
                             "description": "Transform the spot resource into an array.",
                             "type": "uuid",
                             "format": "string",
-                            "example": "https://vtuberland.test/images/spots/rollercoaster.jpg"
+                            "example": "https://vtuberland.test/storage/spots/hashiboro_go.jpg"
                         },
                         "created_at": {
                             "description": "Transform the spot resource into an array.",
@@ -1209,7 +1209,7 @@
                         "description": "Transform the resource into an array.",
                         "type": "string",
                         "format": "string",
-                        "example": "Roller Coaster"
+                        "example": "ハシビロGO！"
                     },
                     "content": {
                         "description": "Transform the resource into an array.",
@@ -1220,7 +1220,7 @@
                         "description": "Transform the resource into an array.",
                         "type": "string",
                         "format": "string",
-                        "example": "https://vtuberland.test/images/spots/rollercoaster.jpg"
+                        "example": "https://vtuberland.test/storage/spots/hashiboro_go.jpg"
                     },
                     "characters": {
                         "$ref": "#/components/schemas/SpotCharacters"
@@ -1257,7 +1257,7 @@
                         "description": "Transform the resource into an array.",
                         "type": "uuid",
                         "format": "string",
-                        "example": "https://vtuberland.test/storage/spots/7/jWCkOYpSWmaoCKxWaTVZCtUxf.jpg"
+                        "example": "https://vtuberland.test/storage/spots/hashiboro_go.jpg"
                     }
                 },
                 "type": "object"

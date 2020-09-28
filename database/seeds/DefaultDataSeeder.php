@@ -76,17 +76,13 @@ class DefaultDataSeeder extends Seeder
             return [
                 'id' => mb_convert_encoding(Uuid::generate(4), 'UTF-8', 'UTF-8'),
                 'name' => $character,
+                'image_path' => "characters/{$character}.png",
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ];
         });
 
-        $characterList->each(function ($characterDetails) {
-            $character = Character::create($characterDetails);
-            $fileName = $character->name;
-            $character->addMediaFromDisk("/{$fileName}.png", 'raw-characters')
-                ->preservingOriginal()
-                ->usingFileName(Str::random(25).'.png')
-                ->toMediaCollection(MediaGroup::CHARACTERS['main'], 'characters');
-        });
+        DB::table('characters')->insert($characterList->toArray());
     }
 
     /**
@@ -102,18 +98,14 @@ class DefaultDataSeeder extends Seeder
                 'name' => $spot,
                 'beacon_id' =>SpotEnum::getBeaconID($spot),
                 'content' => $this->getSpotContent($spot),
+                'image_path' => "spots/{$spot}.jpg"
             ];
         });
 
         $spotList->each(function ($spotDetails) {
             $spot = Spot::create($spotDetails);
-            $fileName = $spot->name;
 
-            $spot->addMediaFromDisk("/{$fileName}.jpg", 'raw-spots')
-                ->preservingOriginal()
-                ->usingFileName(Str::random(25).'.jpg')
-                ->toMediaCollection(MediaGroup::SPOTS['main'], 'spots');
-
+            // Generate spot characters.
             $this->generateSpotCharacters($spot);
         });
     }
