@@ -33,7 +33,7 @@ class ArchiveResource extends JsonResource
      * OA\Schema(
      *     schema="SpotArchiveView",
      *     OA\Property(property="id",type="uuid",format="string",example="26397745-9126-438c-9706-5002baf5d3a4"),
-     *     OA\Property(property="name",type="string",format="string",example="Roller Coaster"),
+     *     OA\Property(property="name",type="string",format="string",example="ハシビロGO！"),
      *     OA\Property(property="beacon_id",type="uuid",format="string",example="d3aacc6a-f618-3b19-b63f-8ab5e804e495"),
      *     OA\Property(property="created_at",type="string",format="string"),
      * )
