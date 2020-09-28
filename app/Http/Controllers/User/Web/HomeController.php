@@ -14,7 +14,6 @@ class HomeController extends Controller
      */
     public function home()
     {
-        dd(Storage::path('characters'), config('filesystems.disks.characters.root'));
         return view('user.welcome');
     }
 }
