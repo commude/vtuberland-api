@@ -30,6 +30,7 @@ class CreateUserRequest extends FormRequest
             'email' => ['required'],
             'password' => ['required', 'confirmed'],
             'password_confirmation' => ['required'],
+            'avatar' => ['sometimes', 'nullable'],
             'manufacturer' => ['required'],
             'os' => ['required', 'in:' . implode(',', OperatingSystem::getValues())],
             'version' => ['nullable'],

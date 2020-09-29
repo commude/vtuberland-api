@@ -37,18 +37,18 @@
             @csrf
               <div class="loginPageLoginSec__inputTextField">
                 <div class="loginPageLoginSec__inputUserField">
-                  <input class="loginPageLoginSec__inputText" type="email" name="email" placeholder="メールアドレス">
+                  <input class="loginPageLoginSec__inputText" type="email" name="email" placeholder="メールアドレス" value="{{ Arr::get($input, 'email') }}">
                 </div>
                 @error('email')
-                    <span class="loginPageLoginSec__inputLabel" role="alert">
+                    <span class="loginPageLoginSec__inputLabel errorMessage" role="alert">
                         {{ $message }}
                     </span>
                 @enderror
                 <div class="loginPageLoginSec__inputPassField">
-                  <input class="loginPageLoginSec__inputText" type="password" name="password" placeholder="パスワード">
+                  <input class="loginPageLoginSec__inputText" type="password" name="password" placeholder="パスワード" value="{{ Arr::get($input, 'password') }}">
                 </div>
                 @error('password')
-                    <span class="loginPageLoginSec__inputLabel" role="alert">
+                    <span class="loginPageLoginSec__inputLabel errorMessage" role="alert">
                         {{ $message }}
                     </span>
                 @enderror
