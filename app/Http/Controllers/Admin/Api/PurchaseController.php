@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Api;
 
+use App\Enums\Character;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\UserSpotCharacter;
@@ -41,7 +42,7 @@ class PurchaseController extends Controller
             return [
                 'purchase_date' => $purchase->created_at->format('Y年m月d日'),
                 'user_name' => $purchase->user->name,
-                'content' => $purchase->character->name,
+                'content' => Character::getJPName($purchase->character->name),
                 'price' => number_format($purchase->character->price).'円',
             ];
         });
