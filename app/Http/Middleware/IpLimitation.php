@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Log;
 
 class IpLimitation
 {
@@ -19,6 +20,7 @@ class IpLimitation
         $ipAddresses = explode(';', $whitelist);
 
         if(!in_array($request->ip(), $ipAddresses)) {
+            Log::error("Invalid IP address");
             return redirect()->route('home');
         }
 
