@@ -16,6 +16,10 @@ final class MediaGroup extends Enum
         'photos' => 'SpotPhotos'
     ];
 
+    const USERS =  [
+        'avatar' => 'userAvatars'
+    ];
+
     const CHARACTERS =   [
         'main' => 'CharacterMainPhotos',
         'photos' => 'CharacterPhotos'

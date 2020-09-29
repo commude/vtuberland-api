@@ -242,6 +242,14 @@
                         }
                     },
                     {
+                        "name": "avatar",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "file"
+                        }
+                    },
+                    {
                         "name": "manufacturer",
                         "in": "query",
                         "required": true,
@@ -897,6 +905,12 @@
                         "type": "email",
                         "format": "string",
                         "example": "ultimate000@example.com"
+                    },
+                    "avatar": {
+                        "description": "Transform the resource into an array.",
+                        "type": "string",
+                        "format": "string",
+                        "example": "https://vtuberland.test/storage/users/2/95ceda61-0d8e-4866-81a0-182725f578fb.jpg"
                     },
                     "manufacturer": {
                         "description": "Transform the resource into an array.",

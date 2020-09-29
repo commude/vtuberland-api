@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\Api;
 
+use App\Enums\MediaGroup;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\MeResource;
@@ -71,6 +72,8 @@ class MeController extends Controller
      *      @OA\Schema(type="string"),),
      *  @OA\Parameter(name="password_confirmation",in="query",required=true,
      *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="avatar",in="query",required=false,
+     *      @OA\Schema(type="file"),),
      *  @OA\Parameter(name="manufacturer",in="query",required=true,
      *      @OA\Schema(type="string"),),
      *  @OA\Parameter(name="os",in="query",required=true,
@@ -100,6 +103,11 @@ class MeController extends Controller
             $data['is_valid'] = true;
 
             event(new Registered($user = User::create($data)));
+
+            if($request->has('avatar')){
+                $userPhoto = $user->addMediaFromRequestUsingUuid('avatar')
+                    ->toMediaCollection(MediaGroup::USERS['avatar'], 'users');
+            }
 
             return $user;
         });
