@@ -96,7 +96,7 @@ class DefaultDataSeeder extends Seeder
             return [
                 'id' => mb_convert_encoding(Uuid::generate(4), 'UTF-8', 'UTF-8'),
                 'name' => $spot,
-                'beacon_id' =>SpotEnum::getBeaconID($spot),
+                'beacon_id' => $this->getBeaconID($spot),
                 'content' => $this->getSpotContent($spot),
                 'image_path' => "spots/{$spot}.jpg"
             ];
@@ -286,6 +286,41 @@ class DefaultDataSeeder extends Seeder
             case SpotEnum::FERRIS_WHEEL:
                 return '多摩約160mの高さから、遊園地全体はもちろん、天気のいい日には富士山や都心の高層ビル群まで一望できます。
                 遊園地と言えば観覧車。お子さまからおとなの方までご乗車いただけます。';
+            break;
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Get spot image url from storage.
+     *
+     *@param string $character
+    * @return string
+    */
+    public static function getBeaconID($spot)
+    {
+        switch ($spot) {
+            case SpotEnum::ANIMAL_RESCUE:
+                return '11111111-1111-1111-1111-111111111111';
+            break;
+            case SpotEnum::GO_KART:
+                return '11111111-1111-1111-1111-111111111111-1';
+            break;
+            case SpotEnum::HASHIBORO_GO:
+                return '22222222-2222-2222-2222-222222222222';
+            break;
+            case SpotEnum::CRAZY_HOUSTON:
+                return '11111111-1111-1111-1111-111111111111-11';
+            break;
+            case SpotEnum::AERODACTYL_CYCLE:
+                return '11111111-1111-1111-1111-111111111111-111';
+            break;
+            case SpotEnum::ROOF_COASTER_MOMONGA:
+                return '22222222-2222-2222-2222-222222222222-2';
+            break;
+            case SpotEnum::FERRIS_WHEEL:
+                return '22222222-2222-2222-2222-222222222222-22';
             break;
             default:
                 return null;
