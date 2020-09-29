@@ -15,6 +15,7 @@ class AndroidPurchaseService
 {
     protected $receipt;
     protected $exception_message;
+    protected $data;
 
     /**
      * Create a new event instance.
