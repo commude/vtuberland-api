@@ -558,6 +558,9 @@ loginPageLoginSec
   pointer-events: none;
   cursor: pointer;
 }
+.loginPageLoginSec .errorMessage {
+  color: red;
+}
 
 /*====================================================================
 dashboardPage
