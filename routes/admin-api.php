@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-|| Dashboard Routes
+| Dashboard Routes
 |--------------------------------------------------------------------------
 */
 Route::group(['prefix' => '/' , 'middleware' => 'admin.ip'], function () {
