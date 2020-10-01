@@ -27,11 +27,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($user->spotCharacters as $character)
+                    @foreach ($purchaseList as $purchase)
                     <tr class="detailContInner__row">
-                        <td class="detailContInner__itemDateTime">{{ $character->created_at }}</td>
-                        <td class="detailContInner__itemPurchaseContent">{{ $character->character->name }}</td>
-                        <td class="detailContInner__itemPurchasePrice">{{ number_format($character->character->price) }}円</td>
+                        <td class="detailContInner__itemDateTime">{{ $purchase['purchase_date'] }}</td>
+                        <td class="detailContInner__itemPurchaseContent">{{ $purchase['content'] }}</td>
+                        <td class="detailContInner__itemPurchasePrice">{{ $purchase['price'] }}</td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Api;
 
 use App\Models\User;
-use App\Models\UserSpotCharacter;
 use Illuminate\Http\Request;
+use App\Models\SpotCharacter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Bases\DataTableResource;
 
@@ -31,14 +31,16 @@ class BuyerController extends Controller
         // Get all Filtered count from table.
         $totalFiltered = User::orSearchFor('name', $filter)->count();
 
-        $userList = $users->map(function($user) {
+        $spotCharacter = new SpotCharacter;
+
+        $userList = $users->map(function($user) use ($spotCharacter) {
             return [
                 "id" => $user->id,
                 "os" => $user->os,
                 "user_name" => $user->name,
                 "purchase_num" => number_format($user->spotCharacters->count()),
-                "sum_price" => number_format($user->spotCharacters->sum(function($spotCharacter) {
-                    return $spotCharacter->character->price;
+                "sum_price" => number_format($user->spotCharacters->sum(function($purchase) use ($spotCharacter) {
+                    return $spotCharacter->where('spot_id', $purchase->spot_id)->where('character_id', $purchase->character_id)->first()->price;
                 })).'円',
             ];
         });

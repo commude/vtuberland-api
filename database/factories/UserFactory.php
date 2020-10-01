@@ -19,12 +19,13 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     $manufacturer = $faker->boolean(50) ? 'Samsung': 'Apple';
+
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'password' => 'password', // password
         'remember_token' => Str::random(10),
-        'os' => $manufacturer == 'Samusng' ? 'android' : 'iOS',
+        'os' => $manufacturer == 'Samsung' ? 'android' : 'iOS',
         'manufacturer' => $manufacturer
     ];
 });
