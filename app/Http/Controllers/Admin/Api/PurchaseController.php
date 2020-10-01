@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\UserSpotCharacter;
 use App\Http\Resources\Bases\DataTableResource;
+use App\Models\SpotCharacter;
 
 class PurchaseController extends Controller
 {
@@ -32,18 +33,19 @@ class PurchaseController extends Controller
         $totalFiltered = UserSpotCharacter::whereHasSearchFor('user', 'name', $search)->count();
 
         // Get total price
+        $spotCharacter = new SpotCharacter;
         $priceList = UserSpotCharacter::whereHasSearchFor('user', 'name', $search)->get();
         $totalPrice = 0;
-        $totalPrice = $priceList->sum(function ($eachPrice) {
-            return $eachPrice->character->price;
+        $totalPrice = $priceList->sum(function ($purchase) use ($spotCharacter) {
+            return $spotCharacter->where('spot_id', $purchase->spot_id)->where('character_id', $purchase->character_id)->first()->price;
         });
 
-        $purchaseList = $purchases->map(function($purchase) {
+        $purchaseList = $purchases->map(function($purchase) use ($spotCharacter) {
             return [
                 'purchase_date' => $purchase->created_at->format('Y年m月d日'),
                 'user_name' => $purchase->user->name,
                 'content' => Character::getJPName($purchase->character->name),
-                'price' => number_format($purchase->character->price).'円',
+                'price' => number_format($spotCharacter->where('spot_id', $purchase->spot_id)->where('character_id', $purchase->character_id)->first()->price).'円',
             ];
         });
 
