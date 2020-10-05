@@ -27,7 +27,7 @@ class DefaultDataSeeder extends Seeder
     public function __construct()
     {
         $this->email = 'admin@vtuberland.co.jp';
-        $this->password = 'PtUlMS7Q6u8jYHVs'; // Str::random(16);
+        $this->password = '$2y$10$PKbL3XcGzZQlPKUp4sC3e.R56wHLVMZxe.jmd3N/aR3OVysoHBZoi'; // Str::random(16);
     }
 
 
