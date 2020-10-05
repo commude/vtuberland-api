@@ -286,22 +286,22 @@ class DefaultDataSeeder extends Seeder
                 return '11111111-1111-1111-1111-111111111111';
             break;
             case SpotEnum::GO_KART:
-                return '11111111-1111-1111-1111-111111111111-1';
+                return '11111111-1111-1111-1111-111111111111';
             break;
             case SpotEnum::HASHIBORO_GO:
                 return '22222222-2222-2222-2222-222222222222';
             break;
             case SpotEnum::CRAZY_HOUSTON:
-                return '11111111-1111-1111-1111-111111111111-11';
+                return '11111111-1111-1111-1111-111111111111';
             break;
             case SpotEnum::AERODACTYL_CYCLE:
-                return '11111111-1111-1111-1111-111111111111-111';
+                return '11111111-1111-1111-1111-111111111111';
             break;
             case SpotEnum::ROOF_COASTER_MOMONGA:
-                return '22222222-2222-2222-2222-222222222222-2';
+                return '22222222-2222-2222-2222-222222222222';
             break;
             case SpotEnum::FERRIS_WHEEL:
-                return 'fda50693-a4e2-4fb1-afcf-c6eb07647825';
+                return '22222222-2222-2222-2222-222222222222';
             break;
             default:
                 return null;

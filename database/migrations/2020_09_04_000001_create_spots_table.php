@@ -15,7 +15,7 @@ class CreateSpotsTable extends Migration
     {
         Schema::create('spots', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('beacon_id')->unique();
+            $table->string('beacon_id');
             $table->text('name');
             $table->longText('content')->nullable();
             $table->text('image_path')->nullable();
