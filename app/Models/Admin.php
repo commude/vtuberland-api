@@ -34,12 +34,12 @@ class Admin extends Authenticatable
      *
      * @var array
      */
-    public function setPasswordAttribute($value)
-    {
-        if (Hash::needsRehash($value)) {
-            $password = Hash::make($value);
-        }
+    // public function setPasswordAttribute($value)
+    // {
+    //     if (Hash::needsRehash($value)) {
+    //         $password = Hash::make($value);
+    //     }
 
-        $this->attributes['password'] = $password;
-    }
+    //     $this->attributes['password'] = $password;
+    // }
 }
