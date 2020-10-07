@@ -48,7 +48,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ArchiveViewScreen"
+                                    "$ref": "#/components/schemas/SpotCharacterList"
                                 }
                             }
                         }
@@ -523,7 +523,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/HomeViewScreen"
+                                    "$ref": "#/components/schemas/SpotList"
                                 }
                             }
                         }
@@ -1183,11 +1183,16 @@
                             "format": "string",
                             "example": "26397745-9126-438c-9706-5002baf5d3a4"
                         },
+                        "order": {
+                            "description": "Transform the spot resource into an array.",
+                            "type": "integer",
+                            "example": 1
+                        },
                         "name": {
                             "description": "Transform the spot resource into an array.",
                             "type": "string",
                             "format": "string",
-                            "example": "ハシビロGO！"
+                            "example": "大観覧車"
                         },
                         "beacon_id": {
                             "description": "Transform the spot resource into an array.",
@@ -1199,7 +1204,7 @@
                             "description": "Transform the spot resource into an array.",
                             "type": "uuid",
                             "format": "string",
-                            "example": "https://vtuberland.test/storage/spots/hashiboro_go.jpg"
+                            "example": "https://vtuberland.test/storage/spots/ferris_wheel.jpg"
                         },
                         "created_at": {
                             "description": "Transform the spot resource into an array.",

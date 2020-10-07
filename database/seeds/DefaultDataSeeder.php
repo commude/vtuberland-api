@@ -93,13 +93,14 @@ class DefaultDataSeeder extends Seeder
      */
     public function generateSpots()
     {
-        $spotList = collect(SpotEnum::getValues())->map(function ($spot) {
+        $spotList = collect(SpotEnum::getValues())->map(function ($spot, $key) {
             return [
                 'id' => mb_convert_encoding(Uuid::generate(4), 'UTF-8', 'UTF-8'),
                 'name' => $spot,
                 'beacon_id' => $this->getBeaconID($spot),
                 'content' => $this->getSpotContent($spot),
-                'image_path' => "spots/{$spot}.jpg"
+                'image_path' => "spots/{$spot}.jpg",
+                'order' => $key + 1,
             ];
         });
 
