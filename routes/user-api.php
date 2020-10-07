@@ -48,7 +48,7 @@ Route::group(['prefix' => 'me'], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['prefix' => 'spots'], function () {
-    Route::get('/', 'SpotController@index')->middleware('paginated');  // Home screen
+    Route::get('/', 'SpotController@index');  // Home screen
     Route::get('/{spot}', 'SpotController@show'); // View spot screen
 
     Route::group(['prefix' => '{spot}/characters'], function () {
@@ -64,8 +64,8 @@ Route::group(['prefix' => 'spots'], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['prefix' => 'characters'], function () {
-    Route::get('/', 'ArchiveController@index')->middleware('paginated');  // Archive screen
-    Route::get('/{spot_character}', 'ArchiveController@show')->middleware('paginated');  // View character screen
+    Route::get('/', 'ArchiveController@index');  // Archive screen
+    Route::get('/{spot_character}', 'ArchiveController@show');  // View character screen
 });
 
 /*

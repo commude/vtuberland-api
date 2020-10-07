@@ -36,7 +36,7 @@ class ArchiveController extends Controller
      *      @OA\Schema(type="integer"),),
      *  @OA\Parameter(name="page",in="query",required=false,
      *      @OA\Schema(type="integer"),),
-     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/ArchiveViewScreen")),
+     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/SpotCharacterList")),
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found")
      * )
@@ -46,7 +46,7 @@ class ArchiveController extends Controller
      */
     public function index(Request $request)
     {
-        $spotCharacters = SpotCharacter::latest()->paginate($request->query('per_page'));
+        $spotCharacters = SpotCharacter::latest()->get();
         // $characters = ::paginate($request->query('per_page'));
 
         return ArchiveResource::collection($spotCharacters);

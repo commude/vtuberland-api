@@ -46,7 +46,7 @@ class SpotController extends Controller
      *      @OA\Schema(type="integer"),),
      *  @OA\Parameter(name="page",in="query",required=false,
      *      @OA\Schema(type="integer"),),
-     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/HomeViewScreen")),
+     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/SpotList")),
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found"),
      * )
@@ -56,7 +56,7 @@ class SpotController extends Controller
      */
     public function index(Request $request)
     {
-        $spot = Spot::paginate($request->query('per_page'));
+        $spot = Spot::orderBy('order')->get();
 
         return SpotResource::collection($spot);
     }
