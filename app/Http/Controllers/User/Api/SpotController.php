@@ -19,7 +19,6 @@ use App\Http\Resources\Screens\SpotViewResource;
 use App\Http\Resources\Screens\SpotCharacterResource;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class SpotController extends Controller
 {
@@ -146,7 +145,9 @@ class SpotController extends Controller
      *  tags={"Spot"},
      *  security={{"passport": {"*"}}},
      *  summary="Purchase an item from store.",
-     *  description="Purchase an item from store.",
+     *  description="Purchase an item from store.
+     *      For Apple - request only receipt['receipt-data']
+     *      For Android - request only receipt['purchase_id'] and receipt['purchase_token']",
      *  @OA\Parameter(name="spot_id",in="path",required=true,
      *      @OA\Schema(type="uuid"),),
      *  @OA\Parameter(name="character_id",in="path",required=true,
@@ -154,7 +155,11 @@ class SpotController extends Controller
      *  @OA\Parameter(name="app",in="query",required=true,
      *      @OA\Schema(type="string"),),
      *  @OA\Parameter(name="receipt",in="query",required=false,
-     *      @OA\Schema(type="string"),),
+     *      @OA\Schema(
+     *          type="array",
+     *          @OA\Items(type="field")
+     *      ),
+     *  ),
      *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/Auth")),
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found"),
@@ -174,7 +179,7 @@ class SpotController extends Controller
             throw new UserNotFoundException();
         }
 
-        $transaction = $service->verify($request->data(), $user);
+        $transaction = $service->verify($request->data());
 
         // Save the current purchase details.
         $purchase = Purchase::create(array_merge($transaction, [
