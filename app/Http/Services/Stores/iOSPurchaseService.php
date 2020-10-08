@@ -130,7 +130,7 @@ class iOSPurchaseService
 
         } catch (Exception $e) {
             $exception = json_decode($e->getMessage(), true);
-            $receipt = json_encode($this->receipt);
+            $receipt = $this->receipt;
             $message = $exception['error']['message'];
 
             $this->exception_message = $message;
