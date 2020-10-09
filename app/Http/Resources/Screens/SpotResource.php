@@ -26,7 +26,7 @@ class SpotResource extends JsonResource
      *      @OA\Property(property="order",type="integer",example=1),
      *      @OA\Property(property="name",type="string",format="string",example="大観覧車"),
      *      @OA\Property(property="beacon_id",type="uuid",format="string",example="d3aacc6a-f618-3b19-b63f-8ab5e804e495"),
-     *      @OA\Property(property="image_url",type="uuid",format="string",example="https://vtuberland.test/storage/spots/ferris_wheel.jpg"),
+     *      @OA\Property(property="image_url",format="string",example="https://vtuberland.test/storage/spots/ferris_wheel.jpg"),
      *      @OA\Property(property="created_at",type="timestamp",format="date",example="2020-03-10T19:42:31+09:00")
      *     )
      * )

@@ -7,9 +7,12 @@ use App\Enums\Status;
 use App\Models\Purchase;
 use App\Models\Character;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\UserSpotCharacter;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 use App\Http\Services\PurchaseService;
 use App\Http\Resources\PurchaseResource;
 use App\Exceptions\UserNotFoundException;
@@ -17,8 +20,6 @@ use App\Http\Requests\CreatePurchaseRequest;
 use App\Http\Resources\Screens\SpotResource;
 use App\Http\Resources\Screens\SpotViewResource;
 use App\Http\Resources\Screens\SpotCharacterResource;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 
 class SpotController extends Controller
 {
@@ -160,7 +161,9 @@ class SpotController extends Controller
      *          @OA\Items(type="field")
      *      ),
      *  ),
-     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/Auth")),
+     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(
+     *      @OA\Property(property="code",type="integer",format="integer",example=200),
+     *      @OA\Property(property="message",type="text",format="string",example="アイテムを購入しました。"))),
      *  @OA\Response(response=400, description="Bad request"),
      *  @OA\Response(response=404, description="Resource Not Found"),
      * )
@@ -187,14 +190,7 @@ class SpotController extends Controller
         ]));
 
         // Store user owned spot character.
-        if ($purchase->status == Status::OK){
-            UserSpotCharacter::create([
-                'user_id' => $user->id,
-                'spot_id' => $spot->id,
-                'character_id' => $character->id,
-                'expired_at' => Carbon::now()->addMonth()
-            ]);
-        } else{
+        if ($purchase->status != Status::OK){
             DB::table('failed_purchases')->insert([
                 'purchase_id' => $purchase->id,
                 'user_id' => $user->id,
@@ -203,8 +199,23 @@ class SpotController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
+
+            return response()->json([
+                'code' => 0,
+                'message' => Lang::get('purchase.failed')
+            ]);
         }
 
-        return new PurchaseResource($purchase);
+        UserSpotCharacter::create([
+            'user_id' => $user->id,
+            'spot_id' => $spot->id,
+            'character_id' => $character->id,
+            'expired_at' => Carbon::now()->addMonth()
+        ]);
+
+        return response()->json([
+            'code' => 200,
+            'message' => Lang::get('purchase.success')
+        ]);
     }
 }

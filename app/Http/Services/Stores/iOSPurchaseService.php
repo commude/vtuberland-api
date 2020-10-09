@@ -97,9 +97,8 @@ class iOSPurchaseService
 
             return true;
         } catch (Exception $e) {
-            $exception = json_decode($e->getMessage(), true);
             $receipt = json_encode($this->receipt);
-            $message = $exception['error']['message'];
+            $message = $e->getMessage();
 
             $this->exception_message = $message;
             Log::error("Sandbox verification receipt failed.\nException: {$message}\nReceipt: {$receipt}");
@@ -129,9 +128,8 @@ class iOSPurchaseService
                 : false;
 
         } catch (Exception $e) {
-            $exception = json_decode($e->getMessage(), true);
             $receipt = $this->receipt;
-            $message = $exception['error']['message'];
+            $message = $e->getMessage();
 
             $this->exception_message = $message;
             Log::error("iTunes verification receipt failed.\nException: {$message}\nReceipt: {$receipt}");
