@@ -16,4 +16,6 @@ return [
     'receipt' => [
         'invalid' => 'Invalid Receipt.'
     ],
+    'success' => 'You have bought an item.',
+    'failed' => 'Failed to buy an item.',
 ];

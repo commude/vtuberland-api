@@ -81,9 +81,8 @@ class AndroidPurchaseService
 
             return true;
         } catch (Exception $e) {
-            $exception = json_decode($e->getMessage(), true);
             $receipt = json_encode($this->receipt);
-            $message = $exception['error']['message'];
+            $message = $e->getMessage();
 
             $this->exception_message = $message;
             Log::error("Google Play receipt verification failed.\nException: {$message}\nReceipt: {$receipt}");
