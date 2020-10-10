@@ -182,29 +182,33 @@ class SpotController extends Controller
             throw new UserNotFoundException();
         }
 
-        $transaction = $service->verify($request->data());
+        // $transaction = $service->verify($request->data());
 
         // Save the current purchase details.
-        $purchase = Purchase::create(array_merge($transaction, [
-            'user_id' => $user->id
-        ]));
+        // $purchase = Purchase::create(array_merge($transaction, [
+        //     'user_id' => $user->id
+        // ]));
+        Purchase::create([
+            'user_id' => $user->id,
+            'status' => Status::OK,
+        ]);
 
         // Store user owned spot character.
-        if ($purchase->status != Status::OK){
-            DB::table('failed_purchases')->insert([
-                'purchase_id' => $purchase->id,
-                'user_id' => $user->id,
-                'spot_id' => $spot->id,
-                'character_id' => $character->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
+        // if ($purchase->status != Status::OK){
+        //     DB::table('failed_purchases')->insert([
+        //         'purchase_id' => $purchase->id,
+        //         'user_id' => $user->id,
+        //         'spot_id' => $spot->id,
+        //         'character_id' => $character->id,
+        //         'created_at' => Carbon::now(),
+        //         'updated_at' => Carbon::now()
+        //     ]);
 
-            return response()->json([
-                'code' => 0,
-                'message' => Lang::get('purchase.failed')
-            ]);
-        }
+        //     return response()->json([
+        //         'code' => 0,
+        //         'message' => Lang::get('purchase.failed')
+        //     ]);
+        // }
 
         UserSpotCharacter::create([
             'user_id' => $user->id,
