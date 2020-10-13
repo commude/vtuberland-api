@@ -19,6 +19,7 @@ class SpotCharacterResource extends JsonResource
      *     @OA\Items(
      *      @OA\Property(property="id",type="integer",format="int64",example=8),
      *      @OA\Property(property="name",type="string",format="string",example="鷹宮リオン"),
+     *      @OA\Property(property="content",type="string",format="string"),
      *      @OA\Property(property="image_url",type="string",format="string",example="https://vtuberland.test/storage/characters/yumetsuki.png"),
      *      @OA\Property(property="video_url",type="string",format="string",example="https://youtu.be/WjoplqS1u18"),
      *      @OA\Property(property="is_purchased",type="boolean",format="boolean",example=true),
