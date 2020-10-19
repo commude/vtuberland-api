@@ -20,6 +20,7 @@ use App\Http\Requests\CreatePurchaseRequest;
 use App\Http\Resources\Screens\SpotResource;
 use App\Http\Resources\Screens\SpotViewResource;
 use App\Http\Resources\Screens\SpotCharacterResource;
+use Illuminate\Support\Facades\Log;
 
 class SpotController extends Controller
 {
@@ -182,17 +183,23 @@ class SpotController extends Controller
             throw new UserNotFoundException();
         }
 
+        // Verify if the character is already owned.
+        $latestUserSpotCharacter = $user->spotCharacters->where('spot_id', $spot->id)->where('character_id', $character->id)->sortByDesc('created_at')->first();
+        if(!is_null($latestUserSpotCharacter)){
+            if (Carbon::now()->lt($latestUserSpotCharacter->expired_at)){
+                return response()->json([
+                    'code' => 0,
+                    'message' => Lang::get('purchase.owned')
+                ]);
+            }
+        }
+
         $transaction = $service->verify($request->data());
 
         // Save the current purchase details.
         $purchase = Purchase::create(array_merge($transaction, [
             'user_id' => $user->id
         ]));
-
-        Purchase::create([
-            'user_id' => $user->id,
-            'status' => Status::OK,
-        ]);
 
         // Store user owned spot character.
         if ($purchase->status != Status::OK){

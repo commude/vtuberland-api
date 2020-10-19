@@ -18,4 +18,5 @@ return [
     ],
     'success' => 'You have bought an item.',
     'failed' => 'Failed to buy an item.',
+    'owned' => 'Item is already owned.',
 ];
