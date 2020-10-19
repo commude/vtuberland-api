@@ -66,7 +66,8 @@ class AndroidPurchaseService
             // Check the purchase and consumption status of an inapp item.
             $product_purchased = $service->purchases_products->get(config('services.google.package_name'), $this->receipt['product_id'], $this->receipt['purchase_token']);
 
-            if (is_null($product_purchased) || isset($product_purchased['error']['code']) || !isset($product_purchased['expiryTimeMillis'])) {
+            if ((is_null($product_purchased) || isset($product_purchased['error']['code']) || !isset($product_purchased['orderId']) || !isset($product_purchased['purchaseTimeMillis']))
+                && $product_purchased != 0 && $product_purchased != 1) {
                     $code = $product_purchased['error']['code'] ?? 0;
                     $message = is_null($product_purchased) ? 'No Respoonse from Google Client.' : 'Invalid receipt.';
                     $receipt = json_encode($this->receipt);
@@ -104,7 +105,7 @@ class AndroidPurchaseService
             'purchase_token' => $body['purchaseToken'],
             'receipt' => json_encode($this->receipt),
             'amount' => GoogleProduct::getAmount($body['productId']), // $body['priceAmountMicros'] * 0.000001,
-            'currency' => 'JPY',
+            'currency' => $body['modelData']['regionCode'],
             'status' => Status::OK,
             'purchased_at' => new Carbon(date("d-m-Y H:i:s", $body['purchaseTimeMillis'] / 1000)),
         ];
@@ -118,6 +119,7 @@ class AndroidPurchaseService
     private function parseErrorReceipt()
     {
         return [
+            'receipt' => json_encode($this->receipt),
             'status' => Status::FAIL,
             'exception_message' => $this->exception_message
         ];

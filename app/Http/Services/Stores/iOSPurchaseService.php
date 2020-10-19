@@ -165,6 +165,7 @@ class iOSPurchaseService
     private function parseErrorReceipt()
     {
         return [
+            'receipt' => $this->receipt,
             'status' => Status::FAIL,
             'exception_message' => $this->exception_message,
         ];
