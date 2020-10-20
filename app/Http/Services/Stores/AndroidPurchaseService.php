@@ -63,6 +63,8 @@ class AndroidPurchaseService
             // Instantiate the Android Publisher service class using client.
             $service = new Google_Service_AndroidPublisher($client);
 
+            Log::info($this->receipt['product_id'] . '----' . $this->receipt['purchase_token']);
+
             // Check the purchase and consumption status of an inapp item.
             $product_purchased = $service->purchases_products->get(config('services.google.package_name'), $this->receipt['product_id'], $this->receipt['purchase_token']);
 
