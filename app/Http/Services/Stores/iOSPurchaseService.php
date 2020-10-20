@@ -2,7 +2,6 @@
 
 namespace App\Http\Services\Stores;
 
-use App\Enums\AppleProduct;
 use Exception;
 use App\Enums\Status;
 use GuzzleHttp\Client;
@@ -84,7 +83,8 @@ class iOSPurchaseService
 
             $body = json_decode($response->getBody()->getContents(), true);
 
-            if ($body['status'] != 'success') {
+            // 0 - success
+            if ($body['status'] != 0) {
                 $receipt = json_encode($this->receipt);
                 Log::error("Sandbox receipt verification failed.\nReceipt: {$receipt}");
 
@@ -118,7 +118,7 @@ class iOSPurchaseService
         $http = new Client($this->headers());
 
         try {
-            $response = $http->post(config('services.ios.store.production'), $this->params());
+            $response = $http->post(config('services.apple.store.production'), $this->params());
 
             $body = json_decode($response->getBody()->getContents(), true);
 
@@ -145,15 +145,17 @@ class iOSPurchaseService
      */
     private function parseReceipt($body)
     {
+        $receiptItem = collect($body['receipt']['in_app'])->sortByDesc('purchase_date')->first();
+
         return [
-            'product_id' => $body['receipt']['app_item_id'],
+            'product_id' => $receiptItem['product_id'],
             'bundle_id' => $body['receipt']['bundle_id'],
             'download_id' => $body['receipt']['download_id'],
             'receipt' => json_encode($body['receipt']),
-            'amount' => AppleProduct::getAmount($body['receipt']['app_item_id']),
+            // 'amount' => AppleProduct::getAmount($body['receipt']['app_item_id']),
             'currency' => 'JPY',
             'status' => Status::OK,
-            'purchased_at' => new Carbon(date('d-m-Y H:i:s'), $body['receipt']['original_purchase_date_ms'] / 1000),
+            'purchased_at' => new Carbon(date('d-m-Y H:i:s', (int) $receiptItem['purchase_date_ms'] / 1000)),
         ];
     }
 

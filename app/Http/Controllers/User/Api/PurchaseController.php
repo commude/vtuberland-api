@@ -53,7 +53,7 @@ class PurchaseController extends Controller
             throw new UserNotFoundException();
         }
 
-        $purchases = UserSpotCharacter::whereIn('id', $user->spotCharacters->unique('spot_id')->pluck('id'))
+        $purchases = UserSpotCharacter::whereIn('id', $user->spotCharacters->pluck('id'))
                         ->latest()
                         ->paginate($request->query('per_page'));
 
