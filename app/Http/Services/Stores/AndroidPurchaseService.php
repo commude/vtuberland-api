@@ -2,7 +2,6 @@
 
 namespace App\Http\Services\Stores;
 
-use App\Enums\GoogleProduct;
 use Exception;
 use Google_Client;
 use App\Enums\Status;
@@ -104,7 +103,7 @@ class AndroidPurchaseService
             'bundle_id' =>$body['orderId'],
             'purchase_token' => $body['purchaseToken'],
             'receipt' => json_encode($this->receipt),
-            'amount' => GoogleProduct::getAmount($body['productId']), // $body['priceAmountMicros'] * 0.000001,
+            // 'amount' => GoogleProduct::getAmount($body['productId']), // $body['priceAmountMicros'] * 0.000001,
             'currency' => $body['modelData']['regionCode'],
             'status' => Status::OK,
             'purchased_at' => new Carbon(date("d-m-Y H:i:s", $body['purchaseTimeMillis'] / 1000)),
