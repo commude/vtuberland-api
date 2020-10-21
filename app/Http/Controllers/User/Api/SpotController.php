@@ -222,7 +222,7 @@ class SpotController extends Controller
             'user_id' => $user->id,
             'spot_id' => $spot->id,
             'character_id' => $character->id,
-            'expired_at' => Carbon::now()->addMonth()
+            'expired_at' => Carbon::now()->addMinutes(5)
         ]);
 
         return response()->json([
