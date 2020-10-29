@@ -16,7 +16,7 @@ final class Spot extends Enum
     const AERODACTYL_CYCLE = 'aerodactyl_cycle';
     const GO_KART = 'go_kart';
     const CRAZY_HOUSTON = 'crazy_houston';
-    const ROOF_COASTER_MOMONGA = 'roof_coaseter_MOMOnGA';
+    const ROOF_COASTER_MOMONGA = 'roof_coaster_MOMOnGA';
     const HASHIBORO_GO = 'hashiboro_go';
 
     /**

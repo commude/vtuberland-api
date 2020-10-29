@@ -127,12 +127,20 @@ class DefaultDataSeeder extends Seeder
 
             $characters->each(function ($character) use ($spot) {
                 $price = 370;
-                // $video_url = '';
+
+                if($character->name == CharacterEnum::TAKAMIYA){
+                    $video_url = 'spots/clips/1_1-aerodactyl_cycle-takamiya.mp4';
+                }
+
+                if($character->name == CharacterEnum::RUSTARIO){
+                    $video_url = 'spots/clips/3_1-aerodactyl_cycle-rustario.mp4';
+                }
+
                 SpotCharacter::create([
                     'spot_id' => $spot->id,
                     'character_id' => $character->id,
                     'price' => $price,
-                    // 'video_url' => $video_url,
+                    'video_url' => $video_url,
                 ]);
             });
         } else if ($spot->name == SpotEnum::ANIMAL_RESCUE){
@@ -143,12 +151,20 @@ class DefaultDataSeeder extends Seeder
 
             $characters->each(function ($character) use ($spot) {
                 $price = 370;
-                // $video_url = '';
+
+                if($character->name == CharacterEnum::TAKAMIYA){
+                    $video_url = 'spots/clips/1_2-animal_rescue-takamiya.mp4';
+                }
+
+                if($character->name == CharacterEnum::HAKASE){
+                    $video_url = 'spots/clips/4_1-animal_rescue-hakase.mp4';
+                }
+
                 SpotCharacter::create([
                     'spot_id' => $spot->id,
                     'character_id' => $character->id,
                     'price' => $price,
-                    // 'video_url' => $video_url,
+                    'video_url' => $video_url,
                 ]);
             });
         } else if ($spot->name == SpotEnum::GO_KART){
@@ -159,12 +175,20 @@ class DefaultDataSeeder extends Seeder
 
             $characters->each(function ($character) use ($spot) {
                 $price = 370;
-                // $video_url = '';
+
+                if($character->name == CharacterEnum::RUSTARIO){
+                    $video_url = 'spots/clips/3_2-go_kart-rustario.mp4';
+                }
+
+                if($character->name == CharacterEnum::SUZUKA){
+                    $video_url = 'spots/clips/5_1-go_kart-suzuka.mp4';
+                }
+
                 SpotCharacter::create([
                     'spot_id' => $spot->id,
                     'character_id' => $character->id,
                     'price' => $price,
-                    // 'video_url' => $video_url,
+                    'video_url' => $video_url,
                 ]);
             });
         } else if ($spot->name == SpotEnum::CRAZY_HOUSTON){
@@ -175,12 +199,20 @@ class DefaultDataSeeder extends Seeder
 
             $characters->each(function ($character) use ($spot) {
                 $price = 370;
-                // $video_url = '';
+
+                if($character->name == CharacterEnum::SUZUKA){
+                    $video_url = 'spots/clips/5_2-crazy_houston-suzuka.mp4';
+                }
+
+                if($character->name == CharacterEnum::ARMAL){
+                    $video_url = 'spots/clips/2_1-crazy_houston-armal.mp4';
+                }
+
                 SpotCharacter::create([
                     'spot_id' => $spot->id,
                     'character_id' => $character->id,
                     'price' => $price,
-                    // 'video_url' => $video_url,
+                    'video_url' => $video_url,
                 ]);
             });
         } else if ($spot->name == SpotEnum::ROOF_COASTER_MOMONGA){
@@ -191,12 +223,20 @@ class DefaultDataSeeder extends Seeder
 
             $characters->each(function ($character) use ($spot) {
                 $price = 370;
-                // $video_url = '';
+
+                if($character->name == CharacterEnum::ARMAL){
+                    $video_url = 'spots/clips/2_2-roof_coaster_MOMOnGA-armal.mp4';
+                }
+
+                if($character->name == CharacterEnum::YUMETSUKI){
+                    $video_url = 'spots/clips/6_1-roof_coaster_MOMOnGA-yumetsuki.mp4';
+                }
+
                 SpotCharacter::create([
                     'spot_id' => $spot->id,
                     'character_id' => $character->id,
                     'price' => $price,
-                    // 'video_url' => $video_url,
+                    'video_url' => $video_url,
                 ]);
             });
         } else if ($spot->name == SpotEnum::HASHIBORO_GO){
@@ -207,12 +247,20 @@ class DefaultDataSeeder extends Seeder
 
             $characters->each(function ($character) use ($spot) {
                 $price = 370;
-                // $video_url = '';
+
+                if($character->name == CharacterEnum::YUMETSUKI){
+                    $video_url = 'spots/clips/6_2-hashiboro_go-yumetsuki.mp4';
+                }
+
+                if($character->name == CharacterEnum::HAKASE){
+                    $video_url = 'spots/clips/4_2-hashiboro_go-hakase.mp4';
+                }
+
                 SpotCharacter::create([
                     'spot_id' => $spot->id,
                     'character_id' => $character->id,
                     'price' => $price,
-                    // 'video_url' => $video_url,
+                    'video_url' => $video_url,
                 ]);
             });
         } else if ($spot->name == SpotEnum::FERRIS_WHEEL){
@@ -227,12 +275,36 @@ class DefaultDataSeeder extends Seeder
 
             $characters->each(function ($character) use ($spot) {
                 $price = 610;
-                // $video_url = '';
+
+                if($character->name == CharacterEnum::HAKASE){
+                    $video_url = 'spots/clips/4_1-ferris_wheel-hakase.mp4';
+                }
+
+                if($character->name == CharacterEnum::RUSTARIO){
+                    $video_url = 'spots/clips/3_3-ferris_wheel-rustario.mp4';
+                }
+
+                if($character->name == CharacterEnum::SUZUKA){
+                    $video_url = 'spots/clips/5_3-ferris_wheel-suzuka.mp4';
+                }
+
+                if($character->name == CharacterEnum::TAKAMIYA){
+                    $video_url = 'spots/clips/1_3-ferris_wheel-takamiya.mp4';
+                }
+
+                if($character->name == CharacterEnum::ARMAL){
+                    $video_url = 'spots/clips/2_3-ferris_wheel-armal.mp4';
+                }
+
+                if($character->name == CharacterEnum::YUMETSUKI){
+                    $video_url = 'spots/clips/6_3-ferris_wheel-yumetsuki.mp4';
+                }
+
                 SpotCharacter::create([
                     'spot_id' => $spot->id,
                     'character_id' => $character->id,
                     'price' => $price,
-                    // 'video_url' => $video_url,
+                    'video_url' => $video_url,
                 ]);
             });
         }
@@ -325,16 +397,16 @@ class DefaultDataSeeder extends Seeder
                 return 'コーヴァス帝国の女騎士。目的のためなら手段を選ばない。因縁の相手を探し続けている。';
             break;
             case CharacterEnum::TAKAMIYA:
-                return '有数の金持ちが集う魔法学校、私立帝華高校の2年生、17歳。政治家の娘で高飛車なツンデレタイプだが、学校では風紀委員に所属しており気さくな優等生を演じている。土日は社会見学の為メイド喫茶でバイト中。';
+                return '魔法学校、私立帝華高校2年生17歳。政治家の娘で高飛車なツンデレタイプだが、学校では風紀委員で気さくな優等生を演じている。';
             break;
             case CharacterEnum::YUMETSUKI:
-                return '人間にイタズラをするために魔界からやってきた13歳の悪魔。本人は一人前の悪魔のつもりだが、性格の良さゆえ結果的に人助けをしてしまい、いつも空回りしている。配信を通してイタズラをしてやろうと企んでいる。';
+                return '人間にイタズラをするために魔界からやってきた13歳の悪魔。性格の良さゆえ結果的に人助けをして、いつも空回りしている。';
             break;
             case CharacterEnum::HAKASE:
                 return '実験大好き系女子高生。常に怪しい薬品を持ち歩いている。本人曰く、どの薬にもすごい効果が込められているらしいが……。';
             break;
             case CharacterEnum::SUZUKA:
-                return '画面の向こう側の世界のチビっ子たちに人気絶大のカリスマ的「うたのおねえさん」。子供向け番組で歌やことば遊びを披露している。';
+                return '画面の向こう側の世界のチビっ子たちに人気絶大のカリスマ的「うたのおねえさん」。子供向け番組で歌やことば遊びを披露。';
             break;
             default:
                 return null;

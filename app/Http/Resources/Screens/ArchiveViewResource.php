@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Screens;
 
+use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\CharacterResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,7 +27,7 @@ class ArchiveViewResource extends JsonResource
         return [
             'id' => $this->id,
             'character' => new CharacterResource($this->character),
-            'video_url' => $this->video_url,
+            'video_url' => Storage::url($this->video_url),
             'created_at' => $this->created_at,
         ];
     }
