@@ -76,6 +76,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'clips' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/spots/clips'),
+            'url' => env('APP_URL').'/storage/spots/clips',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

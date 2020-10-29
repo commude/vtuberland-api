@@ -61,7 +61,7 @@ class SpotCharacterResource extends JsonResource
             'name' => Character::getJPName($spotCharacter->character->name),
             'content' => $spotCharacter->character->content,
             'image_url' => Storage::url($spotCharacter->character->image_path),
-            'video_url' => $spotCharacter->video_url,
+            'video_url' => Storage::url($spotCharacter->video_url),
             'price' => ceil($spotCharacter->price), // PriceUtils::toWithoutTax(($spotCharacter->price)),
             'is_purchased' => !is_null($user)
                                 ? !is_null($userSpotcharacter)
