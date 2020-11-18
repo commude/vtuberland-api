@@ -44,7 +44,7 @@ final class Character extends Enum
                 return '鷹宮リオン';
             break;
             case self::ARMAL:
-                return 'アルスアルマル';
+                return 'アルス・アルマル';
             break;
             case self::YUMETSUKI:
                 return '夢月ロア';
