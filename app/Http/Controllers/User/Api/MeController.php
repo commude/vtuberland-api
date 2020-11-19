@@ -94,12 +94,6 @@ class MeController extends Controller
     public function register(CreateUserRequest $request)
     {
         $user = DB::transaction(function () use ($request) {
-            $user = User::where('email', $request->email)->first();
-
-            if (!is_null($user)) {
-                return $user;
-            }
-
             $data = $request->data();
             $data['is_valid'] = true;
 
@@ -192,7 +186,7 @@ class MeController extends Controller
      *  security={{"passport": {"*"}}},
      *  summary="Update User",
      *  description="Update existing user.",
-     *  @OA\Parameter(name="name",in="query",required=true,
+     *  @OA\Parameter(name="email",in="query",required=true,
      *      @OA\Schema(type="string"),),
      *  @OA\Parameter(name="old_password",in="query",required=true,
      *      @OA\Schema(type="string"),),
@@ -212,7 +206,6 @@ class MeController extends Controller
     public function update(UpdateUserRequest $request)
     {
         $user = $this->guard()->user();
-
         $user->fill($request->data());
         $user->save();
 
