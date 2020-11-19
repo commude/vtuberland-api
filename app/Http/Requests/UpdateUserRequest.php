@@ -29,7 +29,8 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['sometimes', 'required', 'unique:users,email'],
+            'email' => ['sometimes', 'required', 'unique:users,email', 'confirmed'],
+            'name' => ['sometimes'],
             'old_password' => ['required'],
             'password' => ['sometimes', 'required', 'confirmed'],
             'avatar' => ['sometimes', 'nullable'],
@@ -43,7 +44,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function data()
     {
-        return $this->only('email', 'password');
+        return $this->only('name', 'email', 'password');
     }
 
     /**
