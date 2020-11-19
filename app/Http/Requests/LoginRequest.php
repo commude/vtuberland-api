@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
 {
+    use \App\Http\Requests\Traits\ValidationErrorResponseCustomizer;
+
     /**
      * Determine if the user is authorized to make this request.
      *

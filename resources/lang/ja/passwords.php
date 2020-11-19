@@ -13,6 +13,7 @@ return [
     */
 
     'password'  => 'パスワードは6文字以上かつ確認フィールドと一致していなければなりません。',
+    'password.old.match' => 'パスワードが違います。',
     'reset'     => 'パスワードをリセットしました。',
     'sent'      => 'パスワードリセットのリンクが送信されました。受信トレイの確認をお願いします。',
     'throttled' => 'Please wait before retrying.',

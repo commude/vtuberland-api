@@ -29,6 +29,7 @@ Route::group(['prefix' => 'auth'], function () {
 */
 Route::group(['prefix' => 'me'], function () {
     Route::post('/', 'MeController@register');
+    Route::post('/update', 'MeController@update')->middleware('auth:user');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('/logout', 'MeController@logout');
 
