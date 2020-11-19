@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use App\Exceptions\UserNotFoundException;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUserRequest extends FormRequest
@@ -29,9 +30,9 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['sometimes', 'required', 'unique:users,email'],
-            'name' => ['sometimes'],
-            'old_password' => ['required'],
+            'email' => ['sometimes', 'nullable'],
+            'name' => ['sometimes', 'nullable'],
+            'old_password' => ['sometimes', 'required'],
             'password' => ['sometimes', 'required', 'confirmed'],
             'avatar' => ['sometimes', 'nullable'],
         ];
@@ -62,6 +63,14 @@ class UpdateUserRequest extends FormRequest
             // Validate if user found.
             if(!$user){
                 throw new UserNotFoundException;
+            }
+
+            if($this->has('email')){
+                if($user->email != $this->email){
+                    if(!is_null(User::firstWhere('email', $this->email))){
+                        $validator->errors()->add('email', Lang::get('auth.exists'));
+                    }
+                }
             }
 
             // Validate user old password is correct.
