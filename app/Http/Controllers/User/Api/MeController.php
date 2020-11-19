@@ -15,6 +15,7 @@ use Illuminate\Auth\Events\Registered;
 use App\Exceptions\UserExistsException;
 use App\Http\Requests\CreateUserRequest;
 use App\Exceptions\UserNotFoundException;
+use App\Http\Requests\UpdateUserRequest;
 
 class MeController extends Controller
 {
@@ -180,5 +181,50 @@ class MeController extends Controller
         $userToken = $user->createToken('VTuberland Password Grant Client');
 
         return new AuthResource($userToken);
+    }
+
+    /**
+     * Update user profile
+     *
+     * @OA\Post(
+     *  path="/me/update",
+     *  tags={"Me"},
+     *  security={{"passport": {"*"}}},
+     *  summary="Update User",
+     *  description="Update existing user.",
+     *  @OA\Parameter(name="name",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="old_password",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="password",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="password_confirmation",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Parameter(name="avatar",in="query",required=false,
+     *      @OA\Schema(type="file"),),
+     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(ref="#/components/schemas/User")),
+     *  @OA\Response(response=400, description="Bad request"),
+     *  @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     *
+     * @return \App\Http\Resources\MeResource
+     */
+    public function update(UpdateUserRequest $request)
+    {
+        $user = $this->guard()->user();
+
+        $user->fill($request->data());
+        $user->save();
+
+        // Validate and delete current image to replace new image.
+        if($request->has('avatar')){
+            if($user->hasMedia(MediaGroup::USERS['avatar'])){
+                $user = $user->clearMediaCollection(MediaGroup::USERS['avatar']);
+            }
+
+            $userPhoto = $user->addMediaFromRequestUsingUuid('avatar')->toMediaCollection(MediaGroup::USERS['avatar'], 'users');
+        }
+
+        return new MeResource($user);
     }
 }
