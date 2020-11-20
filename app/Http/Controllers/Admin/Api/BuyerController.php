@@ -37,7 +37,7 @@ class BuyerController extends Controller
             return [
                 "id" => $user->id,
                 "os" => $user->os,
-                "user_name" => $user->name,
+                "user_name" => $user->email,
                 "purchase_num" => number_format($user->spotCharacters->count()),
                 "sum_price" => number_format($user->spotCharacters->sum(function($purchase) use ($spotCharacter) {
                     return $spotCharacter->where('spot_id', $purchase->spot_id)->where('character_id', $purchase->character_id)->first()->price;

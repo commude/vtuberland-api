@@ -25,6 +25,7 @@ $(function () {
         { 'data': 'purchase_date' },
         { 'data': 'user_name' },
         { 'data': 'content' },
+        { 'data': 'spot' },
         { 'data': 'price' },
       ],
       'select': {
@@ -35,8 +36,9 @@ $(function () {
         {'targets': 0, 'className': "dataList__itemPurchaseDate"},
         {'targets': 1, 'className': "dataList__itemBuyerAccount"},
         {'targets': 2, 'className': "dataList__itemBuyerContent"},
-        {'targets': 3, 'className': "dataList__itemPurchasePrice"},
-        { 'searchable': false, 'targets': [0, 2, 3] },
+        {'targets': 3, 'className': "dataList__itemBuyerSpot"},
+        {'targets': 4, 'className': "dataList__itemPurchasePrice"},
+        { 'searchable': false, 'targets': [0, 2, 3, 4] },
       ],
 
       "language": {

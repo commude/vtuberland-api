@@ -23,6 +23,7 @@
                   <th class="dataList__itemPurchaseDate head">購入日時</th>
                   <th class="dataList__itemBuyerAccount head">購入者アカウント名</th>
                   <th class="dataList__itemBuyerContent head">購入コンテンツ</th>
+                  <th class="dataList__itemBuyerSpot head">アトラクション</th>
                   <th class="dataList__itemPurchasePrice head">購入金額</th>
                 </tr>
             </thead>
