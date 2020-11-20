@@ -10,7 +10,7 @@
 <section class="dashboardDetailPage__detailCont">
     <div class="detailContInner">
         <div class="detailContInner__textArea">
-            <h4 class="detailContInner__buyerNameText">{{ $user->name }}</h4>
+            <h4 class="detailContInner__buyerNameText">{{ $user->email }}</h4>
             <p class="detailContInner__deviceNameText">{{ $user->os }}</p>
             <div class="detailContInner__purchaseDetail">
                 <div class="detailContInner__purchaseDetailNoText">購入件数：{{ number_format($count) }}件</div>
@@ -23,6 +23,7 @@
                     <tr class="detailContInner__row">
                         <td class="detailContInner__itemDateTime">購入日時</td>
                         <td class="detailContInner__itemPurchaseContent">購入コンテンツ</td>
+                        <td class="detailContInner__itemPurchaseContent">アトラクション</td>
                         <td class="detailContInner__itemPurchasePrice">購入金額</td>
                     </tr>
                 </thead>
@@ -30,7 +31,8 @@
                     @foreach ($purchaseList as $purchase)
                     <tr class="detailContInner__row">
                         <td class="detailContInner__itemDateTime">{{ $purchase['purchase_date'] }}</td>
-                        <td class="detailContInner__itemPurchaseContent">{{ $purchase['content'] }}</td>
+                        <td class="detailContInner__itemPurchaseContent">{{ $purchase['character'] }}</td>
+                        <td class="detailContInner__itemPurchaseContent">{{ $purchase['spot'] }}</td>
                         <td class="detailContInner__itemPurchasePrice">{{ $purchase['price'] }}</td>
                     </tr>
                     @endforeach
