@@ -608,17 +608,20 @@ dashboardPage
   width: 92px;
 }
 .dashboardPage .dataList__itemPurchaseDate {
-  min-width: 163px;
+  min-width: 249px;
   padding-left: 94px;
 }
 .dashboardPage .dataList__itemBuyerAccount {
-  min-width: 283.5px;
+  min-width: 434px;
 }
 .dashboardPage .dataList__itemBuyerContent {
-  min-width: 474px;
+  min-width: 397px;
+}
+.dashboardPage .dataList__itemBuyerSpot {
+  min-width: 395px;
 }
 .dashboardPage .dataList__itemPurchasePrice {
-  min-width: 104px;
+  min-width: 160px;
 }
 .dashboardPage .dataList__itemDeviceName02 {
   padding-left: 94px;

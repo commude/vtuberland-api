@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Web;
 
 use App\Models\User;
 use App\Enums\Character;
+use App\Enums\Spot;
 use Illuminate\Http\Request;
 use App\Models\SpotCharacter;
 use App\Http\Controllers\Controller;
@@ -39,7 +40,8 @@ class BuyerController extends Controller
         $purchaseList = $user->spotCharacters->map(function($purchase) use ($spotCharacter) {
             return [
                 'purchase_date' => $purchase->created_at->format('Y年m月d日'),
-                'content' => Character::getJPName($purchase->character->name),
+                'character' => Character::getJPName($purchase->character->name),
+                'spot' => Spot::getJPName($purchase->spot->name),
                 'price' => number_format($spotCharacter->where('spot_id', $purchase->spot_id)->where('character_id', $purchase->character_id)->first()->price).'円',
             ];
         })->sortByDesc('purchase_date');
