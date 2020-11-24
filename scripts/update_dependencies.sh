@@ -26,7 +26,7 @@ php artisan migrate
 #php artisan migrate:fresh --seed
 
 # run project optimization
-composer install --optimize-autoloader --no-dev
+COMPOSER_MEMORY_LIMIT=-1 composer install --optimize-autoloader --no-dev
 
 # set permissions
 sudo chmod -R 775 /var/www/app
