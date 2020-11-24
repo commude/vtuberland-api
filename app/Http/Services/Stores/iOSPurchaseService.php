@@ -83,6 +83,8 @@ class iOSPurchaseService
 
             $body = json_decode($response->getBody()->getContents(), true);
 
+            Log::info('Test Request Data', ['params' => $this->params()]);
+
             // 0 - success
             if ($body['status'] != 0) {
                 $receipt = json_encode($this->receipt);
@@ -121,6 +123,8 @@ class iOSPurchaseService
             $response = $http->post(config('services.apple.store.production'), $this->params());
 
             $body = json_decode($response->getBody()->getContents(), true);
+
+            Log::info('Production Request Data', ['params' => $this->params()]);
 
             // 0 = itunes success || 21007 = Sandbox success
             return ($body['status'] == 0 || $body['status'] == 21007)
