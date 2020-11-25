@@ -4,7 +4,7 @@ cd /var/www/app
 # git reset --hard
 
 # install project dependencies
-composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+COMPOSER_MEMORY_LIMIT=-1 composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 # npm install
 
 # run assets compiler
