@@ -126,8 +126,14 @@ class iOSPurchaseService
 
             Log::info('Production Request Data', ['params' => $this->params()]);
 
-            // 0 = itunes success || 21007 = Sandbox success
-            return ($body['status'] == 0 || $body['status'] == 21007)
+            // 0 = itunes success
+            if($body['status'] == 0){
+                $this->data = $this->parseReceipt($body);
+                return true;
+            }
+
+            // 21007 = Sandbox success
+            return ($body['status'] == 21007)
                 ? $this->sandboxVerify()
                 : false;
 
