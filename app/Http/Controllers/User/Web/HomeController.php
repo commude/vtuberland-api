@@ -16,4 +16,24 @@ class HomeController extends Controller
     {
         return view('user.welcome');
     }
+
+    /**
+     * Display privacy page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function privacy()
+    {
+        return view('user.privacy');
+    }
+
+    /**
+     * Display privacy app page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function appPrivacy()
+    {
+        return view('user.privacy_app');
+    }
 }
