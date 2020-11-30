@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\User\Api;
 
-use App\Enums\MediaGroup;
 use App\Models\User;
+use App\Enums\MediaGroup;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Resources\MeResource;
 use Illuminate\Support\Facades\DB;
@@ -14,8 +15,10 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Auth\Events\Registered;
 use App\Exceptions\UserExistsException;
 use App\Http\Requests\CreateUserRequest;
-use App\Exceptions\UserNotFoundException;
 use App\Http\Requests\UpdateUserRequest;
+use App\Exceptions\UserNotFoundException;
+use App\Notifications\MailResetPassword;
+use Illuminate\Support\Facades\Validator;
 
 class MeController extends Controller
 {
@@ -219,5 +222,56 @@ class MeController extends Controller
         }
 
         return new MeResource($user);
+    }
+
+    /**
+     * Request for a new Password.
+     *
+     * @OA\Post(
+     *  path="/forgot-password",
+     *  tags={"Me"},
+     *  summary="Forgot Password User",
+     *  description="Generate new password to user.",
+     *  @OA\Parameter(name="email",in="query",required=true,
+     *      @OA\Schema(type="string"),),
+     *  @OA\Response(response=200,description="Successful operation",@OA\JsonContent(
+     *      @OA\Property(property="code",type="integer",format="integer",example=200),
+     *      @OA\Property(property="message",type="text",format="string",example="ユーザーは正常にログアウトしました"))),
+     *  @OA\Response(response=400, description="Bad request"),
+     *  @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function forgotPassword(Request $request)
+    {
+        $validate = Validator::make($request->all(),[
+            'email' => ['required', 'exists:users,email']
+        ]);
+
+        if ($validate->fails()){
+            return response()->json($validate->errors()->getMessages(), 405);
+        }
+
+        // Generate random password.
+        $password = Str::random(8);
+
+        // Get user details.
+        $user = User::firstWhere('email', $request->email);
+
+        $user = $user->fill([
+            'password' => $password
+        ]);
+
+        $user->save();
+
+        // Send Email Notification
+        $user->notify(new MailResetPassword($password));
+
+
+        return response()->json([
+            'message' => 'Success.'
+        ], 200);
     }
 }
