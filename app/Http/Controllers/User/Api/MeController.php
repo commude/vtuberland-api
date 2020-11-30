@@ -271,7 +271,8 @@ class MeController extends Controller
 
 
         return response()->json([
-            'message' => 'Success.'
+            'code' => 200,
+            'message' => 'ユーザーは正常にログアウトしました'
         ], 200);
     }
 }
